@@ -4,9 +4,21 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   max-width: 1366px;
   height: 100%;
-  background-color: #000;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
 }
 
+html[data-theme='dark'] {
+  background-color: #000;
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+html[data-theme='light'] {
+  background-color: #fff;
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
