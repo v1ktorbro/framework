@@ -1,0 +1,12 @@
+.header {
+  max-width: 1366px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 35px 123px 0 123px;
+}
+.header__logo {
+  max-width: 64px;
+  max-height: 64px;
+  object-fit: cover;
+}
