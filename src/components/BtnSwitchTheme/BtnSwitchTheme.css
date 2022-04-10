@@ -9,7 +9,7 @@
   display: none;
 }
 
-.btn-switch-theme__slider {
+.btn-switch-theme__image {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -20,7 +20,7 @@
   -webkit-transition: .4s;
 }
 
-.btn-switch-theme__slider::before {
+.btn-switch-theme__image::before {
   position: absolute;
   content: "";
   height: 20px;
@@ -28,7 +28,7 @@
   background-image: url('../../images/btn-theme_light-icon.svg');
 }
 
-.btn-switch-theme__checker:checked + .btn-switch-theme__slider::before {
+.btn-switch-theme__checker:checked + .btn-switch-theme__image::before {
   background-image: url('../../images/btn-theme_dark-icon.svg');
 }
 
