@@ -24,7 +24,7 @@ function SearchByString({ placeholder }) {
         onChange={onChangeSearch}
         placeholder={placeholder}
       />
-      { searchString.length &&
+      { searchString.length > 0 &&
           <BtnResetCross 
             hStyle={{right: '18px'}}
             handleReset={handleResetButton}
