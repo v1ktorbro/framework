@@ -27,6 +27,7 @@ function SearchByString({ placeholder, theme }) {
           <BtnResetCross 
             hStyle={{right: '18px'}}
             handleReset={handleResetButton}
+            theme={theme}
           />
       }
     </div>

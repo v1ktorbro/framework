@@ -1,8 +1,12 @@
 import './BtnResetCross.css';
 
-function BtnResetCross({ hStyle, handleReset }) {
+function BtnResetCross({ theme, hStyle, handleReset }) {
   return (
-    <span className='btn-reset-cross' style={hStyle} onClick={handleReset} />
+    <span 
+      className={`btn-reset-cross btn-reset-cross_${theme}`} 
+      style={hStyle} 
+      onClick={handleReset}
+    />
   );
 }
 

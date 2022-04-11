@@ -16,9 +16,9 @@
 }
 
 .btn-switch-theme_naight {
-  background-image: url('../../images/btn-theme_day-icon.svg');
+  background-image: url('../../images/btn-theme_day_icon.svg');
 }
 
 .btn-switch-theme_day {
-  background-image: url('../../images/btn-theme_night-icon.svg');
+  background-image: url('../../images/btn-theme_night_icon.svg');
 }
