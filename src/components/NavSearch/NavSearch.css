@@ -3,4 +3,13 @@
   margin: 35px 123px 0;
   display: flex;
   align-items: center;
+  transition: background-color 300ms linear;
+}
+
+.nav-search_day {
+  background-color: #fff;
+}
+
+.nav-search_naight {
+  background-color: #000;
 }

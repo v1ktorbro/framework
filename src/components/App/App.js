@@ -20,7 +20,9 @@ function App() {
         theme={theme}
         setTheme={setTheme}
       />
-      <NavSearch />
+      <NavSearch 
+        theme={theme}
+      />
     </>
   );
 }

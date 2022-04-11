@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './SearchByString.css';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 
-function SearchByString({ placeholder }) {
+function SearchByString({ placeholder, theme }) {
   const [searchString, setSearchString] = useState('');
 
   const onChangeSearch = (evt) => {
@@ -15,9 +15,9 @@ function SearchByString({ placeholder }) {
   }
 
   return (
-    <div className='search-by-string'>
+    <div className={`search-by-string search-by-string_${theme}`}>
       <input 
-        className='search-by-string__input'
+        className={`search-by-string__input search-by-string__input_${theme}`}
         type='text'
         value={searchString}
         onChange={onChangeSearch}
