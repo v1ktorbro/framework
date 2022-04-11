@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './SearchByString.css';
+import BtnResetCross from '../BtnResetCross/BtnResetCross';
 
 function SearchByString({ placeholder }) {
   const [searchString, setSearchString] = useState('');
@@ -7,6 +8,11 @@ function SearchByString({ placeholder }) {
   const onChangeSearch = (evt) => {
     const {value} = evt.target;
     setSearchString(value);
+  }
+
+  function handleResetButton(){
+    console.log(searchString);
+    setSearchString('');
   }
 
   return (
@@ -18,10 +24,12 @@ function SearchByString({ placeholder }) {
         onChange={onChangeSearch}
         placeholder={placeholder}
       />
-      {/* <button 
-        className='search-by-string__btn-reset' 
-        type='reset' 
-      /> */}
+      { searchString.length &&
+          <BtnResetCross 
+            hStyle={{right: '18px'}}
+            handleReset={handleResetButton}
+          />
+      }
     </div>
   );
 }

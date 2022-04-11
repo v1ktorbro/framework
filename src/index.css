@@ -8,7 +8,7 @@ body {
   flex-direction: column;
   margin: 0 auto;
   background-color: var(--background-color);
-  transition: background-color 300ms linear
+  transition: background-color 300ms linear;
 }
 
 /* style dark theme */
@@ -19,6 +19,8 @@ html[data-theme='dark'] {
   --text-color: #fff;
   --selection-color: #fff;
   --text-selection-color: #000;
+  --button-reset-cross: url('./images/btn_reset_cross_dark_theme.svg');
+  --button-color: rgba(255, 255, 255, .3);
 }
 
 
@@ -30,4 +32,6 @@ html[data-theme='light'] {
   --text-color: #000;
   --selection-color: #000;
   --text-selection-color: #fff;
+  --button-color: rgba(0, 0, 0, .3);
+  --button-reset-cross: url('./images/btn_reset_cross_light_theme.svg');
 }
