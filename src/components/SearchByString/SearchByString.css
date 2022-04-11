@@ -2,39 +2,51 @@
   position: relative;
   width: 265px;
   font-family: 'Roboto';
+  transition: background-color 300ms linear;
+  border-radius: 8px;
+}
+
+.search-by-string_day {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, .3);
+  color: #000;
+}
+
+.search-by-string_naight {
+  border: 1px solid rgba(255, 255, 255, .3);
+  background-color: #000;
+  color: #fff;
+}
+
+.search-by-string_day:focus-within {
+  border: 1px solid #000;
+}
+
+.search-by-string_naight:focus-within {
+  border: 1px solid #fff;
 }
 
 .search-by-string__input {
   border: none;
   outline: none;
-  border-radius: 8px;
   width: 100%;
   padding: 15px 33px 15px 15px;
   font-weight: 400;
   line-height: 16px;
   font-family: 'Roboto';
-  background-color: var(--background-color);
-  border: 1px solid var(--border-iframe-color);
-  color: var(--text-color);
-  transition: background-color 300ms linear;
   box-sizing: border-box;
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
 }
 
-.search-by-string__input:focus {
-  border: 1px solid var(--border-iframe-focus-color);
+/* выделение текста в input */
+.search-by-string__input_day::selection {
+  background-color: #000;
+  color: #fff;
 }
 
-.search-by-string__input::selection {
-  background-color: var(--selection-color);
-  color: var(--text-selection-color);
-}
-
-.search-by-string__btn-reset {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  width: 20px;
-  right: 0;
-  top: 0;
-  bottom: 0;
+.search-by-string__input_naight::selection {
+  background-color: #fff;
+  color: #000;
 }

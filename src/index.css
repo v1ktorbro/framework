@@ -7,31 +7,17 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  background-color: var(--background-color);
+}
+
+/* style naight theme */
+html[app-theme='naight'] {
+  background-color: #000;
   transition: background-color 300ms linear;
 }
 
-/* style dark theme */
-html[data-theme='dark'] {
-  --background-color: #000;
-  --border-iframe-color: rgba(255, 255, 255, .3);
-  --border-iframe-focus-color: #fff;
-  --text-color: #fff;
-  --selection-color: #fff;
-  --text-selection-color: #000;
-  --button-reset-cross: url('./images/btn_reset_cross_dark_theme.svg');
-  --button-color: rgba(255, 255, 255, .3);
-}
 
-
-/* style light theme */
-html[data-theme='light'] {
-  --background-color: #fff;
-  --border-iframe-color: rgba(0, 0, 0, .3);
-  --border-iframe-focus-color: #000;
-  --text-color: #000;
-  --selection-color: #000;
-  --text-selection-color: #fff;
-  --button-color: rgba(0, 0, 0, .3);
-  --button-reset-cross: url('./images/btn_reset_cross_light_theme.svg');
+/* style day theme */
+html[app-theme='day'] {
+  background-color: #fff;
+  transition: background-color 300ms linear;
 }
