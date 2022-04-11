@@ -11,7 +11,8 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('app-theme', theme);
-  }, []);
+    document.documentElement.setAttribute('app-theme', theme);
+  }, [theme]);
 
   return (
     <>

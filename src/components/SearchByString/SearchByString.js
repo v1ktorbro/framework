@@ -11,7 +11,6 @@ function SearchByString({ placeholder }) {
   }
 
   function handleResetButton(){
-    console.log(searchString);
     setSearchString('');
   }
 

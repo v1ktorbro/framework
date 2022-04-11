@@ -5,6 +5,16 @@
   align-items: center;
   margin: 35px 123px 0 123px;
 }
+.header_theme-day {
+  background-color: #fff;
+  transition: background-color 300ms linear;
+}
+
+.header_theme-naight {
+  background-color: #000;
+  transition: background-color 300ms linear;
+}
+
 .header__logo {
   max-width: 64px;
   max-height: 64px;
