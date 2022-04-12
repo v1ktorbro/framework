@@ -5,16 +5,25 @@
   width: 8px;
   height: 8px;
   background-size: cover;
+  transition: transform 300ms linear;
 }
 
-.btn-reset-cross_day {
+.btn-reset-cross_theme-day {
   background-image: url('../../images/btn_reset_cross_day_theme.svg');
 }
 
-.btn-reset-cross_naight {
+.btn-reset-cross_theme-naight {
   background-image: url('../../images/btn_reset_cross_naight_theme.svg');
 }
 
 .btn-reset-cross:hover {
-  cursor: pointer;
+  transform: translate(-50%, -50%) scale(1.8);
+}
+
+.btn-reset-cross_theme-day:hover {
+  cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+}
+
+.btn-reset-cross_theme-naight:hover {
+  cursor: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
 }
