@@ -26,6 +26,10 @@
   border: 1px solid #fff;
 }
 
+.search-by-string__container {
+  position: relative;
+}
+
 .search-by-string__input {
   border: none;
   outline: none;
