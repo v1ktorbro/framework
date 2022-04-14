@@ -2,46 +2,12 @@ import { useEffect, useState } from 'react';
 import './SearchByString.css';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
+import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
 function SearchByString({ placeholder, theme, data }) {
   const [stringValue, setStringValue] = useState('');
   const [isFocusInput, setIsFocusInput] = useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = useState(false);
-  //const [dataSearchedResult, setDataSearchedResult] = useState([]);
-
-  //const containerOfInput = (evt) => {return evt.target.closest('.search-by-string__container')};
-
-  const borderStyleForInput = () => {
-    const containerOfInput = document.querySelector('.search-by-string__container');
-    if (isOpenListSearchedResult) {
-      containerOfInput.style.borderBottom = 'none';
-      containerOfInput.style.borderBottomLeftRadius = '0px';
-      containerOfInput.style.borderBottomRightRadius = '0px';
-    } else if (!isOpenListSearchedResult && isFocusInput) {
-      containerOfInput.style.borderBottom = (theme === 'naight' ? '1px solid #fff' : '1px solid #000');
-      containerOfInput.style.borderBottomLeftRadius = '8px';
-      containerOfInput.style.borderBottomRightRadius = '8px';
-    }
-    else {
-      containerOfInput.style.borderBottom = (theme === 'naight' ? '1px solid rgba(255, 255, 255, .3)' : '1px solid rgba(0, 0, 0, .3)');
-      containerOfInput.style.borderBottomLeftRadius = '8px';
-      containerOfInput.style.borderBottomRightRadius = '8px';
-    }
-  };
-
-  const styleOnFocusContainerInput = () => {
-      setIsFocusInput(true);
-      const containerOfInput = document.querySelector('.search-by-string__container');
-      containerOfInput.style.borderBottom = (theme === 'naight' ? '1px solid #fff' : '1px solid #000');
-      console.log('фокус есть', isFocusInput);
-  };
-
-  const styleOnBlurContainerInput = () => {
-    setIsFocusInput(false);
-    const containerOfInput = document.querySelector('.search-by-string__container');
-    containerOfInput.style.borderBottom = (theme === 'naight' ? '1px solid rgba(255, 255, 255, .3)' : '1px solid rgba(0, 0 , 0, .3)');
-    console.log('фокуcа нет', isFocusInput);
-  };
 
   const onChangeSearch = (evt) => {
     const {value} = evt.target;
@@ -49,14 +15,15 @@ function SearchByString({ placeholder, theme, data }) {
     value.length ? setIsOpenListSearchedResult(true) : setIsOpenListSearchedResult(false);
   }
 
-  function handleResetButton(){
+  const handleResetButton = () => {
     setStringValue('');
     setIsOpenListSearchedResult(false);
-  }
+  };
 
   useEffect(() => {
-    borderStyleForInput();
-  }, [isOpenListSearchedResult, theme]);
+    const inputContainer = document.querySelector('.search-by-string__container');
+    borderStyleHandlerThemeForFilter(inputContainer, theme, isOpenListSearchedResult, isFocusInput);
+  }, [isOpenListSearchedResult, theme, isFocusInput]);
 
   return (
     <>
@@ -65,8 +32,8 @@ function SearchByString({ placeholder, theme, data }) {
       >
         <div 
           className={`search-by-string__container search-by-string__container_${theme}`}
-          onFocus={styleOnFocusContainerInput}
-          onBlur={styleOnBlurContainerInput}
+          onFocus={() => setIsFocusInput(true)}
+          onBlur={() => setIsFocusInput(false)}
         >
           <input 
             className={`search-by-string__input search-by-string__input_${theme}`}
