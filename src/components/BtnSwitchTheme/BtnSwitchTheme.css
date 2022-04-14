@@ -19,6 +19,14 @@
   background-image: url('../../images/btn-theme_day_icon.svg');
 }
 
+.btn-switch-theme_naight:hover {
+  cursor: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+}
+
 .btn-switch-theme_day {
   background-image: url('../../images/btn-theme_night_icon.svg');
+}
+
+.btn-switch-theme_day:hover {
+  cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
 }

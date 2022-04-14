@@ -3,26 +3,32 @@
   width: 265px;
   font-family: 'Roboto';
   transition: background-color 300ms linear;
+}
+
+.search-by-string__container {
+  position: relative;
+  margin: 0;
+  padding: 0;
   border-radius: 8px;
 }
 
-.search-by-string_day {
+.search-by-string__container_day {
+  color: #000;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, .3);
-  color: #000;
 }
 
-.search-by-string_naight {
-  border: 1px solid rgba(255, 255, 255, .3);
-  background-color: #000;
+.search-by-string__container_naight {
   color: #fff;
+  background-color: #000;
+  border: 1px solid rgba(255, 255, 255, .3);
 }
 
-.search-by-string_day:focus-within {
+.search-by-string__container_day:focus-within {
   border: 1px solid #000;
 }
 
-.search-by-string_naight:focus-within {
+.search-by-string__container_naight:focus-within {
   border: 1px solid #fff;
 }
 
