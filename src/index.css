@@ -9,16 +9,15 @@ body {
   margin: 0 auto;
 }
 
-html[data-theme='dark'] {
+/* style naight theme */
+html[app-theme='naight'] {
   background-color: #000;
-  -webkit-transition: background-color 300ms linear;
-  -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
 }
 
-html[data-theme='light'] {
+
+/* style day theme */
+html[app-theme='day'] {
   background-color: #fff;
-  -webkit-transition: background-color 300ms linear;
-  -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
 }
