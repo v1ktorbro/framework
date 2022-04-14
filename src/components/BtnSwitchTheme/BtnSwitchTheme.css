@@ -1,0 +1,32 @@
+.btn-switch-theme {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  background-size: cover;
+  border: none;
+  outline: none;
+  transition: transform 300ms linear;
+}
+
+.btn-switch-theme:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.btn-switch-theme_naight {
+  background-image: url('../../images/btn-theme_day_icon.svg');
+}
+
+.btn-switch-theme_naight:hover {
+  cursor: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+}
+
+.btn-switch-theme_day {
+  background-image: url('../../images/btn-theme_night_icon.svg');
+}
+
+.btn-switch-theme_day:hover {
+  cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+}
