@@ -20,6 +20,12 @@ function SearchByString({ placeholder, theme, data }) {
     setIsOpenListSearchedResult(false);
   };
 
+  const listenerEscapeBtn = (evt) => {
+    if (evt.key === 'Escape' || evt.keyCode === 27) {
+      handleResetButton()
+    }
+  }
+
   useEffect(() => {
     const inputContainer = document.querySelector('.search-by-string__container');
     borderStyleHandlerThemeForFilter(inputContainer, theme, isOpenListSearchedResult, isFocusInput);
@@ -32,6 +38,7 @@ function SearchByString({ placeholder, theme, data }) {
       >
         <div 
           className={`search-by-string__container search-by-string__container_${theme}`}
+          onKeyDown={(evt) => listenerEscapeBtn(evt)}
           onFocus={() => setIsFocusInput(true)}
           onBlur={() => setIsFocusInput(false)}
         >
