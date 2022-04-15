@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './SearchByString.css';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
-import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
+import { borderStyleHandlerThemeForFilter, handleBlur } from '../../utils/utils';
 
 function SearchByString({ placeholder, theme, data }) {
   const [stringValue, setStringValue] = useState('');
@@ -13,18 +13,20 @@ function SearchByString({ placeholder, theme, data }) {
     const {value} = evt.target;
     setStringValue(value);
     value.length ? setIsOpenListSearchedResult(true) : setIsOpenListSearchedResult(false);
-  }
+  };
 
   const handleResetButton = () => {
     setStringValue('');
     setIsOpenListSearchedResult(false);
+    setIsFocusInput(false);
   };
 
   const listenerEscapeBtn = (evt) => {
     if (evt.key === 'Escape' || evt.keyCode === 27) {
-      handleResetButton()
+      evt.target.blur();
+      handleResetButton();
     }
-  }
+  };
 
   useEffect(() => {
     const inputContainer = document.querySelector('.search-by-string__container');
