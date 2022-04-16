@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './SearchByString.css';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
-import { borderStyleHandlerThemeForFilter, handleBlur } from '../../utils/utils';
+import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
 function SearchByString({ placeholder, theme, data }) {
   const [stringValue, setStringValue] = useState('');
-  const [isFocusInput, setIsFocusInput] = useState(false);
+  const [isFocusElem, setIsFocusElem] = useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = useState(false);
 
   const onChangeSearch = (evt) => {
@@ -15,34 +15,42 @@ function SearchByString({ placeholder, theme, data }) {
     value.length ? setIsOpenListSearchedResult(true) : setIsOpenListSearchedResult(false);
   };
 
-  const handleResetButton = () => {
+  const handleReset = () => {
     setStringValue('');
     setIsOpenListSearchedResult(false);
-    setIsFocusInput(false);
+    setIsFocusElem(false);
   };
 
   const listenerEscapeBtn = (evt) => {
     if (evt.key === 'Escape' || evt.keyCode === 27) {
       evt.target.blur();
-      handleResetButton();
     }
   };
 
+  const onBlur = useCallback((evt) => {
+    const currentTarget = evt.currentTarget;
+    requestAnimationFrame(() => {
+      if (!currentTarget.classList.contains('.search-by-string_input-focus')) {
+        handleReset();
+      }
+    });
+  }, [isFocusElem]);
+
   useEffect(() => {
     const inputContainer = document.querySelector('.search-by-string__container');
-    borderStyleHandlerThemeForFilter(inputContainer, theme, isOpenListSearchedResult, isFocusInput);
-  }, [isOpenListSearchedResult, theme, isFocusInput]);
+    borderStyleHandlerThemeForFilter(inputContainer, theme, isOpenListSearchedResult, isFocusElem);
+  }, [isOpenListSearchedResult, theme, isFocusElem]);
 
   return (
     <>
       <div 
-        className={`search-by-string search-by-string_${theme}`}
+        className={`search-by-string search-by-string_${theme} ${isFocusElem ? 'search-by-string_input-focus' : ''}`}
+          onKeyDown={(evt) => listenerEscapeBtn(evt)}
+          onFocus={() => setIsFocusElem(true)}
+          onBlur={(evt) => onBlur(evt)}
       >
         <div 
           className={`search-by-string__container search-by-string__container_${theme}`}
-          onKeyDown={(evt) => listenerEscapeBtn(evt)}
-          onFocus={() => setIsFocusInput(true)}
-          onBlur={() => setIsFocusInput(false)}
         >
           <input 
             className={`search-by-string__input search-by-string__input_${theme}`}
@@ -54,7 +62,7 @@ function SearchByString({ placeholder, theme, data }) {
           { stringValue.length > 0 &&
             <BtnResetCross 
               hStyle={{right: '18px'}}
-              handleReset={handleResetButton}
+              handleReset={handleReset}
               theme={theme}
             />
           }
