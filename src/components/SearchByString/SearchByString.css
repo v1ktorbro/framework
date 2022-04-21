@@ -45,6 +45,10 @@
   background-color: inherit;
   color: inherit;
   border-radius: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
 }
 
 /* выделение текста в input */
