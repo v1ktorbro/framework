@@ -27,7 +27,7 @@
 }
 
 .drop-down-list_close {
-  display: none;
+  visibility: hidden;
 }
 
 .drop-down-list::-webkit-scrollbar {
