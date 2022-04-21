@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
 import './SearchByString.css';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
@@ -8,6 +8,7 @@ function SearchByString({ placeholder, theme, data }) {
   const [stringValue, setStringValue] = useState('');
   const [isFocusElem, setIsFocusElem] = useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = useState(false);
+  const selectItemRef = useRef('');
 
   const onChangeSearch = (evt) => {
     const {value} = evt.target;
@@ -17,6 +18,7 @@ function SearchByString({ placeholder, theme, data }) {
 
   const handleReset = () => {
     setStringValue('');
+    selectItemRef.current = '';
     setIsOpenListSearchedResult(false);
     setIsFocusElem(false);
   };
@@ -27,13 +29,37 @@ function SearchByString({ placeholder, theme, data }) {
     }
   };
 
+  const selectListItem = (evt) => {
+    setStringValue(evt.target.textContent);
+    selectItemRef.current = evt.target.textContent;
+  };
+
+  const onFocus = (evt) => {
+    const {target} = evt;
+    setIsFocusElem(true);
+    if (selectItemRef.current.length) {
+      setStringValue(selectItemRef.current);
+      target.select();
+    }
+  };
+
+  // эту функцию можно использовть как стрелочную функцию без использования useCallback
+  // и, вместо selectItemRef, использовать хук useState
   const onBlur = useCallback((evt) => {
     const currentTarget = evt.currentTarget;
+    // так как список спозиционирован абсолютно, в обработчике
+    // даем браузеру время сфокусироваться на компоненте списка с результатами поиска
     requestAnimationFrame(() => {
-      if (!currentTarget.classList.contains('.search-by-string_input-focus')) {
-        handleReset();
+      // когда список открывается, то стейтом isFocusElem списку добавляется класс drop-down-list_focus
+      const dropDownListFocusClass = document.querySelector('.drop-down-list_focus');
+      // если у компонента нет дочернего элемента-списка
+      if (!currentTarget.contains(dropDownListFocusClass)) {
+        selectItemRef.current.length ? setStringValue(selectItemRef.current) : setStringValue('');
+        setIsOpenListSearchedResult(false);
       }
     });
+    // условие if в requestAnimationFrame выполняется всегда, если компонент сфокусирован
+    setIsFocusElem(false);
   }, [isFocusElem]);
 
   useEffect(() => {
@@ -45,9 +71,9 @@ function SearchByString({ placeholder, theme, data }) {
     <>
       <div 
         className={`search-by-string search-by-string_${theme} ${isFocusElem ? 'search-by-string_input-focus' : ''}`}
-          onKeyDown={(evt) => listenerEscapeBtn(evt)}
-          onFocus={() => setIsFocusElem(true)}
-          onBlur={(evt) => onBlur(evt)}
+        onKeyDown={(evt) => listenerEscapeBtn(evt)}
+        onFocus={(evt) => onFocus(evt)}
+        onBlur={(evt) => onBlur(evt)}
       >
         <div 
           className={`search-by-string__container search-by-string__container_${theme}`}
@@ -71,7 +97,8 @@ function SearchByString({ placeholder, theme, data }) {
           theme={theme}
           data={data}
           isOpen={isOpenListSearchedResult}
-          setIsOpen={setIsOpenListSearchedResult}
+          onClickSelectItem={selectListItem}
+          isFocus={isFocusElem}
         />
       </div>
     </>
