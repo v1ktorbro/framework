@@ -9,8 +9,18 @@ function App() {
   const isNightTheme = window?.matchMedia('(prefers-color-scheme: dark)').matches;
   const defaultTheme = isNightTheme ? 'night' : 'day';
   const [theme, setTheme] = useState(localStorage.getItem('app-theme') || defaultTheme);
-  const [initialComment, setInitialComment] = useState(initialComments);
+  const [initialData, setInitialData] = useState(initialComments);
   
+  const handleNameInputSearch = (inputValue) => {
+    const filteredSearchAuthors = initialData.filter((elem) => {
+      return elem.author.toLowerCase().includes(inputValue.toLowerCase());
+    });
+    if (inputValue.length > 0) {
+      filteredSearchAuthors.length ? setInitialData(filteredSearchAuthors) : setInitialData(initialComments);
+    }
+    return filteredSearchAuthors;
+  };
+
   useEffect(() => {
     localStorage.setItem('app-theme', theme);
     document.documentElement.setAttribute('app-theme', theme);
@@ -24,7 +34,8 @@ function App() {
       />
       <Main 
         theme={theme}
-        data={initialComment}
+        data={initialData}
+        handleNameInputSearch={handleNameInputSearch}
       />
     </>
   );
