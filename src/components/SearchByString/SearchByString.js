@@ -8,15 +8,22 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
   const [stringValue, setStringValue] = React.useState('');
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
+  const [isNothingSearch, setIsNothingSearch] = React.useState(false);
   const selectItemRef = React.useRef('');
 
   const onChange = (evt) => {
     const {value} = evt.target;
     setStringValue(value);
-    if (handleNameInputSearch(value).length && value.length) {
+    if (handleNameInputSearch(value).length) {
       setIsOpenListSearchedResult(true);
+      setIsNothingSearch(false);
     } else {
       setIsOpenListSearchedResult(false);
+      setIsNothingSearch(true);
+    }
+    if (value.length === 0) {
+      setIsOpenListSearchedResult(false);
+      setIsNothingSearch(false);
     }
   };
 
@@ -60,6 +67,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
       if (!currentTarget.contains(dropDownListFocusClass)) {
         selectItemRef.current.length ? setStringValue(selectItemRef.current) : setStringValue('');
         setIsOpenListSearchedResult(false);
+        setIsNothingSearch(false);
       }
     });
     // условие if в requestAnimationFrame выполняется всегда, если компонент сфокусирован
@@ -89,7 +97,8 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
             onChange={onChange}
             placeholder={placeholder}
           />
-          { stringValue.length > 0 &&
+          {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
+          {stringValue.length > 0 &&
             <BtnResetCross 
               hStyle={{right: '18px'}}
               handleReset={handleReset}
