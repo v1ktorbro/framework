@@ -1,19 +1,23 @@
 import './SearchByString.css';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ placeholder, theme, data }) {
-  const [stringValue, setStringValue] = useState('');
-  const [isFocusElem, setIsFocusElem] = useState(false);
-  const [isOpenListSearchedResult, setIsOpenListSearchedResult] = useState(false);
-  const selectItemRef = useRef('');
+function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
+  const [stringValue, setStringValue] = React.useState('');
+  const [isFocusElem, setIsFocusElem] = React.useState(false);
+  const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
+  const selectItemRef = React.useRef('');
 
-  const onChangeSearch = (evt) => {
+  const onChange = (evt) => {
     const {value} = evt.target;
     setStringValue(value);
-    value.length ? setIsOpenListSearchedResult(true) : setIsOpenListSearchedResult(false);
+    if (handleNameInputSearch(value).length && value.length) {
+      setIsOpenListSearchedResult(true);
+    } else {
+      setIsOpenListSearchedResult(false);
+    }
   };
 
   const handleReset = () => {
@@ -45,7 +49,7 @@ function SearchByString({ placeholder, theme, data }) {
 
   // эту функцию можно использовть как стрелочную функцию без использования useCallback
   // и, вместо selectItemRef, использовать хук useState
-  const onBlur = useCallback((evt) => {
+  const onBlur = React.useCallback((evt) => {
     const currentTarget = evt.currentTarget;
     // так как список спозиционирован абсолютно, в обработчике
     // даем браузеру время сфокусироваться на компоненте списка с результатами поиска
@@ -62,7 +66,7 @@ function SearchByString({ placeholder, theme, data }) {
     setIsFocusElem(false);
   }, [isFocusElem]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const inputContainer = document.querySelector('.search-by-string__container');
     borderStyleHandlerThemeForFilter(inputContainer, theme, isOpenListSearchedResult, isFocusElem);
   }, [isOpenListSearchedResult, theme, isFocusElem]);
@@ -82,7 +86,7 @@ function SearchByString({ placeholder, theme, data }) {
             className={`search-by-string__input search-by-string__input_${theme}`}
             type='text'
             value={stringValue}
-            onChange={onChangeSearch}
+            onChange={onChange}
             placeholder={placeholder}
           />
           { stringValue.length > 0 &&
