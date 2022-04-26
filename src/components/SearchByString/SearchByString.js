@@ -5,15 +5,24 @@ import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
 function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
-  const [stringValue, setStringValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState('');
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
   const [isNothingSearch, setIsNothingSearch] = React.useState(false);
+  const [isErrorOnlyLetter, setIsErrorOnlyLetter] = React.useState(false);
   const selectItemRef = React.useRef('');
 
   const onChange = (evt) => {
     const {value} = evt.target;
-    setStringValue(value);
+    setInputValue(value);
+    handlerSearch(value);
+    if (value.length === 0) {
+      setIsOpenListSearchedResult(false);
+      setIsNothingSearch(false);
+    }
+  };
+
+  const handlerSearch = (value) => {
     if (handleNameInputSearch(value).length) {
       setIsOpenListSearchedResult(true);
       setIsNothingSearch(false);
@@ -21,14 +30,20 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
       setIsOpenListSearchedResult(false);
       setIsNothingSearch(true);
     }
-    if (value.length === 0) {
-      setIsOpenListSearchedResult(false);
+  };
+
+  const validatorInput = (value) => {
+    const regExOnlyLetter = /^([a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*)$/ig;
+    if (regExOnlyLetter.test(value.toLowerCase())) {
+      setIsErrorOnlyLetter(false);
+    } else {
+      setIsErrorOnlyLetter(true);
       setIsNothingSearch(false);
     }
   };
 
   const handleReset = () => {
-    setStringValue('');
+    setInputValue('');
     selectItemRef.current = '';
     setIsOpenListSearchedResult(false);
     setIsFocusElem(false);
@@ -41,7 +56,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
   };
 
   const selectListItem = (evt) => {
-    setStringValue(evt.target.textContent);
+    setInputValue(evt.target.textContent);
     selectItemRef.current = evt.target.textContent;
   };
 
@@ -49,7 +64,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
     const {target} = evt;
     setIsFocusElem(true);
     if (selectItemRef.current.length) {
-      setStringValue(selectItemRef.current);
+      setInputValue(selectItemRef.current);
       target.select();
     }
   };
@@ -65,19 +80,25 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
       const dropDownListFocusClass = document.querySelector('.drop-down-list_focus');
       // если у компонента нет дочернего элемента-списка
       if (!currentTarget.contains(dropDownListFocusClass)) {
-        selectItemRef.current.length ? setStringValue(selectItemRef.current) : setStringValue('');
+        selectItemRef.current.length ? setInputValue(selectItemRef.current) : setInputValue('');
         setIsOpenListSearchedResult(false);
         setIsNothingSearch(false);
+        setIsErrorOnlyLetter(false);
       }
     });
     // условие if в requestAnimationFrame выполняется всегда, если компонент сфокусирован
     setIsFocusElem(false);
   }, [isFocusElem]);
 
+  // эффект отвечает только за стили
   React.useEffect(() => {
     const inputContainer = document.querySelector('.search-by-string__container');
     borderStyleHandlerThemeForFilter(inputContainer, theme, isOpenListSearchedResult, isFocusElem);
   }, [isOpenListSearchedResult, theme, isFocusElem]);
+
+  React.useEffect(() => {
+    validatorInput(inputValue);
+  }, [inputValue]);
 
   return (
     <>
@@ -93,12 +114,13 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
           <input 
             className={`search-by-string__input search-by-string__input_${theme}`}
             type='text'
-            value={stringValue}
+            value={inputValue}
             onChange={onChange}
             placeholder={placeholder}
           />
+          {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter search-by-string__error-only-letter_${theme}`}>Вводите только буквы</span>}
           {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
-          {stringValue.length > 0 &&
+          {inputValue.length > 0 &&
             <BtnResetCross 
               hStyle={{right: '18px'}}
               handleReset={handleReset}
