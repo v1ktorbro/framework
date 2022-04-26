@@ -28,7 +28,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
       setIsNothingSearch(false);
     } else {
       setIsOpenListSearchedResult(false);
-      setIsNothingSearch(true);
+      !isErrorOnlyLetter && setIsNothingSearch(true);
     }
   };
 
