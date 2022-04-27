@@ -1,0 +1,97 @@
+.search-by-string {
+  position: relative;
+  width: 265px;
+  font-family: 'Roboto';
+}
+
+.search-by-string__container {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.search-by-string__notice-not-found {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 400;
+}
+
+.search-by-string__notice-not-found_day {
+  color: rgba(0, 0, 0, .5);
+}
+
+.search-by-string__notice-not-found_naight {
+  color: rgba(255, 255, 255, .5);
+}
+
+.search-by-string__container_day {
+  color: #000;
+  background-color: #fff;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(0, 0, 0, .3);
+}
+
+.search-by-string__container_naight {
+  color: #fff;
+  background-color: #000;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(255, 255, 255, .3);
+}
+
+.search-by-string__container_day:focus-within {
+  border: 1px solid #000;
+}
+
+.search-by-string__container_naight:focus-within {
+  border: 1px solid #fff;
+}
+
+.search-by-string__input {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 15px 33px 15px 15px;
+  font-weight: 400;
+  line-height: 16px;
+  font-family: 'Roboto';
+  box-sizing: border-box;
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+}
+
+/* выделение текста в input */
+.search-by-string__input_day::selection {
+  background-color: #000;
+  color: #fff;
+}
+
+.search-by-string__input_naight::selection {
+  background-color: #fff;
+  color: #000;
+}
+
+.search-by-string__error-only-letter {
+  position: absolute;
+  left: 14px;
+  bottom: 0;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 400;
+}
+
+.search-by-string__error-only-letter_day {
+  color: rgba(0, 0, 0, .5);
+}
+
+.search-by-string__error-only-letter_naight {
+  color: rgba(255, 255, 255, .5);
+}
