@@ -1,16 +1,21 @@
 import './NavSearch.css';
 import SearchByString from '../SearchByString/SearchByString';
+import FilterSelectListItem from '../FilterSelectListItem/FilterSelectListItem';
 
 function NavSearch({ theme, data, handleNameInputSearch }) {
   return (
-    <nav className={`nav-search nav-search_${theme}`}>
+    <section className={`section-search section-search_${theme}`}>
       <SearchByString 
         placeholder='Name'
         theme={theme}
         data={data}
         handleNameInputSearch={handleNameInputSearch}
       />
-    </nav>
+      <FilterSelectListItem 
+        theme={theme}
+        data={data}
+      />
+    </section>
   )
 }
 
