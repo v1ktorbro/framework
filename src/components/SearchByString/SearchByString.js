@@ -102,15 +102,13 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
 
   return (
     <>
-      <div 
-        className={`search-by-string search-by-string_${theme} ${isFocusElem ? 'search-by-string_input-focus' : ''}`}
+      <nav 
+        className={`search-by-string search-by-string_${theme}`}
         onKeyDown={(evt) => listenerEscapeBtn(evt)}
         onFocus={(evt) => onFocus(evt)}
         onBlur={(evt) => onBlur(evt)}
       >
-        <div 
-          className={`search-by-string__container search-by-string__container_${theme}`}
-        >
+        <div className={`search-by-string__container search-by-string__container_${theme}`}>
           <input 
             className={`search-by-string__input search-by-string__input_${theme}`}
             type='text'
@@ -135,7 +133,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
           onClickSelectItem={selectListItem}
           isFocus={isFocusElem}
         />
-      </div>
+      </nav>
     </>
   );
 }
