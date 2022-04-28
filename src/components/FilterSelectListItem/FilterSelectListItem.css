@@ -53,6 +53,11 @@
   background: transparent;
   border: none;
   outline: none;
+  padding-right: 10px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .filter-select-list-item__display-selected-text::placeholder {
