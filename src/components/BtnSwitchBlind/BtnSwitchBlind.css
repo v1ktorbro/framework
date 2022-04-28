@@ -1,0 +1,26 @@
+.btn-switch-blind {
+  width: 10px;
+  height: 6px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  outline: none;
+  border: none;
+  align-self: center;
+}
+.btn-switch-blind_open {
+  transform: rotate(360deg);
+}
+
+.btn-switch-blind_close {
+  transform: rotate(180deg);
+}
+
+.btn-switch-blind_day {
+  background-image: url('../../images/btn_switch_blind_day_theme.svg');
+}
+
+.btn-switch-blind_naight {
+  background-image: url('../../images/btn_switch_blind_naight_theme.svg');
+}
