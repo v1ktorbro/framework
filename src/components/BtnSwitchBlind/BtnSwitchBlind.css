@@ -8,13 +8,25 @@
   outline: none;
   border: none;
   align-self: center;
+  cursor: pointer;
 }
+
 .btn-switch-blind_open {
   transform: rotate(360deg);
+  transition: transform 300ms linear;
+}
+
+.btn-switch-blind_open:hover {
+  transform: scale(1.6);
 }
 
 .btn-switch-blind_close {
   transform: rotate(180deg);
+  transition: transform 300ms linear;
+}
+
+.btn-switch-blind_close:hover {
+  transform: scale(1.6);
 }
 
 .btn-switch-blind_day {
