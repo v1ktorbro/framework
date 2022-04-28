@@ -1,0 +1,60 @@
+.filter-select-list-item {
+  width: 265px;
+  height: 45px;
+  margin-left: 25px;
+  box-sizing: border-box;
+  position: relative;
+  font-family: 'Roboto';
+}
+
+.filter-select-list-item__container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 18px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.filter-select-list-item__container_day {
+  color: #000;
+  background-color: #fff;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(0, 0, 0, .3);
+}
+
+.filter-select-list-item__container_naight {
+  color: #fff;
+  background-color: #000;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(255, 255, 255, .3);
+}
+
+.filter-select-list-item__container_focus-naight {
+  border-color: #fff;
+}
+
+.filter-select-list-item__container_focus-day {
+  border-color: #000;
+}
+
+.filter-select-list-item__btn-container {
+  display: flex;
+}
+
+.filter-select-list-item__input-display-selected-text {
+  font-size: 13px;
+  align-self: center;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.filter-select-list-item__display-selected-text::placeholder {
+  color: rgba(255, 255, 255, .3);
+}
