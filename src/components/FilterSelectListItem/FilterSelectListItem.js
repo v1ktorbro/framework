@@ -40,14 +40,16 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
           placeholder={placeholder} 
         />
         <div className='filter-select-list-item__btn-container'>
-          <BtnResetCross 
-            theme={theme}
-            onClick={handlerReset}
-            hStyle={{
-              position: 'relative',
-              marginRight: '5px',
-            }}
-          />
+          {searchData.nameAuthor.length > 0 &&
+            <BtnResetCross 
+              theme={theme}
+              onClick={handlerReset}
+              hStyle={{
+                position: 'relative',
+                marginRight: '5px',
+              }}
+            />
+          }
           <BtnSwitchBlind
             theme={theme}
             isOpen={isOpenListAuthor}
