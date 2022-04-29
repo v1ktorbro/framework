@@ -120,7 +120,6 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
           {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
           {inputValue.length > 0 &&
             <BtnResetCross 
-              hStyle={{right: '18px'}}
               onClick={handlerReset}
               theme={theme}
             />
