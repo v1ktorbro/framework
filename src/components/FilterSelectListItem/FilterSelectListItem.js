@@ -34,6 +34,13 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
     }
   };
 
+  const escBtnListener = (evt) => {
+    if(evt.key === 'Escape' || evt.keyCode === 27) {
+      setIsFocus(false);
+      setIsOpenListAuthor(false);
+    }
+  };
+
   React.useEffect(() => {
     const filterContainer = document.querySelector('.filter-select-list-item__container');
     borderStyleHandlerThemeForFilter(filterContainer, theme, isOpenListAuthor, isFocus);
@@ -48,6 +55,8 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
     <nav 
       className={`filter-select-list-item filter-select-list-item_${theme}`}
       onClick={() => setIsFocus(true)}
+      tabIndex="0"
+      onKeyDown={escBtnListener}
     >
       <div className={`filter-select-list-item__container filter-select-list-item__container_${theme} ${isFocus && `filter-select-list-item__container_focus-${theme}`}`}>
         <input 
