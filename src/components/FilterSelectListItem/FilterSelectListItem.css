@@ -60,6 +60,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: inherit;
 }
 
 .filter-select-list-item__display-selected-text::placeholder {
