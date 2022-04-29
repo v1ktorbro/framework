@@ -45,6 +45,8 @@
 
 .filter-select-list-item__btn-container {
   display: flex;
+  width: 30px;
+  justify-content: space-between;
 }
 
 .filter-select-list-item__input-display-selected-text {
