@@ -25,13 +25,30 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
     setIsFocus(false);
   };
 
+  const onBlur = (evt) => {
+    const dropDownListContainer = document.querySelector('.filter-select-list-item');
+    const isClickInsideComponent = dropDownListContainer.contains(evt.target);
+    if (!isClickInsideComponent) {
+      setIsFocus(false);
+      setIsOpenListAuthor(false);
+    }
+  };
+
   React.useEffect(() => {
     const filterContainer = document.querySelector('.filter-select-list-item__container');
     borderStyleHandlerThemeForFilter(filterContainer, theme, isOpenListAuthor, isFocus);
-  }, [isOpenListAuthor, theme, isFocus])
+  }, [isOpenListAuthor, theme, isFocus]);
+
+  React.useEffect(() => {
+    document.addEventListener('click', onBlur);
+    return () => document.removeEventListener('click', onBlur);
+  }, [isFocus]);
 
   return (
-    <nav className={`filter-select-list-item filter-select-list-item_${theme}`}>
+    <nav 
+      className={`filter-select-list-item filter-select-list-item_${theme}`}
+      onClick={() => setIsFocus(true)}
+    >
       <div className={`filter-select-list-item__container filter-select-list-item__container_${theme} ${isFocus && `filter-select-list-item__container_focus-${theme}`}`}>
         <input 
           className='filter-select-list-item__input-display-selected-text' 
@@ -44,10 +61,6 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
             <BtnResetCross 
               theme={theme}
               onClick={handlerReset}
-              hStyle={{
-                position: 'relative',
-                marginRight: '5px',
-              }}
             />
           }
           <BtnSwitchBlind
