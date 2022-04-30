@@ -1,14 +1,14 @@
-.nav-search {
+.section-search {
   display: flex;
   align-items: center;
   transition: background-color 300ms linear;
   width: 100%;
 }
 
-.nav-search_day {
+.section-search_day {
   background-color: #fff;
 }
 
-.nav-search_naight {
+.section-search_naight {
   background-color: #000;
 }

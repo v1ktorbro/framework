@@ -1,11 +1,9 @@
-.btn-reset-cross { 
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.btn-reset-cross {
   width: 8px;
   height: 8px;
   background-size: cover;
   transition: transform 300ms linear;
+  align-self: center;
 }
 
 .btn-reset-cross_theme-day {
@@ -17,7 +15,7 @@
 }
 
 .btn-reset-cross:hover {
-  transform: translate(-50%, -50%) scale(1.8);
+  transform: scale(1.8);
 }
 
 .btn-reset-cross_theme-day:hover {

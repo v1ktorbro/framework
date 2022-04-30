@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import React from 'react';
 import initialComments from '../../utils/initialComments';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -8,10 +8,16 @@ function App() {
   // цвет темы подтягивается из настроек ОС и сохраняется в localStorage
   const isNightTheme = window?.matchMedia('(prefers-color-scheme: dark)').matches;
   const defaultTheme = isNightTheme ? 'night' : 'day';
-  const [theme, setTheme] = useState(localStorage.getItem('app-theme') || defaultTheme);
-  const [initialData, setInitialData] = useState(initialComments);
+  const [theme, setTheme] = React.useState(localStorage.getItem('app-theme') || defaultTheme);
+  const [initialData, setInitialData] = React.useState(initialComments);
+  const [searchData, setSearchData] = React.useState({
+    namePicture: '',
+    nameAuthor: '',
+    location: '',
+    created: {from: '', to: ''},
+  });
   
-  const handleNameInputSearch = (inputValue) => {
+  const handlerInputSearchNamePicture = (inputValue) => {
     const filteredSearchAuthors = initialData.filter((elem) => {
       return elem.author.toLowerCase().includes(inputValue.toLowerCase());
     });
@@ -21,7 +27,23 @@ function App() {
     return filteredSearchAuthors;
   };
 
-  useEffect(() => {
+  const handlerSelectListNameAuthor = (nameAuthor) => {
+    setSearchData({...searchData, nameAuthor: nameAuthor});
+  };
+
+  const handlerResetListNameAuthor = () => {
+    setSearchData({...searchData, nameAuthor: ''});
+  };
+
+  const handlerSelectListLocation = (location) => {
+    setSearchData({...searchData, location: location});
+  }
+
+  const handlerResetListLocation = () => {
+    setSearchData({...searchData, location: ''});
+  };
+
+  React.useEffect(() => {
     localStorage.setItem('app-theme', theme);
     document.documentElement.setAttribute('app-theme', theme);
   }, [theme]);
@@ -35,7 +57,11 @@ function App() {
       <Main 
         theme={theme}
         data={initialData}
-        handleNameInputSearch={handleNameInputSearch}
+        handlerInputSearchNamePicture={handlerInputSearchNamePicture}
+        handlerSelectListNameAuthor={handlerSelectListNameAuthor}
+        handlerResetListNameAuthor={handlerResetListNameAuthor}
+        handlerSelectListLocation={handlerSelectListLocation}
+        handlerResetListLocation={handlerResetListLocation}
       />
     </>
   );
