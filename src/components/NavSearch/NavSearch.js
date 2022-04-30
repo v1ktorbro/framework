@@ -2,7 +2,9 @@ import './NavSearch.css';
 import SearchByString from '../SearchByString/SearchByString';
 import FilterSelectListItem from '../FilterSelectListItem/FilterSelectListItem';
 
-function NavSearch({ theme, data, searchData, handlerInputSearchNamePicture, handlerSelectListNameAuthor, handlerResetListNameAuthor }) {
+function NavSearch({ theme, data, handlerInputSearchNamePicture, 
+  handlerSelectListNameAuthor, handlerResetListNameAuthor, handlerSelectListLocation, 
+  handlerResetListLocation }) {
   return (
     <section className={`section-search section-search_${theme}`}>
       <SearchByString 
@@ -14,10 +16,16 @@ function NavSearch({ theme, data, searchData, handlerInputSearchNamePicture, han
       <FilterSelectListItem 
         theme={theme}
         data={data}
-        placeholder='Author'
-        handlerSelectListNameAuthor={handlerSelectListNameAuthor}
-        searchData={searchData}
-        handlerResetListNameAuthor={handlerResetListNameAuthor}
+        nameFilter='Author'
+        handlerSelectList={handlerSelectListNameAuthor}
+        handlerResetList={handlerResetListNameAuthor}
+      />
+      <FilterSelectListItem 
+        theme={theme}
+        data={data}
+        nameFilter='Location'
+        handlerSelectList={handlerSelectListLocation}
+        handlerResetList={handlerResetListLocation}
       />
     </section>
   )
