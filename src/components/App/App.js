@@ -35,6 +35,14 @@ function App() {
     setSearchData({...searchData, nameAuthor: ''});
   };
 
+  const handlerSelectListLocation = (location) => {
+    setSearchData({...searchData, location: location});
+  }
+
+  const handlerResetListLocation = () => {
+    setSearchData({...searchData, location: ''});
+  };
+
   React.useEffect(() => {
     localStorage.setItem('app-theme', theme);
     document.documentElement.setAttribute('app-theme', theme);
@@ -52,7 +60,8 @@ function App() {
         handlerInputSearchNamePicture={handlerInputSearchNamePicture}
         handlerSelectListNameAuthor={handlerSelectListNameAuthor}
         handlerResetListNameAuthor={handlerResetListNameAuthor}
-        searchData={searchData}
+        handlerSelectListLocation={handlerSelectListLocation}
+        handlerResetListLocation={handlerResetListLocation}
       />
     </>
   );
