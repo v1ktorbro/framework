@@ -5,9 +5,10 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSelectListNameAuthor, handlerResetListNameAuthor}) {
+function FilterSelectListItem ({theme, data, nameFilter, handlerSelectList, handlerResetList}) {
   const [isOpenListAuthor, setIsOpenListAuthor] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
+  const [selectValue, setSelectValue] = React.useState('');
 
   const toggleOpenListAuthor = () => {
     setIsOpenListAuthor(prev => !prev);
@@ -15,19 +16,21 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
   };
 
   const selectItemList = (evt) => {
-    handlerSelectListNameAuthor(evt.currentTarget.textContent);
+    handlerSelectList(evt.currentTarget.textContent);
+    setSelectValue(evt.currentTarget.textContent);
     toggleOpenListAuthor();
   };
 
   const handlerReset = () => {
-    handlerResetListNameAuthor();
+    handlerResetList();
+    setSelectValue('');
     setIsOpenListAuthor(false);
     setIsFocus(false);
   };
 
   const onBlur = (evt) => {
-    const dropDownListContainer = document.querySelector('.filter-select-list-item');
-    const isClickInsideComponent = dropDownListContainer.contains(evt.target);
+    const thisComponent = document.getElementById(`nav-search-${nameFilter.toLowerCase()}`);
+    const isClickInsideComponent = thisComponent.contains(evt.target);
     if (!isClickInsideComponent) {
       setIsFocus(false);
       setIsOpenListAuthor(false);
@@ -42,7 +45,7 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
   };
 
   React.useEffect(() => {
-    const filterContainer = document.querySelector('.filter-select-list-item__container');
+    const filterContainer = document.getElementById(`nav-search-${nameFilter.toLowerCase()}`).querySelector('.filter-select-list-item__container');
     borderStyleHandlerThemeForFilter(filterContainer, theme, isOpenListAuthor, isFocus);
   }, [isOpenListAuthor, theme, isFocus]);
 
@@ -57,16 +60,17 @@ function FilterSelectListItem ({theme, data, searchData, placeholder, handlerSel
       onClick={() => setIsFocus(true)}
       tabIndex="0"
       onKeyDown={escBtnListener}
+      id={`nav-search-${nameFilter.toLowerCase()}`}
     >
       <div className={`filter-select-list-item__container filter-select-list-item__container_${theme} ${isFocus && `filter-select-list-item__container_focus-${theme}`}`}>
         <input 
           className='filter-select-list-item__input-display-selected-text' 
-          value={searchData.nameAuthor}
+          value={selectValue}
           disabled 
-          placeholder={placeholder} 
+          placeholder={nameFilter} 
         />
         <div className='filter-select-list-item__btn-container'>
-          {searchData.nameAuthor.length > 0 &&
+          {selectValue.length > 0 &&
             <BtnResetCross 
               theme={theme}
               onClick={handlerReset}
