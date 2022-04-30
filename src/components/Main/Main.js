@@ -1,7 +1,9 @@
 import './Main.css';
 import NavSearch from '../NavSearch/NavSearch';
 
-function Main({ theme, data, handlerInputSearchNamePicture, handlerSelectListNameAuthor, searchData, handlerResetListNameAuthor }) {
+function Main({ theme, data, handlerInputSearchNamePicture, 
+  handlerSelectListNameAuthor, handlerResetListNameAuthor,
+  handlerSelectListLocation, handlerResetListLocation }) {
   return (
     <>
       <main className='main'>
@@ -11,7 +13,8 @@ function Main({ theme, data, handlerInputSearchNamePicture, handlerSelectListNam
           handlerInputSearchNamePicture={handlerInputSearchNamePicture}
           handlerSelectListNameAuthor={handlerSelectListNameAuthor}
           handlerResetListNameAuthor={handlerResetListNameAuthor}
-          searchData={searchData}
+          handlerSelectListLocation={handlerSelectListLocation}
+          handlerResetListLocation={handlerResetListLocation}
         />
       </main>
     </>
