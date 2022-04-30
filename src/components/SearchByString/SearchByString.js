@@ -4,7 +4,7 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
+function SearchByString({ placeholder, theme, data, handlerInputSearchNamePicture }) {
   const [inputValue, setInputValue] = React.useState('');
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
@@ -23,7 +23,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
   };
 
   const handlerSearch = (value) => {
-    if (handleNameInputSearch(value).length) {
+    if (handlerInputSearchNamePicture(value).length) {
       setIsOpenListSearchedResult(true);
       setIsNothingSearch(false);
     } else {
@@ -42,7 +42,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
     }
   };
 
-  const handleReset = () => {
+  const handlerReset = () => {
     setInputValue('');
     selectItemRef.current = '';
     setIsOpenListSearchedResult(false);
@@ -120,8 +120,7 @@ function SearchByString({ placeholder, theme, data, handleNameInputSearch }) {
           {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
           {inputValue.length > 0 &&
             <BtnResetCross 
-              hStyle={{right: '18px'}}
-              handleReset={handleReset}
+              onClick={handlerReset}
               theme={theme}
             />
           }

@@ -5,6 +5,7 @@
   box-sizing: border-box;
   position: relative;
   font-family: 'Roboto';
+  outline: none;
 }
 
 .filter-select-list-item__container {
@@ -45,6 +46,8 @@
 
 .filter-select-list-item__btn-container {
   display: flex;
+  width: 30px;
+  justify-content: space-between;
 }
 
 .filter-select-list-item__input-display-selected-text {
@@ -53,6 +56,12 @@
   background: transparent;
   border: none;
   outline: none;
+  padding-right: 10px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: inherit;
 }
 
 .filter-select-list-item__display-selected-text::placeholder {
