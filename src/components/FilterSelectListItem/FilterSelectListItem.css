@@ -1,7 +1,6 @@
 .filter-select-list-item {
   width: 265px;
   height: 45px;
-  margin-left: 25px;
   box-sizing: border-box;
   position: relative;
   font-family: 'Roboto';
@@ -48,6 +47,8 @@
   display: flex;
   width: 30px;
   justify-content: space-between;
+  align-self: center;
+  margin-left: 10px;
 }
 
 .filter-select-list-item__input-display-selected-text {
@@ -56,8 +57,8 @@
   background: transparent;
   border: none;
   outline: none;
-  padding-right: 10px;
-  width: 100%;
+  padding: 0;
+  width: calc(100% - 40px);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
