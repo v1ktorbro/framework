@@ -1,0 +1,102 @@
+.filter-select-time-interval {
+  font-family: 'Roboto';
+  width: 265px;
+  height: 45px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-family: 'Roboto';
+}
+
+.filter-select-time-interval_day {
+  color: #000;
+  background-color: #fff;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(0, 0, 0, .3);
+}
+
+.filter-select-time-interval_naight {
+  color: #fff;
+  background-color: #000;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(255, 255, 255, .3);
+}
+
+.filter-select-time-interval__container {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 18px;
+}
+
+.filter-select-time-interval__input-view-selected-text {
+  font-size: 13px;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: transparent;
+  align-self: center;
+  border: none;
+  outline: none;
+  padding: 0;
+  color: inherit;
+}
+
+.filter-select-time-interval__btn-container {
+  display: flex;
+  justify-content: space-between;
+  width: 30px;
+  align-self: center;
+}
+
+.filter-select-time-interval__form-data {
+  box-sizing: border-box;
+  height: 85px;
+  visibility: hidden;
+  border: inherit;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top: none;
+  padding: 20px 21.5px 20px;
+}
+
+.filter-select-time-interval__form-data_open {
+  visibility: visible;
+}
+
+.filter-select-time-interval__form-data-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.filter-select-time-interval__input-date {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  height: 45px;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.filter-select-time-interval__input-date_day {
+  background-color: #efefef;
+}
+
+.filter-select-time-interval__input-date_naight {
+  background-color: #fff;
+}
+
+.filter-select-time-interval__dash-sigh {
+  align-self: center;
+  margin: 0 10px;
+}
