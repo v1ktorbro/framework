@@ -29,7 +29,7 @@ function FilterSelectListItem ({theme, data, nameFilter, handlerSelectList, hand
   };
 
   const onBlur = (evt) => {
-    const thisComponent = document.getElementById(`nav-search-${nameFilter.toLowerCase()}`);
+    const thisComponent = document.getElementById(`filter-select-list-${nameFilter.toLowerCase()}`);
     const isClickInsideComponent = thisComponent.contains(evt.target);
     if (!isClickInsideComponent) {
       setIsFocus(false);
@@ -45,7 +45,7 @@ function FilterSelectListItem ({theme, data, nameFilter, handlerSelectList, hand
   };
 
   React.useEffect(() => {
-    const filterContainer = document.getElementById(`nav-search-${nameFilter.toLowerCase()}`).querySelector('.filter-select-list-item__container');
+    const filterContainer = document.getElementById(`filter-select-list-${nameFilter.toLowerCase()}`).querySelector('.filter-select-list-item__container');
     borderStyleHandlerThemeForFilter(filterContainer, theme, isOpenListAuthor, isFocus);
   }, [isOpenListAuthor, theme, isFocus]);
 
@@ -60,7 +60,7 @@ function FilterSelectListItem ({theme, data, nameFilter, handlerSelectList, hand
       onClick={() => setIsFocus(true)}
       tabIndex="0"
       onKeyDown={escBtnListener}
-      id={`nav-search-${nameFilter.toLowerCase()}`}
+      id={`filter-select-list-${nameFilter.toLowerCase()}`}
     >
       <div className={`filter-select-list-item__container filter-select-list-item__container_${theme} ${isFocus && `filter-select-list-item__container_focus-${theme}`}`}>
         <input 
