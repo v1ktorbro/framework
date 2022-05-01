@@ -1,12 +1,13 @@
 import './NavSearch.css';
 import SearchByString from '../SearchByString/SearchByString';
 import FilterSelectListItem from '../FilterSelectListItem/FilterSelectListItem';
+import FilterSelectTimeInterval from '../FilterSelectTimeInterval/FilterSelectTimeInterval';
 
 function NavSearch({ theme, data, handlerInputSearchNamePicture, 
   handlerSelectListNameAuthor, handlerResetListNameAuthor, handlerSelectListLocation, 
   handlerResetListLocation }) {
   return (
-    <section className={`section-search section-search_${theme}`}>
+    <section className={`nav-search nav-search_${theme}`}>
       <SearchByString 
         placeholder='Name'
         theme={theme}
@@ -26,6 +27,10 @@ function NavSearch({ theme, data, handlerInputSearchNamePicture,
         nameFilter='Location'
         handlerSelectList={handlerSelectListLocation}
         handlerResetList={handlerResetListLocation}
+      />
+      <FilterSelectTimeInterval 
+        theme={theme}
+        nameFilter='Created'
       />
     </section>
   )
