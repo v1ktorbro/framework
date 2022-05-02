@@ -41,7 +41,9 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
   };
 
   const handlerReset = () => {
-    console.log('reset');
+    setInputsValue({from: '', before: ''});
+    setIsOpenTimeInterval(false);
+    setIsFocus(false);
   };
 
   React.useEffect(() => {
@@ -70,10 +72,12 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
             placeholder={nameFilter} 
           />
           <div className='filter-select-time-interval__btn-container'>
-            <BtnResetCross 
-              theme={theme}
-              onClick={handlerReset}
-            />
+            { (inputsValue.from || inputsValue.before) &&
+              <BtnResetCross 
+                theme={theme}
+                onClick={handlerReset}
+              />
+            }
             <BtnSwitchBlind 
               theme={theme}
               isOpen={isOpenTimeInterval}
@@ -88,6 +92,7 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
             onChange={handlerValueInputs}
             placeholder='from'
             id='from'
+            value={inputsValue.from}
             type='number'
           />
           <span className='filter-select-time-interval__dash-sigh'>&mdash;</span>
@@ -96,6 +101,7 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
             onChange={handlerValueInputs}
             placeholder='before'  
             id='before'
+            value={inputsValue.before}
             type='number'
             />
         </div>
