@@ -61,7 +61,6 @@
 
 .filter-select-time-interval__form-data {
   box-sizing: border-box;
-  height: 85px;
   visibility: hidden;
   border-width: 1px;
   border-style: solid;
@@ -95,15 +94,38 @@
   font-size: 13px;
   font-weight: 400;
   height: 45px;
+  max-width: 95px;
+  box-sizing: border-box;
   border-radius: 8px;
   outline: none;
   border: none;
-  padding: 0;
-  overflow: hidden;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 15px;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.filter-select-time-interval__error-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.filter-select-time-interval__item-list {
+  font-size: 10px;
+  color: red;
+  padding: 0;
+  margin: 0;
+  margin-left: 5px;
+  list-style-type: none;
+}
+
+.filter-select-time-interval__item-list::before {
+  content: '';
+  list-style-type: circle;
+  display: list-item;
+  float: left;
+  margin: 0 -8px 0 8px;
 }
 
 .filter-select-time-interval__input-date_day {
@@ -115,6 +137,5 @@
 }
 
 .filter-select-time-interval__dash-sigh {
-  align-self: center;
-  margin: 0 10px;
+  margin: 15px 8px 0;
 }
