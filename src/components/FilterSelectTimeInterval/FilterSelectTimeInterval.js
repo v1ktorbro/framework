@@ -14,6 +14,15 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
     setIsFocus(prev => !prev);
   };
 
+  const onBlur = (evt) => {
+    const thisComponent = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`);
+    const isClickInsideComponent = thisComponent.contains(evt.target);
+    if (!isClickInsideComponent) {
+      setIsOpenTimeInterval(false);
+      setIsFocus(false);
+    }
+  };
+
   const handlerReset = () => {
     console.log('reset');
   };
@@ -22,6 +31,11 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
     const filterContainer = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`).querySelector('.filter-select-time-interval__container');
     borderStyleHandlerThemeForFilter(filterContainer, theme, isOpenTimeInterval, isFocus);
   }, [isOpenTimeInterval, isFocus, theme]);
+
+  React.useEffect(() => {
+    document.addEventListener('click', onBlur);
+    return () => document.removeEventListener('click', onBlur);
+  }, [isFocus]);
 
   return (
     <nav 
