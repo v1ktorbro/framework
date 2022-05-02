@@ -9,8 +9,8 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
   const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
   const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(true);
   const [isFocus, setIsFocus] = React.useState(false);
-  const inputTimeFromValidator = useInput('', {isEmpty: true, minLength: 4, maxLength: 4});
-  const inputTimeBeforeValidator = useInput('', {isEmpty: true, minLength: 4, maxLength: 4});
+  const inputTimeFromValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
+  const inputTimeBeforeValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
 
   const toggleOpenTimeInterval = () => {
     setIsOpenTimeInterval(prev => !prev);
@@ -99,14 +99,14 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
               placeholder='from'
               id='from'
               value={inputsValue.from}
-              type='number'
+              maxLength='4'
               onFocus={inputTimeFromValidator.onFocus}
               onBlur={inputTimeFromValidator.onBlur}
             />
             <ul className='filter-select-time-interval__error-list'>
-              {(inputTimeFromValidator.isBlur && inputTimeFromValidator.isEmpty) && <li className={`filter-select-time-interval__item-list`}>Поле не может быть пустым</li>}
-              {(inputTimeFromValidator.isFocus && inputTimeFromValidator.minLengthError) && <li className={`filter-select-time-interval__item-list`}>Минимальная длина 4 символа</li>}
-              {(inputTimeFromValidator.maxLengthError) && <li className={`filter-select-time-interval__item-list`}>Максимальная длина 4 символа</li>}
+              {inputTimeFromValidator.onlyNumberError.state && <li className={`filter-select-time-interval__item-list`}>{inputTimeFromValidator.onlyNumberError.errorMessage}</li>}
+              {(inputTimeFromValidator.isBlur && inputTimeFromValidator.isEmpty.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeFromValidator.isEmpty.errorMessage}</li>}
+              {(inputTimeFromValidator.isFocus && inputTimeFromValidator.minLengthError.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeFromValidator.minLengthError.messageError}</li>}
             </ul>
           </div>
           <span className='filter-select-time-interval__dash-sigh'>&mdash;</span>
@@ -117,14 +117,14 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
               placeholder='before'  
               id='before'
               value={inputsValue.before}
-              type='number'
+              maxLength='4'
               onFocus={inputTimeBeforeValidator.onFocus}
               onBlur={inputTimeBeforeValidator.onBlur}
             />
             <ul className='filter-select-time-interval__error-list'>
-              {(inputTimeBeforeValidator.isBlur && inputTimeBeforeValidator.isEmpty) && <li className={`filter-select-time-interval__item-list`}>Поле не может быть пустым</li>}
-              {(inputTimeBeforeValidator.isFocus && inputTimeBeforeValidator.minLengthError) && <li className={`filter-select-time-interval__item-list`}>Минимальная длина 4 символа</li>}
-              {(inputTimeBeforeValidator.maxLengthError) && <li className={`filter-select-time-interval__item-list`}>Максимальная длина 4 символа</li>}
+              {inputTimeBeforeValidator.onlyNumberError.state && <li className={`filter-select-time-interval__item-list`}>{inputTimeBeforeValidator.onlyNumberError.errorMessage}</li>}
+              {(inputTimeBeforeValidator.isBlur && inputTimeBeforeValidator.isEmpty.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeBeforeValidator.isEmpty.errorMessage}</li>}
+              {(inputTimeBeforeValidator.isFocus && inputTimeBeforeValidator.minLengthError.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeBeforeValidator.minLengthError.messageError}</li>}
             </ul>
           </div>
         </div>
