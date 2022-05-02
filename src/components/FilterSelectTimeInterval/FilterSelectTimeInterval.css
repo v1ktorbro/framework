@@ -3,32 +3,41 @@
   width: 265px;
   height: 45px;
   box-sizing: border-box;
-  border-radius: 8px;
   font-family: 'Roboto';
-}
-
-.filter-select-time-interval_day {
-  color: #000;
-  background-color: #fff;
-  transition: background-color 300ms linear;
-  border: 1px solid rgba(0, 0, 0, .3);
-}
-
-.filter-select-time-interval_naight {
-  color: #fff;
-  background-color: #000;
-  transition: background-color 300ms linear;
-  border: 1px solid rgba(255, 255, 255, .3);
+  outline: none;
 }
 
 .filter-select-time-interval__container {
   display: flex;
+  border-radius: 8px;
   justify-content: space-between;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
   padding-left: 15px;
   padding-right: 18px;
+}
+
+.filter-select-time-interval__container_day {
+  color: #000;
+  background-color: #fff;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(0, 0, 0, .3);
+}
+
+.filter-select-time-interval__container_naight {
+  color: #fff;
+  background-color: #000;
+  transition: background-color 300ms linear;
+  border: 1px solid rgba(255, 255, 255, .3);
+}
+
+.filter-select-time-interval__container_focus-naight {
+  border-color: #fff;
+}
+
+.filter-select-time-interval__container_focus-day {
+  border-color: #000;
 }
 
 .filter-select-time-interval__input-view-selected-text {
@@ -54,11 +63,20 @@
   box-sizing: border-box;
   height: 85px;
   visibility: hidden;
-  border: inherit;
+  border-width: 1px;
+  border-style: solid;
+  border-top: none;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  border-top: none;
-  padding: 20px 21.5px 20px;
+  padding: 20px 21px 20px;
+}
+
+.filter-select-time-interval__form-data_day {
+  border-color: #000;
+}
+
+.filter-select-time-interval__form-data_naight {
+  border-color:#fff;
 }
 
 .filter-select-time-interval__form-data_open {
