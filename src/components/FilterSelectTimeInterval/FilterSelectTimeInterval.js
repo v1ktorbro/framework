@@ -5,13 +5,23 @@ import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
 function FilterSelectTimeInterval({theme, nameFilter}) {
-  const [selectValue, setSelectValue] = React.useState('');
+  const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
   const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
 
   const toggleOpenTimeInterval = () => {
     setIsOpenTimeInterval(prev => !prev);
     setIsFocus(prev => !prev);
+  };
+  
+  const handlerValueInputs = (evt) => {
+    const {id} = evt.target;
+    const {value} = evt.target;
+    if (id === 'from') {
+      setInputsValue({...inputsValue, from: value});
+    } else {
+      setInputsValue({...inputsValue, before: value});
+    }
   };
 
   const onBlur = (evt) => {
@@ -54,8 +64,8 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
     >
       <div className={`filter-select-time-interval__container filter-select-time-interval__container_${theme} ${isFocus && `filter-select-time-interval__container_focus-${theme}`}`}>
         <input 
-            className='filter-select-time-interval__input-view-selected-text' 
-            value={selectValue}
+            className='filter-select-time-interval__input-view-selected-text'
+            value={(inputsValue.from || inputsValue.before) &&`${inputsValue.from} — ${inputsValue.before}`}
             disabled 
             placeholder={nameFilter} 
           />
@@ -74,14 +84,18 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
       <div className={`filter-select-time-interval__form-data filter-select-time-interval__form-data_${theme}  ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
         <div className='filter-select-time-interval__form-data-container'>
           <input 
-            className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_from`} 
+            className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_from`}
+            onChange={handlerValueInputs}
             placeholder='from'
+            id='from'
             type='number'
           />
           <span className='filter-select-time-interval__dash-sigh'>&mdash;</span>
           <input 
-            className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_before`} 
+            className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_before`}
+            onChange={handlerValueInputs}
             placeholder='before'  
+            id='before'
             type='number'
             />
         </div>
