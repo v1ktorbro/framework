@@ -23,6 +23,13 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
     }
   };
 
+  const escBtnListener = (evt) => {
+    if (evt.key === 'Escape' || evt.keyCode === 27) {
+      setIsFocus(false);
+      setIsOpenTimeInterval(false);
+    }
+  };
+
   const handlerReset = () => {
     console.log('reset');
   };
@@ -42,6 +49,7 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
       className={`filter-select-time-interval filter-select-time-interval_${theme}`}
       tabIndex='0'
       onClick={() => setIsFocus(true)}
+      onKeyDown={escBtnListener}
       id={`filter-select-time-${nameFilter.toLowerCase()}`}
     >
       <div className={`filter-select-time-interval__container filter-select-time-interval__container_${theme} ${isFocus && `filter-select-time-interval__container_focus-${theme}`}`}>
