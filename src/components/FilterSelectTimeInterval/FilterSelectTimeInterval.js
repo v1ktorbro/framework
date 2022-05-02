@@ -2,6 +2,7 @@ import './FilterSelectTimeInterval.css';
 import React from 'react';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
+import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
 function FilterSelectTimeInterval({theme, nameFilter}) {
   const [selectValue, setSelectValue] = React.useState('');
@@ -17,9 +18,19 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
     console.log('reset');
   };
 
+  React.useEffect(() => {
+    const filterContainer = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`).querySelector('.filter-select-time-interval__container');
+    borderStyleHandlerThemeForFilter(filterContainer, theme, isOpenTimeInterval, isFocus);
+  }, [isOpenTimeInterval, isFocus, theme]);
+
   return (
-    <nav className={`filter-select-time-interval filter-select-time-interval_${theme}`}>
-      <div className={`filter-select-time-interval__container`}>
+    <nav 
+      className={`filter-select-time-interval filter-select-time-interval_${theme}`}
+      tabIndex='0'
+      onClick={() => setIsFocus(true)}
+      id={`filter-select-time-${nameFilter.toLowerCase()}`}
+    >
+      <div className={`filter-select-time-interval__container filter-select-time-interval__container_${theme} ${isFocus && `filter-select-time-interval__container_focus-${theme}`}`}>
         <input 
             className='filter-select-time-interval__input-view-selected-text' 
             value={selectValue}
@@ -38,18 +49,18 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
             />
           </div>
       </div>
-      <div className={`filter-select-time-interval__form-data ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
+      <div className={`filter-select-time-interval__form-data filter-select-time-interval__form-data_${theme}  ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
         <div className='filter-select-time-interval__form-data-container'>
           <input 
             className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_from`} 
             placeholder='from'
-            type='number' 
+            type='number'
           />
           <span className='filter-select-time-interval__dash-sigh'>&mdash;</span>
           <input 
             className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_before`} 
             placeholder='before'  
-            type='number' 
+            type='number'
             />
         </div>
       </div>
