@@ -17,13 +17,8 @@ function App() {
     created: {from: '', before: ''},
   });
   
-  const handlerInputSearchNamePicture = (inputValue) => {
-    const filteredSearchAuthors = initialData.filter((elem) => {
-      return elem.author.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    filteredSearchAuthors.length ? setInitialData(filteredSearchAuthors) : setInitialData(initialComments);
-    !inputValue.length && setInitialData(initialComments);
-    return filteredSearchAuthors;
+  const handlerSelectNamePicture = (namePicture) => {
+    setSearchData({...searchData, namePicture: namePicture});
   };
 
   const handlerSelectListNameAuthor = (nameAuthor) => {
@@ -52,7 +47,7 @@ function App() {
       <Main 
         theme={theme}
         data={initialData}
-        handlerInputSearchNamePicture={handlerInputSearchNamePicture}
+        handlerSelectNamePicture={handlerSelectNamePicture}
         handlerSelectListNameAuthor={handlerSelectListNameAuthor}
         handlerSelectListLocation={handlerSelectListLocation}
         handlerSearchTimeInterval={handlerSearchTimeInterval}
