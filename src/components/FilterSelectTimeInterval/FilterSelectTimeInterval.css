@@ -137,5 +137,14 @@
 }
 
 .filter-select-time-interval__dash-sigh {
+  color: inherit;
   margin: 15px 8px 0;
+}
+
+.filter-select-time-interval__dash-sigh_day {
+  color: #000;
+}
+
+.filter-select-time-interval__dash-sigh_naight {
+  color: #fff;
 }
