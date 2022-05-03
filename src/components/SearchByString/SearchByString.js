@@ -28,7 +28,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
       setIsNothingSearch(false);
     } else {
       setIsOpenListSearchedResult(false);
-      !isErrorOnlyLetter && setIsNothingSearch(true);
+      setIsNothingSearch(true);
     }
   };
 
@@ -116,7 +116,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
             onChange={onChange}
             placeholder={placeholder}
           />
-          {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter search-by-string__error-only-letter_${theme}`}>Вводите только буквы</span>}
+          {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter`}>Вводите только буквы</span>}
           {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
           {inputValue.length > 0 &&
             <BtnResetCross 
