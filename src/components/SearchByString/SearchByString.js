@@ -56,17 +56,9 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
   };
 
   const selectListItem = (evt) => {
-    setInputValue(evt.target.textContent);
-    selectItemRef.current = evt.target.textContent;
-  };
-
-  const onFocus = (evt) => {
-    const {target} = evt;
-    setIsFocusElem(true);
-    if (selectItemRef.current.length) {
-      setInputValue(selectItemRef.current);
-      target.select();
-    }
+    const {textContent} = evt.target;
+    setInputValue(textContent);
+    selectItemRef.current = textContent;
   };
 
   // эту функцию можно использовть как стрелочную функцию без использования useCallback
@@ -105,7 +97,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
       <nav 
         className={`search-by-string search-by-string_${theme}`}
         onKeyDown={(evt) => listenerEscapeBtn(evt)}
-        onFocus={(evt) => onFocus(evt)}
+        onFocus={() => setIsFocusElem(true)}
         onBlur={(evt) => onBlur(evt)}
       >
         <div className={`search-by-string__container search-by-string__container_${theme}`}>
