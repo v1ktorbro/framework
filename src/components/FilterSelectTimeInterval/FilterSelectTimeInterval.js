@@ -7,7 +7,7 @@ import { useInput } from '../FormValidator/FormValidator';
 
 function FilterSelectTimeInterval({theme, nameFilter}) {
   const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
-  const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(true);
+  const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
   const inputTimeFromValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
   const inputTimeBeforeValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
@@ -29,6 +29,14 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
     }
   };
 
+  const onSubmit = (evt) => {
+    if (inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid) {
+      console.log('форма валидна!')
+    } else {
+      console.log('форма НЕ валидна!')
+    }
+  };
+
   const onBlur = (evt) => {
     const thisComponent = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`);
     const isClickInsideComponent = thisComponent.contains(evt.target);
@@ -47,9 +55,15 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
 
   const handlerReset = () => {
     setInputsValue({from: '', before: ''});
+    inputTimeFromValidator.onReset();
+    inputTimeBeforeValidator.onReset();
     setIsOpenTimeInterval(false);
     setIsFocus(false);
   };
+
+  React.useEffect(() => {
+    onSubmit();
+  }, [inputTimeFromValidator, inputTimeBeforeValidator])
 
   React.useEffect(() => {
     const filterContainer = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`).querySelector('.filter-select-time-interval__container');
@@ -90,7 +104,7 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
             />
           </div>
       </div>
-      <div className={`filter-select-time-interval__form-data filter-select-time-interval__form-data_${theme}  ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
+      <form className={`filter-select-time-interval__form-data filter-select-time-interval__form-data_${theme}  ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
         <div className='filter-select-time-interval__form-data-container'>
           <div className='filter-select-time-interval__input-date-wrapper'>
             <input 
@@ -104,9 +118,9 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
               onBlur={inputTimeFromValidator.onBlur}
             />
             <ul className='filter-select-time-interval__error-list'>
-              {inputTimeFromValidator.onlyNumberError.state && <li className={`filter-select-time-interval__item-list`}>{inputTimeFromValidator.onlyNumberError.errorMessage}</li>}
-              {(inputTimeFromValidator.isBlur && inputTimeFromValidator.isEmpty.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeFromValidator.isEmpty.errorMessage}</li>}
-              {(inputTimeFromValidator.isFocus && inputTimeFromValidator.minLengthError.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeFromValidator.minLengthError.messageError}</li>}
+              {inputTimeFromValidator.onlyNumberError.state && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeFromValidator.onlyNumberError.errorMessage}</li>}
+              {(inputTimeFromValidator.isBlur && inputTimeFromValidator.isEmpty.state) && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeFromValidator.isEmpty.errorMessage}</li>}
+              {(inputTimeFromValidator.isFocus && inputTimeFromValidator.minLengthError.state) && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeFromValidator.minLengthError.errorMessage}</li>}
             </ul>
           </div>
           <span className='filter-select-time-interval__dash-sigh'>&mdash;</span>
@@ -122,13 +136,13 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
               onBlur={inputTimeBeforeValidator.onBlur}
             />
             <ul className='filter-select-time-interval__error-list'>
-              {inputTimeBeforeValidator.onlyNumberError.state && <li className={`filter-select-time-interval__item-list`}>{inputTimeBeforeValidator.onlyNumberError.errorMessage}</li>}
-              {(inputTimeBeforeValidator.isBlur && inputTimeBeforeValidator.isEmpty.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeBeforeValidator.isEmpty.errorMessage}</li>}
-              {(inputTimeBeforeValidator.isFocus && inputTimeBeforeValidator.minLengthError.state) && <li className={`filter-select-time-interval__item-list`}>{inputTimeBeforeValidator.minLengthError.messageError}</li>}
+              {inputTimeBeforeValidator.onlyNumberError.state && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeBeforeValidator.onlyNumberError.errorMessage}</li>}
+              {(inputTimeBeforeValidator.isBlur && inputTimeBeforeValidator.isEmpty.state) && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeBeforeValidator.isEmpty.errorMessage}</li>}
+              {(inputTimeBeforeValidator.isFocus && inputTimeBeforeValidator.minLengthError.state) && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeBeforeValidator.minLengthError.errorMessage}</li>}
             </ul>
           </div>
         </div>
-      </div>
+      </form>
     </nav>
   );
 }
