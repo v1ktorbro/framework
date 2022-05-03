@@ -14,7 +14,7 @@ function App() {
     namePicture: '',
     nameAuthor: '',
     location: '',
-    created: {from: '', to: ''},
+    created: {from: '', before: ''},
   });
   
   const handlerInputSearchNamePicture = (inputValue) => {
@@ -31,16 +31,12 @@ function App() {
     setSearchData({...searchData, nameAuthor: nameAuthor});
   };
 
-  const handlerResetListNameAuthor = () => {
-    setSearchData({...searchData, nameAuthor: ''});
-  };
-
   const handlerSelectListLocation = (location) => {
     setSearchData({...searchData, location: location});
   }
 
-  const handlerResetListLocation = () => {
-    setSearchData({...searchData, location: ''});
+  const handlerSearchTimeInterval = (inputsValue) => {
+    setSearchData({...searchData, created: inputsValue});
   };
 
   React.useEffect(() => {
@@ -59,9 +55,8 @@ function App() {
         data={initialData}
         handlerInputSearchNamePicture={handlerInputSearchNamePicture}
         handlerSelectListNameAuthor={handlerSelectListNameAuthor}
-        handlerResetListNameAuthor={handlerResetListNameAuthor}
         handlerSelectListLocation={handlerSelectListLocation}
-        handlerResetListLocation={handlerResetListLocation}
+        handlerSearchTimeInterval={handlerSearchTimeInterval}
       />
     </>
   );
