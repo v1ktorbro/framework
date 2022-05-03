@@ -2,8 +2,8 @@ import React from 'react';
 
 export const useValidation = (value, validations) => {
   const [isEmpty, setIsEmpty] = React.useState({state: true, errorMessage: 'Поле не может быть пустым'});
-  const [minLengthError, setMinLengthError] = React.useState({state: false, messageError: `Минимальная длина ${validations['minLength']} символа`});
-  const [maxLengthError, setMaxLengthError] = React.useState({state: false, messageError: `Максимальная длина ${validations['maxLength']} символа`});
+  const [minLengthError, setMinLengthError] = React.useState({state: false, errorMessage: `Минимальная длина ${validations['minLength']} символа`});
+  const [maxLengthError, setMaxLengthError] = React.useState({state: false, errorMessage: `Максимальная длина ${validations['maxLength']} символа`});
   const [onlyNumberError, setOnlyNumberError] = React.useState({state: false, errorMessage: 'Вводите только цифры'});
   const regExOnlyNumber = /^([0-9]*)$/;
   const [onlyLetterError, setOnlyLetterError] = React.useState({state: false, message: 'Необходимо вводить только буквы'});
@@ -33,7 +33,7 @@ export const useValidation = (value, validations) => {
   }, [value]);
 
   React.useEffect(() => {
-    if (isEmpty || minLengthError || onlyLetterError || maxLengthError || onlyNumberError) {
+    if (isEmpty.state || minLengthError.state || onlyLetterError.state || maxLengthError.state || onlyNumberError.state) {
       setInputValid(false);
     } else {
       setInputValid(true);
@@ -69,6 +69,12 @@ export const useInput = (initialValue, validations) => {
     setIsBlur(true);
   };
 
+  const onReset = () => {
+    setValue('');
+    setIsBlur(false);
+    setIsFocus(false);
+  };
+
   return {
     value,
     onChange,
@@ -76,6 +82,7 @@ export const useInput = (initialValue, validations) => {
     isBlur,
     onFocus,
     isFocus,
+    onReset,
     ...valid,
   };
 };
