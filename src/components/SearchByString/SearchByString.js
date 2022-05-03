@@ -4,7 +4,7 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ placeholder, theme, data, handlerInputSearchNamePicture }) {
+function SearchByString({ placeholder, theme, data, handlerSelectNamePicture }) {
   const [inputValue, setInputValue] = React.useState('');
   const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
@@ -50,6 +50,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
   };
 
   const handlerReset = () => {
+    handlerSelectNamePicture('');
     handlerSearch('');
     setInputValue('');
     selectItemRef.current = '';
@@ -65,6 +66,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
 
   const selectListItem = (evt) => {
     const {textContent} = evt.target;
+    handlerSelectNamePicture(textContent);
     setInputValue(textContent);
     selectItemRef.current = textContent;
   };
