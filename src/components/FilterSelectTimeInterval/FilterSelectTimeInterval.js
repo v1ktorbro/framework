@@ -62,7 +62,7 @@ function FilterSelectTimeInterval({theme, nameFilter, handlerSearchTimeInterval}
 
   React.useEffect(() => {
     onSubmit();
-  }, [inputTimeFromValidator, inputTimeBeforeValidator])
+  }, [inputTimeFromValidator, inputTimeBeforeValidator]);
 
   React.useEffect(() => {
     const filterContainer = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`).querySelector('.filter-select-time-interval__container');
@@ -122,7 +122,7 @@ function FilterSelectTimeInterval({theme, nameFilter, handlerSearchTimeInterval}
               {(inputTimeFromValidator.isFocus && inputTimeFromValidator.minLengthError.state) && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeFromValidator.minLengthError.errorMessage}</li>}
             </ul>
           </div>
-          <span className='filter-select-time-interval__dash-sigh'>&mdash;</span>
+          <span className={`filter-select-time-interval__dash-sigh filter-select-time-interval__dash-sigh_${theme}`}>&mdash;</span>
           <div className='filter-select-time-interval__input-date-wrapper'>
             <input 
               className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_before`}
