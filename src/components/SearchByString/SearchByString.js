@@ -17,7 +17,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
     const {value} = evt.target;
     setInputValue(value);
     handlerSearch(value);
-    if (value.length === 0) {
+    if (!value.length) {
       setIsOpenListSearchedResult(false);
       setIsNothingSearch(false);
     }
@@ -69,8 +69,10 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
     selectItemRef.current = textContent;
   };
 
-  // эту функцию можно использовть как стрелочную функцию без использования useCallback
-  // и, вместо selectItemRef, использовать хук useState
+  const onFocus = () => {
+    setIsFocusElem(true);
+  };
+
   const onBlur = React.useCallback((evt) => {
     const currentTarget = evt.currentTarget;
     // так как список спозиционирован абсолютно, в обработчике
@@ -86,7 +88,6 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
         setIsErrorOnlyLetter(false);
       }
     });
-    // условие if в requestAnimationFrame выполняется всегда, если компонент сфокусирован
     setIsFocusElem(false);
   }, [isFocusElem]);
 
@@ -104,9 +105,9 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
     <>
       <nav 
         className={`search-by-string search-by-string_${theme}`}
-        onKeyDown={(evt) => listenerEscapeBtn(evt)}
-        onFocus={() => setIsFocusElem(true)}
-        onBlur={(evt) => onBlur(evt)}
+        onKeyDown={listenerEscapeBtn}
+        onFocus={onFocus}
+        onBlur={onBlur}
       >
         <div className={`search-by-string__container search-by-string__container_${theme}`}>
           <input 
