@@ -2,8 +2,7 @@ import './Main.css';
 import NavSearch from '../NavSearch/NavSearch';
 
 function Main({ theme, data, handlerInputSearchNamePicture, 
-  handlerSelectListNameAuthor, handlerResetListNameAuthor,
-  handlerSelectListLocation, handlerResetListLocation }) {
+  handlerSelectListNameAuthor, handlerSelectListLocation, handlerSearchTimeInterval }) {
   return (
     <>
       <main className='main'>
@@ -12,9 +11,8 @@ function Main({ theme, data, handlerInputSearchNamePicture,
           data={data}
           handlerInputSearchNamePicture={handlerInputSearchNamePicture}
           handlerSelectListNameAuthor={handlerSelectListNameAuthor}
-          handlerResetListNameAuthor={handlerResetListNameAuthor}
           handlerSelectListLocation={handlerSelectListLocation}
-          handlerResetListLocation={handlerResetListLocation}
+          handlerSearchTimeInterval={handlerSearchTimeInterval}
         />
       </main>
     </>
