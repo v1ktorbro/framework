@@ -4,8 +4,7 @@ import FilterSelectListItem from '../FilterSelectListItem/FilterSelectListItem';
 import FilterSelectTimeInterval from '../FilterSelectTimeInterval/FilterSelectTimeInterval';
 
 function NavSearch({ theme, data, handlerInputSearchNamePicture, 
-  handlerSelectListNameAuthor, handlerResetListNameAuthor, handlerSelectListLocation, 
-  handlerResetListLocation }) {
+  handlerSelectListNameAuthor, handlerSelectListLocation, handlerSearchTimeInterval }) {
   return (
     <section className={`nav-search nav-search_${theme}`}>
       <SearchByString 
@@ -19,18 +18,17 @@ function NavSearch({ theme, data, handlerInputSearchNamePicture,
         data={data}
         nameFilter='Author'
         handlerSelectList={handlerSelectListNameAuthor}
-        handlerResetList={handlerResetListNameAuthor}
       />
       <FilterSelectListItem 
         theme={theme}
         data={data}
         nameFilter='Location'
         handlerSelectList={handlerSelectListLocation}
-        handlerResetList={handlerResetListLocation}
       />
       <FilterSelectTimeInterval 
         theme={theme}
         nameFilter='Created'
+        handlerSearchTimeInterval={handlerSearchTimeInterval}
       />
     </section>
   )
