@@ -6,6 +6,7 @@ import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
 function SearchByString({ placeholder, theme, data, handlerInputSearchNamePicture }) {
   const [inputValue, setInputValue] = React.useState('');
+  const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
   const [isNothingSearch, setIsNothingSearch] = React.useState(false);
@@ -22,11 +23,17 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
     }
   };
 
+  const filteredSearchNamePictures = (value) => data.filter((elem) => {
+    return elem.author.toLowerCase().includes(value.toLowerCase());
+  });
+
   const handlerSearch = (value) => {
-    if (handlerInputSearchNamePicture(value).length) {
+    if (filteredSearchNamePictures(value).length) {
+      setListData(filteredSearchNamePictures(value));
       setIsOpenListSearchedResult(true);
       setIsNothingSearch(false);
     } else {
+      setListData(data);
       setIsOpenListSearchedResult(false);
       setIsNothingSearch(true);
     }
@@ -43,7 +50,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
   };
 
   const handlerReset = () => {
-    handlerInputSearchNamePicture('');
+    handlerSearch('');
     setInputValue('');
     selectItemRef.current = '';
     setIsOpenListSearchedResult(false);
@@ -120,7 +127,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
         </div>
         <DropDownList
           theme={theme}
-          data={data}
+          data={listData}
           isOpen={isOpenListSearchedResult}
           onClickSelectItem={selectListItem}
           isFocus={isFocusElem}
