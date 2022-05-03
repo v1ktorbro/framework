@@ -5,7 +5,7 @@ import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 import { useInput } from '../FormValidator/FormValidator';
 
-function FilterSelectTimeInterval({theme, nameFilter}) {
+function FilterSelectTimeInterval({theme, nameFilter, handlerSearchTimeInterval}) {
   const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
   const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
@@ -30,10 +30,9 @@ function FilterSelectTimeInterval({theme, nameFilter}) {
   };
 
   const onSubmit = (evt) => {
+    // если поля формы валидны, то делаем поиск
     if (inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid) {
-      console.log('форма валидна!')
-    } else {
-      console.log('форма НЕ валидна!')
+      handlerSearchTimeInterval(inputsValue);
     }
   };
 
