@@ -21,9 +21,8 @@ function App() {
     const filteredSearchAuthors = initialData.filter((elem) => {
       return elem.author.toLowerCase().includes(inputValue.toLowerCase());
     });
-    if (inputValue.length > 0) {
-      filteredSearchAuthors.length ? setInitialData(filteredSearchAuthors) : setInitialData(initialComments);
-    }
+    filteredSearchAuthors.length ? setInitialData(filteredSearchAuthors) : setInitialData(initialComments);
+    !inputValue.length && setInitialData(initialComments);
     return filteredSearchAuthors;
   };
 
@@ -33,7 +32,7 @@ function App() {
 
   const handlerSelectListLocation = (location) => {
     setSearchData({...searchData, location: location});
-  }
+  };
 
   const handlerSearchTimeInterval = (inputsValue) => {
     setSearchData({...searchData, created: inputsValue});
