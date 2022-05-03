@@ -5,7 +5,7 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function FilterSelectListItem ({theme, data, nameFilter, handlerSelectList, handlerResetList}) {
+function FilterSelectListItem ({theme, data, nameFilter, handlerSelectList}) {
   const [isOpenListAuthor, setIsOpenListAuthor] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
   const [selectValue, setSelectValue] = React.useState('');
@@ -16,13 +16,14 @@ function FilterSelectListItem ({theme, data, nameFilter, handlerSelectList, hand
   };
 
   const selectItemList = (evt) => {
-    handlerSelectList(evt.currentTarget.textContent);
-    setSelectValue(evt.currentTarget.textContent);
+    const {textContent} = evt.currentTarget;
+    handlerSelectList(textContent);
+    setSelectValue(textContent);
     toggleOpenListAuthor();
   };
 
   const handlerReset = () => {
-    handlerResetList();
+    handlerSelectList('');
     setSelectValue('');
     setIsOpenListAuthor(false);
     setIsFocus(false);
