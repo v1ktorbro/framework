@@ -43,6 +43,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
   };
 
   const handlerReset = () => {
+    handlerInputSearchNamePicture('');
     setInputValue('');
     selectItemRef.current = '';
     setIsOpenListSearchedResult(false);
