@@ -4,8 +4,9 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ placeholder, theme, data, handlerInputSearchNamePicture }) {
+function SearchByString({ nameFilter, theme, data, handlerSetValueParamSearch }) {
   const [inputValue, setInputValue] = React.useState('');
+  const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
   const [isNothingSearch, setIsNothingSearch] = React.useState(false);
@@ -16,19 +17,25 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
     const {value} = evt.target;
     setInputValue(value);
     handlerSearch(value);
-    if (value.length === 0) {
+    if (!value.length) {
       setIsOpenListSearchedResult(false);
       setIsNothingSearch(false);
     }
   };
 
+  const filteredSearchNamePictures = (value) => data.filter((elem) => {
+    return elem.author.toLowerCase().includes(value.toLowerCase());
+  });
+
   const handlerSearch = (value) => {
-    if (handlerInputSearchNamePicture(value).length) {
+    if (filteredSearchNamePictures(value).length) {
+      setListData(filteredSearchNamePictures(value));
       setIsOpenListSearchedResult(true);
       setIsNothingSearch(false);
     } else {
+      setListData(data);
       setIsOpenListSearchedResult(false);
-      !isErrorOnlyLetter && setIsNothingSearch(true);
+      setIsNothingSearch(true);
     }
   };
 
@@ -43,6 +50,8 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
   };
 
   const handlerReset = () => {
+    handlerSetValueParamSearch(nameFilter.toLowerCase(), '');
+    handlerSearch('');
     setInputValue('');
     selectItemRef.current = '';
     setIsOpenListSearchedResult(false);
@@ -56,21 +65,16 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
   };
 
   const selectListItem = (evt) => {
-    setInputValue(evt.target.textContent);
-    selectItemRef.current = evt.target.textContent;
+    const {textContent} = evt.target;
+    handlerSetValueParamSearch(nameFilter.toLowerCase(), textContent);
+    setInputValue(textContent);
+    selectItemRef.current = textContent;
   };
 
-  const onFocus = (evt) => {
-    const {target} = evt;
+  const onFocus = () => {
     setIsFocusElem(true);
-    if (selectItemRef.current.length) {
-      setInputValue(selectItemRef.current);
-      target.select();
-    }
   };
 
-  // эту функцию можно использовть как стрелочную функцию без использования useCallback
-  // и, вместо selectItemRef, использовать хук useState
   const onBlur = React.useCallback((evt) => {
     const currentTarget = evt.currentTarget;
     // так как список спозиционирован абсолютно, в обработчике
@@ -86,7 +90,6 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
         setIsErrorOnlyLetter(false);
       }
     });
-    // условие if в requestAnimationFrame выполняется всегда, если компонент сфокусирован
     setIsFocusElem(false);
   }, [isFocusElem]);
 
@@ -104,9 +107,9 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
     <>
       <nav 
         className={`search-by-string search-by-string_${theme}`}
-        onKeyDown={(evt) => listenerEscapeBtn(evt)}
-        onFocus={(evt) => onFocus(evt)}
-        onBlur={(evt) => onBlur(evt)}
+        onKeyDown={listenerEscapeBtn}
+        onFocus={onFocus}
+        onBlur={onBlur}
       >
         <div className={`search-by-string__container search-by-string__container_${theme}`}>
           <input 
@@ -114,9 +117,9 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
             type='text'
             value={inputValue}
             onChange={onChange}
-            placeholder={placeholder}
+            placeholder={nameFilter}
           />
-          {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter search-by-string__error-only-letter_${theme}`}>Вводите только буквы</span>}
+          {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter`}>Вводите только буквы</span>}
           {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
           {inputValue.length > 0 &&
             <BtnResetCross 
@@ -127,7 +130,7 @@ function SearchByString({ placeholder, theme, data, handlerInputSearchNamePictur
         </div>
         <DropDownList
           theme={theme}
-          data={data}
+          data={listData}
           isOpen={isOpenListSearchedResult}
           onClickSelectItem={selectListItem}
           isFocus={isFocusElem}

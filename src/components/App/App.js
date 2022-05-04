@@ -11,36 +11,14 @@ function App() {
   const [theme, setTheme] = React.useState(localStorage.getItem('app-theme') || defaultTheme);
   const [initialData, setInitialData] = React.useState(initialComments);
   const [searchData, setSearchData] = React.useState({
-    namePicture: '',
-    nameAuthor: '',
+    name: '',
+    author: '',
     location: '',
-    created: {from: '', to: ''},
+    created: {from: '', before: ''},
   });
   
-  const handlerInputSearchNamePicture = (inputValue) => {
-    const filteredSearchAuthors = initialData.filter((elem) => {
-      return elem.author.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    if (inputValue.length > 0) {
-      filteredSearchAuthors.length ? setInitialData(filteredSearchAuthors) : setInitialData(initialComments);
-    }
-    return filteredSearchAuthors;
-  };
-
-  const handlerSelectListNameAuthor = (nameAuthor) => {
-    setSearchData({...searchData, nameAuthor: nameAuthor});
-  };
-
-  const handlerResetListNameAuthor = () => {
-    setSearchData({...searchData, nameAuthor: ''});
-  };
-
-  const handlerSelectListLocation = (location) => {
-    setSearchData({...searchData, location: location});
-  }
-
-  const handlerResetListLocation = () => {
-    setSearchData({...searchData, location: ''});
+  const handlerSetValueParamSearch = (keyName, value) => {
+    setSearchData({...searchData, [keyName]: value});
   };
 
   React.useEffect(() => {
@@ -57,11 +35,7 @@ function App() {
       <Main 
         theme={theme}
         data={initialData}
-        handlerInputSearchNamePicture={handlerInputSearchNamePicture}
-        handlerSelectListNameAuthor={handlerSelectListNameAuthor}
-        handlerResetListNameAuthor={handlerResetListNameAuthor}
-        handlerSelectListLocation={handlerSelectListLocation}
-        handlerResetListLocation={handlerResetListLocation}
+        handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
     </>
   );
