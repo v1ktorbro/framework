@@ -11,26 +11,14 @@ function App() {
   const [theme, setTheme] = React.useState(localStorage.getItem('app-theme') || defaultTheme);
   const [initialData, setInitialData] = React.useState(initialComments);
   const [searchData, setSearchData] = React.useState({
-    namePicture: '',
-    nameAuthor: '',
+    name: '',
+    author: '',
     location: '',
     created: {from: '', before: ''},
   });
   
-  const handlerSelectNamePicture = (namePicture) => {
-    setSearchData({...searchData, namePicture: namePicture});
-  };
-
-  const handlerSelectListNameAuthor = (nameAuthor) => {
-    setSearchData({...searchData, nameAuthor: nameAuthor});
-  };
-
-  const handlerSelectListLocation = (location) => {
-    setSearchData({...searchData, location: location});
-  };
-
-  const handlerSearchTimeInterval = (inputsValue) => {
-    setSearchData({...searchData, created: inputsValue});
+  const handlerSetValueParamSearch = (keyName, value) => {
+    setSearchData({...searchData, [keyName]: value});
   };
 
   React.useEffect(() => {
@@ -47,10 +35,7 @@ function App() {
       <Main 
         theme={theme}
         data={initialData}
-        handlerSelectNamePicture={handlerSelectNamePicture}
-        handlerSelectListNameAuthor={handlerSelectListNameAuthor}
-        handlerSelectListLocation={handlerSelectListLocation}
-        handlerSearchTimeInterval={handlerSearchTimeInterval}
+        handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
     </>
   );
