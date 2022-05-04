@@ -30,10 +30,9 @@ function FilterSelectTimeInterval({theme, nameFilter, handlerSetValueParamSearch
   };
 
   const onSubmit = (evt) => {
-    // если поля формы валидны, то делаем поиск
-    if (inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid) {
-      handlerSetValueParamSearch(nameFilter.toLowerCase(), inputsValue);
-    }
+    handlerSetValueParamSearch(nameFilter.toLowerCase(), inputsValue);
+    setIsOpenTimeInterval(false);
+    setIsFocus(false);
   };
 
   const onBlur = (evt) => {
@@ -62,7 +61,7 @@ function FilterSelectTimeInterval({theme, nameFilter, handlerSetValueParamSearch
 
   React.useEffect(() => {
     onSubmit();
-  }, [inputTimeFromValidator, inputTimeBeforeValidator]);
+  }, [inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid]);
 
   React.useEffect(() => {
     const filterContainer = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`).querySelector('.filter-select-time-interval__container');
