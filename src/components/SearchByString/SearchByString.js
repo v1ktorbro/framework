@@ -4,7 +4,7 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ placeholder, theme, data, handlerSelectNamePicture }) {
+function SearchByString({ nameFilter, theme, data, handlerSetValueParamSearch }) {
   const [inputValue, setInputValue] = React.useState('');
   const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
@@ -50,7 +50,7 @@ function SearchByString({ placeholder, theme, data, handlerSelectNamePicture }) 
   };
 
   const handlerReset = () => {
-    handlerSelectNamePicture('');
+    handlerSetValueParamSearch(nameFilter.toLowerCase(), '');
     handlerSearch('');
     setInputValue('');
     selectItemRef.current = '';
@@ -66,7 +66,7 @@ function SearchByString({ placeholder, theme, data, handlerSelectNamePicture }) 
 
   const selectListItem = (evt) => {
     const {textContent} = evt.target;
-    handlerSelectNamePicture(textContent);
+    handlerSetValueParamSearch(nameFilter.toLowerCase(), textContent);
     setInputValue(textContent);
     selectItemRef.current = textContent;
   };
@@ -117,7 +117,7 @@ function SearchByString({ placeholder, theme, data, handlerSelectNamePicture }) 
             type='text'
             value={inputValue}
             onChange={onChange}
-            placeholder={placeholder}
+            placeholder={nameFilter}
           />
           {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter`}>Вводите только буквы</span>}
           {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
