@@ -30,3 +30,10 @@
 .btn-switch-theme_day:hover {
   cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
 }
+
+@media screen and (max-width: 425px) {
+  .btn-switch-theme {
+    width: 22px;
+    height: 22px;
+  }
+}
