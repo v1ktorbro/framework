@@ -1,5 +1,4 @@
 .header {
-  border: 1px solid white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,7 +11,7 @@
   object-fit: cover;
 }
 
-@media screen and (max-width: 1366px) {
+@media screen and (max-width: 1365px) {
   .header {
     margin-left: 42px;
     margin-right: 42px;
