@@ -1,5 +1,4 @@
 .filter-select-list-item {
-  width: 265px;
   height: 45px;
   box-sizing: border-box;
   position: relative;
@@ -8,7 +7,6 @@
 }
 
 .filter-select-list-item__container {
-  width: 100%;
   height: 100%;
   box-sizing: border-box;
   padding-left: 15px;
@@ -23,15 +21,11 @@
 
 .filter-select-list-item__container_day {
   color: #000;
-  background-color: #fff;
-  transition: background-color 300ms linear;
   border: 1px solid rgba(0, 0, 0, .3);
 }
 
 .filter-select-list-item__container_naight {
   color: #fff;
-  background-color: #000;
-  transition: background-color 300ms linear;
   border: 1px solid rgba(255, 255, 255, .3);
 }
 
@@ -45,10 +39,8 @@
 
 .filter-select-list-item__btn-container {
   display: flex;
-  width: 30px;
   justify-content: space-between;
   align-self: center;
-  margin-left: 10px;
 }
 
 .filter-select-list-item__input-display-selected-text {
@@ -58,7 +50,7 @@
   border: none;
   outline: none;
   padding: 0;
-  width: calc(100% - 40px);
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
