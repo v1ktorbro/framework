@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: 'Roboto';
   outline: none;
+  position: relative;
 }
 
 .filter-select-time-interval__container {
@@ -62,14 +63,18 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   padding: 20px 21px 20px;
+  position: absolute;
+  z-index: 1;
 }
 
 .filter-select-time-interval__form-data_day {
   border-color: #000;
+  background-color: #fff;
 }
 
 .filter-select-time-interval__form-data_naight {
   border-color:#fff;
+  background-color: #000;
 }
 
 .filter-select-time-interval__form-data_open {
