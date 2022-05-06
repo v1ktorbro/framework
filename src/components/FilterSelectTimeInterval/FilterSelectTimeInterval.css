@@ -65,6 +65,7 @@
   padding: 20px 21px 20px;
   position: absolute;
   z-index: 1;
+  width: 100%;
 }
 
 .filter-select-time-interval__form-data_day {
