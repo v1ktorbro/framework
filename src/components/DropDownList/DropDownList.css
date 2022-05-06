@@ -2,25 +2,27 @@
   width: 100%;
   position: absolute;
   max-height: 300px;
-  max-width: 265px;
   margin: 0;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
   padding-left: 0;
   overflow: scroll;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .drop-down-list_day {
   border: 1px solid #000;
   color: #000;
   border-top: 1px solid rgba(0, 0, 0, .3);
+  background-color: #fff;
 }
 
 .drop-down-list_naight {
   border: 1px solid #fff;
   color: #fff;
   border-top: 1px solid rgba(255, 255, 255, .3);
+  background-color: #000;
 }
 
 .drop-down-list_open {
@@ -32,10 +34,10 @@
 }
 
 .drop-down-list::-webkit-scrollbar {
-    width: 9px;
-    background-color: transparent;
-    scroll-padding: 0;
-    height: 0;
+  width: 9px;
+  background-color: transparent;
+  scroll-padding: 0;
+  height: 0;
 }
 
 .drop-down-list::-webkit-scrollbar-track {

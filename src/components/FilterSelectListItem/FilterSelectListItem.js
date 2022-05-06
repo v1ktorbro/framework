@@ -75,12 +75,14 @@ function FilterSelectListItem ({theme, data, nameFilter, handlerSetValueParamSea
             <BtnResetCross 
               theme={theme}
               onClick={handlerReset}
+              style={{marginLeft: '10px'}}
             />
           }
           <BtnSwitchBlind
             theme={theme}
             isOpen={isOpenListAuthor}
             onClick={toggleOpenListAuthor}
+            style={{marginLeft: '10px'}}
           />
         </div>
       </div>
