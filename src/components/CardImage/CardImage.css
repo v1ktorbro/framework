@@ -48,3 +48,7 @@
   margin-left: 4px;
   font-weight: 300;
 }
+
+.card-image__subtitle:last-of-type {
+  margin-bottom: 44px;
+}
