@@ -1,15 +1,14 @@
 .nav-search {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 265px));
   justify-content: space-between;
-  align-items: center;
-  transition: background-color 300ms linear;
+  grid-column-gap: 20px;
   width: 100%;
 }
 
-.nav-search_day {
-  background-color: #fff;
-}
-
-.nav-search_naight {
-  background-color: #000;
+@media screen and (max-width: 767px) {
+  .nav-search {
+    grid-template-columns: 1fr;
+    grid-row-gap: 20px;
+  }
 }
