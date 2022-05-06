@@ -125,6 +125,7 @@ function SearchByString({ nameFilter, theme, data, handlerSetValueParamSearch })
             <BtnResetCross 
               onClick={handlerReset}
               theme={theme}
+              style={{marginLeft: '10px'}}
             />
           }
         </div>
