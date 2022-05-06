@@ -99,6 +99,7 @@ function FilterSelectTimeInterval({theme, nameFilter, handlerSetValueParamSearch
               theme={theme}
               isOpen={isOpenTimeInterval}
               onClick={toggleOpenTimeInterval}
+              style={{marginLeft: '10px'}}
             />
           </div>
       </div>

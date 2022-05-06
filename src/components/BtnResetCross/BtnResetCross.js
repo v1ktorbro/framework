@@ -1,10 +1,10 @@
 import './BtnResetCross.css';
 
-function BtnResetCross({ theme, hStyle, onClick }) {
+function BtnResetCross({ theme, style, onClick }) {
   return (
     <button 
       className={`btn-reset-cross btn-reset-cross_theme-${theme}`} 
-      style={hStyle} 
+      style={style} 
       onClick={onClick}
       type='reset'
     />
