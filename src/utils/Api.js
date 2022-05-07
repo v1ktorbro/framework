@@ -27,6 +27,18 @@ class Api {
       return Promise.reject(`Ошибка в запросе к серверу загрузки списка авторов, статус ошибки: ${res.status}`);
     });
   }
+  
+  getListLocations() {
+    return fetch(`${this.url}/locations`, {
+      method: 'GET',
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка в запросе к серверу загрузки списка с локациями, статус ошибки: ${res.status}`);
+    });
+  }
 }
 
 const api = new Api({
