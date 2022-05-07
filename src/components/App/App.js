@@ -22,34 +22,18 @@ function App() {
     setSearchData({...searchData, [keyName]: value});
   };
 
-  const initialPaintings = () => {
-    api.getInitialPaintings().then((paintingsFromApi) => {
-      console.log(paintingsFromApi);
+  const getDataFromApi = () => {
+    Promise.all([api.getListPaintings(), api.getListAuthors(), api.getListLocations()]).then(([listPaintings, listAuthors, listLocations]) => {
+      console.log(listPaintings);
+      console.log(listAuthors);
+      console.log(listLocations);
     }).catch((err) => {
-      console.log('Ошибка при получении карточек:', err);
+      return console.log('Ошибка при получении данных с сервера:', err);
     });
   };
-
-  const listAuthors = () => {
-    api.getListAuthors().then((list) => {
-      console.log(list);
-    }).catch((err) => {
-      console.log('Ошибка при получении списка авторов:', err);
-    });
-  };
-
-  const listLocations = () => {
-    api.getListLocations().then((list) => {
-      console.log(list);
-    }).catch((err) => {
-      console.log(`Ошибка при получении списка с локациями:`, err);
-    });
-  }
 
   React.useEffect(() => {
-    initialPaintings();
-    listAuthors();
-    listLocations();
+    getDataFromApi();
   }, []);
 
   React.useEffect(() => {
