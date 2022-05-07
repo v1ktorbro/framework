@@ -9,10 +9,22 @@ class Api {
       method: 'GET',
       headers: this.headers,
     }).then((res) => {
-      if(res.ok) {
+      if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Ошибка запроса к серверву загрузки карточек, статус ответа: ${res.status}`);
+      return Promise.reject(`Ошибка в запросе к серверву загрузки карточек, статус ответа: ${res.status}`);
+    });
+  }
+
+  getListAuthors() {
+    return fetch(`${this.url}/authors`, {
+      method: 'GET',
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка в запросе к серверу загрузки списка авторов, статус ошибки: ${res.status}`);
     });
   }
 }
