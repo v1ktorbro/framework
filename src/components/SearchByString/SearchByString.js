@@ -4,7 +4,7 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ nameFilter, theme, data, handlerSetValueParamSearch }) {
+function SearchByString({ nameFilter, theme, data, keyNameForListData, handlerSetValueParamSearch }) {
   const [inputValue, setInputValue] = React.useState('');
   const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
@@ -24,7 +24,7 @@ function SearchByString({ nameFilter, theme, data, handlerSetValueParamSearch })
   };
 
   const filteredSearchNamePictures = (value) => data.filter((elem) => {
-    return elem.author.toLowerCase().includes(value.toLowerCase());
+    return elem.name.toLowerCase().includes(value.toLowerCase());
   });
 
   const handlerSearch = (value) => {
@@ -132,6 +132,7 @@ function SearchByString({ nameFilter, theme, data, handlerSetValueParamSearch })
         <DropDownList
           theme={theme}
           data={listData}
+          keyNameForListData={keyNameForListData}
           isOpen={isOpenListSearchedResult}
           onClickSelectItem={selectListItem}
           isFocus={isFocusElem}
