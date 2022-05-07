@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import initialComments from '../../utils/initialComments';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import api from '../../utils/Api';
@@ -10,7 +9,9 @@ function App() {
   const isNightTheme = window?.matchMedia('(prefers-color-scheme: dark)').matches;
   const defaultTheme = isNightTheme ? 'night' : 'day';
   const [theme, setTheme] = React.useState(localStorage.getItem('app-theme') || defaultTheme);
-  const [initialData, setInitialData] = React.useState(initialComments);
+  const [listPaintings, setListPaintings] = React.useState([]);
+  const [listAuthors, setListAuthors] = React.useState([]);
+  const [listLocations, setListLocations] = React.useState([]);
   const [searchData, setSearchData] = React.useState({
     name: '',
     author: '',
@@ -23,10 +24,10 @@ function App() {
   };
 
   const getDataFromApi = () => {
-    Promise.all([api.getListPaintings(), api.getListAuthors(), api.getListLocations()]).then(([listPaintings, listAuthors, listLocations]) => {
-      console.log(listPaintings);
-      console.log(listAuthors);
-      console.log(listLocations);
+    Promise.all([api.getListPaintings(), api.getListAuthors(), api.getListLocations()]).then(([listPaintingsFromApi, listAuthorsFromApi, listLocationsFromApi]) => {
+      setListPaintings(listPaintingsFromApi);
+      setListAuthors(listAuthorsFromApi);
+      setListLocations(listLocationsFromApi);
     }).catch((err) => {
       return console.log('Ошибка при получении данных с сервера:', err);
     });
@@ -49,7 +50,9 @@ function App() {
       />
       <Main 
         theme={theme}
-        data={initialData}
+        listPaintings={listPaintings}
+        listAuthors={listAuthors}
+        listLocations={listLocations}
         handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
     </>
