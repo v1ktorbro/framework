@@ -30,8 +30,17 @@ function App() {
     });
   };
 
+  const listAuthors = () => {
+    api.getListAuthors().then((list) => {
+      console.log(list);
+    }).catch((err) => {
+      console.log('Ошибка при получении списка авторов:', err);
+    });
+  };
+
   React.useEffect(() => {
     initialPaintings();
+    listAuthors();
   }, []);
 
   React.useEffect(() => {
