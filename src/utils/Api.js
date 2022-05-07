@@ -4,7 +4,7 @@ class Api {
     this.headers = headers;
   }
 
-  getInitialPaintings() {
+  getListPaintings() {
     return fetch(`${this.url}/paintings`, {
       method: 'GET',
       headers: this.headers,
