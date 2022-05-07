@@ -38,9 +38,18 @@ function App() {
     });
   };
 
+  const listLocations = () => {
+    api.getListLocations().then((list) => {
+      console.log(list);
+    }).catch((err) => {
+      console.log(`Ошибка при получении списка с локациями:`, err);
+    });
+  }
+
   React.useEffect(() => {
     initialPaintings();
     listAuthors();
+    listLocations();
   }, []);
 
   React.useEffect(() => {
