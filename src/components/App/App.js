@@ -1,13 +1,12 @@
 import './App.css';
 import React from 'react';
+import { CurrentThemeContext, defaultTheme } from '../../context/CurrentThemeContext';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import api from '../../utils/Api';
 
 function App() {
-  // цвет темы подтягивается из настроек ОС и сохраняется в localStorage
-  const isNightTheme = window?.matchMedia('(prefers-color-scheme: dark)').matches;
-  const defaultTheme = isNightTheme ? 'night' : 'day';
+  // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
   const [theme, setTheme] = React.useState(localStorage.getItem('app-theme') || defaultTheme);
   const [listPaintings, setListPaintings] = React.useState([]);
   const [listAuthors, setListAuthors] = React.useState([]);
@@ -44,17 +43,17 @@ function App() {
 
   return (
     <>
-      <Header 
-        theme={theme}
-        setTheme={setTheme}
-      />
-      <Main 
-        theme={theme}
-        listPaintings={listPaintings}
-        listAuthors={listAuthors}
-        listLocations={listLocations}
-        handlerSetValueParamSearch={handlerSetValueParamSearch}
-      />
+      <CurrentThemeContext.Provider value={theme}>
+        <Header 
+          setTheme={setTheme}
+        />
+        <Main 
+          listPaintings={listPaintings}
+          listAuthors={listAuthors}
+          listLocations={listLocations}
+          handlerSetValueParamSearch={handlerSetValueParamSearch}
+        />
+      </CurrentThemeContext.Provider>
     </>
   );
 }
