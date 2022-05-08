@@ -1,10 +1,12 @@
 import './SearchByString.css';
 import React from 'react';
+import { CurrentThemeContext } from '../../context/CurrentThemeContext';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ nameFilter, theme, data, keyNameForListData, handlerSetValueParamSearch }) {
+function SearchByString({ nameFilter, data, keyNameForListData, handlerSetValueParamSearch }) {
+  const theme = React.useContext(CurrentThemeContext);
   const [inputValue, setInputValue] = React.useState('');
   const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
@@ -130,7 +132,6 @@ function SearchByString({ nameFilter, theme, data, keyNameForListData, handlerSe
           }
         </div>
         <DropDownList
-          theme={theme}
           data={listData}
           keyNameForListData={keyNameForListData}
           isOpen={isOpenListSearchedResult}
