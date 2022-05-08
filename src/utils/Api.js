@@ -39,6 +39,18 @@ class Api {
       return Promise.reject(`Ошибка в запросе к серверу загрузки списка с локациями, статус ошибки: ${res.status}`);
     });
   }
+
+  searchPictureByName(namePicture) {
+    return fetch(`${this.url}/paintings/?q=${namePicture}`, {
+      method: 'GET',
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Не удалось отправить запрос на сервер с поиском картинки, статус ошибки: ${res.status}`);
+    });
+  }
 }
 
 const api = new Api({
