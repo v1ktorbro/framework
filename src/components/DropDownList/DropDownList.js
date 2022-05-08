@@ -1,6 +1,9 @@
 import './DropDownList.css';
+import React from 'react';
+import { CurrentThemeContext } from '../../context/CurrentThemeContext';
 
-function DropDownList({ theme, data, keyNameForListData, isOpen, onClickSelectItem, isFocus }) {
+function DropDownList({ data, keyNameForListData, isOpen, onClickSelectItem, isFocus }) {
+  const theme = React.useContext(CurrentThemeContext);
   
   return (
     <ul 
