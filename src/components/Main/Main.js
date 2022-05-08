@@ -15,7 +15,9 @@ function Main({ handlerSetValueParamSearch,
           handlerSetValueParamSearch={handlerSetValueParamSearch}
         />
         <SectionCard
-          data={listPaintings}
+          listCard={listPaintings}
+          listAuthors={listAuthors}
+          listLocations={listLocations}
         />
       </main>
     </>
