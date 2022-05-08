@@ -1,16 +1,14 @@
-import { useEffect } from 'react';
+import React from 'react';
+import { CurrentThemeContext } from '../../context/CurrentThemeContext';
 import './BtnSwitchTheme.css';
 
-function BtnSwitchTheme ({ theme, setTheme }) {
-  
+function BtnSwitchTheme ({ setTheme }) {
+  const theme = React.useContext(CurrentThemeContext);
+
   const handleThemeClick = () => {
     const handlerTheme = (theme === 'day' ? 'naight' : 'day');
     setTheme(handlerTheme);
   };
-
-  useEffect(() => {
-    localStorage.setItem('app-theme', theme);
-  }, [theme]);
 
   return (
     <button 
