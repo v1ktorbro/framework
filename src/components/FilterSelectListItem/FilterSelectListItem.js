@@ -1,11 +1,13 @@
 import './FilterSelectListItem.css';
 import React from 'react';
+import { CurrentThemeContext } from '../../context/CurrentThemeContext';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function FilterSelectListItem ({theme, data, keyNameForListData, nameFilter, handlerSetValueParamSearch}) {
+function FilterSelectListItem ({ data, keyNameForListData, nameFilter, handlerSetValueParamSearch }) {
+  const theme = React.useContext(CurrentThemeContext);
   const [isOpenListAuthor, setIsOpenListAuthor] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
   const [selectValue, setSelectValue] = React.useState('');
@@ -86,8 +88,7 @@ function FilterSelectListItem ({theme, data, keyNameForListData, nameFilter, han
           />
         </div>
       </div>
-      <DropDownList 
-        theme={theme}
+      <DropDownList
         data={data}
         isOpen={isOpenListAuthor}
         onClickSelectItem={selectItemList}
