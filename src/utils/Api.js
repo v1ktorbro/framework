@@ -4,6 +4,18 @@ class Api {
     this.headers = headers;
   }
 
+  getAllData() {
+    return fetch(`${this.url}/db`, {
+      method: 'GET',
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка при получении данных сервера, статус ошибки: ${res.status}`);
+    });
+  }
+
   getListPaintings() {
     return fetch(`${this.url}/paintings`, {
       method: 'GET',
