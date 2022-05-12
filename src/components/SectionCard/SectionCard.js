@@ -4,6 +4,7 @@ import CardImage from '../CardImage/CardImage';
 
 function SectionCard({ listCard, listAuthors, listLocations }) {
   const authorOfCard = (dataCard) => listAuthors.find((author) => author.id === dataCard.authorId).name;
+  const locationOfCard = (dataCard) => listLocations.find((location) => location.id === dataCard.locationId).location;
 
   return (
     <section className='section-card'>
@@ -13,7 +14,7 @@ function SectionCard({ listCard, listAuthors, listLocations }) {
             key={dataCard.id}
             dataCard={dataCard}
             authorOfCard={authorOfCard(dataCard)}
-            //locationOfCard={listLocations[dataCard.locationId - 1].location}
+            locationOfCard={locationOfCard(dataCard)}
           />
         );
       })}
