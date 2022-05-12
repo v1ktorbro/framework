@@ -35,15 +35,16 @@ function App() {
   };
 
   const searchByNamePicture = (namePicture) => {
-    console.log(namePicture);
     if (namePicture.length) {
       api.searchPictureByName(namePicture).then((res) => {
-          setListAuthors(filterNewArrFromApi(res, 'authorId', listAuthors));
-          setListLocations(filterNewArrFromApi(res, 'locationId', listLocations));
+        setListPaintings(res);
+        setListAuthors(filterNewArrFromApi(res, 'authorId', listAuthors));
+        setListLocations(filterNewArrFromApi(res, 'locationId', listLocations));
       }).catch((err) => {
         return console.log(`Ошибка при получении данных поиска картики:`, err);
       });
     } else {
+      setListPaintings(db.paintings);
       setListAuthors(db.authors);
       setListLocations(db.locations);
     }
@@ -63,10 +64,7 @@ function App() {
     }
     const keys = Object.keys(obj);
     keys.forEach((key) => arrUniqueId.push(key));
-    arrUniqueId.forEach((id) => {
-      console.log(id);
-      newArr.push(listArrData[id - 1])
-    });
+    arrUniqueId.forEach((id) => newArr.push(listArrData[id - 1]));
     return newArr;
   };
 
