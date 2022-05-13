@@ -14,8 +14,8 @@ function App() {
   const [listLocations, setListLocations] = React.useState([]);
   const [searchData, setSearchData] = React.useState({
     name: '',
-    author: '',
-    location: '',
+    authorId: '',
+    locationId: '',
     created: {from: '', before: ''},
   });
   
@@ -50,6 +50,20 @@ function App() {
     }
   };
 
+  const searchByAthorId = (id) => {
+    if (id.length) {
+      api.searchByAthorId(id).then((res) => {
+        setListPaintings(res);
+        setListLocations(filterNewArrFromApi(res, 'locationId', listLocations));
+      }).catch((err) => {
+        return console.log(`Ошибка при поиске карточек по идентификатору автора:`, err);
+      })
+    } else {
+      setListPaintings(db.paintings);
+      setListLocations(db.locations);
+    }
+  };
+
   const filterNewArrFromApi = (arrFromApi, keyNameId, listArrData) => {
     let arrUniqueId = [];
     let newArr = [];
@@ -71,6 +85,10 @@ function App() {
   React.useEffect(() => {
     Object.keys(db).length && searchByNamePicture(searchData.name);
   }, [searchData.name]);
+
+  React.useEffect(() => {
+    Object.keys(db).length && searchByAthorId(searchData.authorId);
+  }, [searchData.authorId])
 
   React.useEffect(() => {
     getDataFromApi();
