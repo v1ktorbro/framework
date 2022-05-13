@@ -63,6 +63,18 @@ class Api {
       return Promise.reject(`Не удалось отправить запрос на сервер с поиском картинки, статус ошибки: ${res.status}`);
     });
   }
+
+  searchByAthorId(id) {
+    return fetch(`${this.url}/paintings?authorId=${id}`, {
+      method: 'GET',
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Не удалось отправить запрос на получение карточек по идентификатору автора, статус ошибки: ${res.status}`);
+    });
+  }
 }
 
 const api = new Api({
