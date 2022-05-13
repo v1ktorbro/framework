@@ -18,14 +18,14 @@ function FilterSelectListItem ({ data, keyNameForListData, nameFilter, handlerSe
   };
 
   const selectItemList = (evt) => {
-    const {textContent} = evt.currentTarget;
-    handlerSetValueParamSearch(nameFilter.toLowerCase(), textContent);
+    const {textContent, id} = evt.currentTarget;
+    handlerSetValueParamSearch(`${nameFilter.toLowerCase()}Id`, id);
     setSelectValue(textContent);
     toggleOpenListAuthor();
   };
 
   const handlerReset = () => {
-    handlerSetValueParamSearch(nameFilter.toLowerCase(), '');
+    handlerSetValueParamSearch(`${nameFilter.toLowerCase()}Id`, '');
     setSelectValue('');
     setIsOpenListAuthor(false);
     setIsFocus(false);
