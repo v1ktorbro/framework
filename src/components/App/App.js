@@ -57,10 +57,25 @@ function App() {
         setListLocations(filterNewArrFromApi(res, 'locationId', listLocations));
       }).catch((err) => {
         return console.log(`Ошибка при поиске карточек по идентификатору автора:`, err);
-      })
+      });
     } else {
       setListPaintings(db.paintings);
       setListLocations(db.locations);
+    }
+  };
+  
+
+  const searchByLocationId = (id) => {
+    if (id.length) {
+      api.searchByLocationId(id).then((res) => {
+        setListPaintings(res);
+        setListAuthors(filterNewArrFromApi(res, 'authorId', listAuthors));
+      }).catch((err) => {
+        return console.log(`Ошибка при поиске карточек по идентификатору локации:`, err);
+      });
+    } else {
+      setListPaintings(db.paintings);
+      setListAuthors(db.authors);
     }
   };
 
@@ -89,6 +104,10 @@ function App() {
   React.useEffect(() => {
     Object.keys(db).length && searchByAthorId(searchData.authorId);
   }, [searchData.authorId])
+
+  React.useEffect(() => {
+    Object.keys(db).length && searchByLocationId(searchData.locationId);
+  }, [searchData.locationId]);
 
   React.useEffect(() => {
     getDataFromApi();
