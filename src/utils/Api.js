@@ -75,6 +75,18 @@ class Api {
       return Promise.reject(`Не удалось отправить запрос на получение карточек по идентификатору автора, статус ошибки: ${res.status}`);
     });
   }
+
+  searchByLocationId(id) {
+    return fetch(`${this.url}/paintings?locationId=${id}`, {
+      method: 'GET',
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Не удалось отправить запрос на получение карточек по идентификатору локации, статус ошибки: ${res.status}`);
+    });
+  }
 }
 
 const api = new Api({
