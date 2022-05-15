@@ -31,7 +31,7 @@ function NavSearch({ handlerSetValueParamSearch, listPaintings,
         handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
     </section>
-  )
+  );
 }
 
 export default NavSearch;
