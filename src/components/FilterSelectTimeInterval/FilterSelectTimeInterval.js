@@ -31,7 +31,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
     }
   };
 
-  const onSubmit = (evt) => {
+  const onSubmit = () => {
     handlerSetValueParamSearch(nameFilter.toLowerCase(), inputsValue);
     setIsOpenTimeInterval(false);
     setIsFocus(false);
