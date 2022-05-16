@@ -36,14 +36,18 @@ function App() {
 
   const searchByNamePicture = (namePicture) => {
     if (searchData.authorId.length) {
-      const newListPaintings = listPaintings.filter((paint) => paint.name === namePicture);
-      setListPaintings(newListPaintings);
-      setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+      const newListPaintings = listPaintings.filter((paint) => paint.name == namePicture);
+      if (newListPaintings.length) {
+        setListPaintings(newListPaintings);
+        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+      } else { 
+        searchByAthorId(searchData.authorId);
+      }
     } else if (namePicture.length) {
         api.searchPictureByName(namePicture).then((res) => {
           setListPaintings(res);
-          setListAuthors(filterNewArrFromApi(res, 'authorId', listAuthors));
-          setListLocations(filterNewArrFromApi(res, 'locationId', listLocations));
+          setListAuthors(filterNewArrFromApi(res, 'authorId', db.authors));
+          setListLocations(filterNewArrFromApi(res, 'locationId', db.locations));
         }).catch((err) => {
           return console.log(`Ошибка при получении данных поиска картики:`, err);
         });
@@ -54,20 +58,25 @@ function App() {
     }
   };
 
-  const searchByAthorId = (id) => {
+  const searchByAthorId = (authorId) => {
     if (searchData.name.length) {
-      const newListPaintings = listPaintings.filter((paint) => paint.authorId == id);
-      setListPaintings(newListPaintings);
-      setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
-    } else if (id.length) {
-        api.searchByAthorId(id).then((res) => {
+      const newListPaintings = listPaintings.filter((paint) => paint.authorId == authorId);
+      if (newListPaintings.length) {
+        setListPaintings(newListPaintings);
+        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+      } else {
+        searchByNamePicture(searchData.name);
+      }
+    } else if (authorId.length) {
+        api.searchByAthorId(authorId).then((res) => {
           setListPaintings(res);
-          setListLocations(filterNewArrFromApi(res, 'locationId', listLocations));
+          setListLocations(filterNewArrFromApi(res, 'locationId', db.locations));
         }).catch((err) => {
           return console.log(`Ошибка при поиске карточек по идентификатору автора:`, err);
         });
     } else {
         setListPaintings(db.paintings);
+        setListAuthors(db.authors);
         setListLocations(db.locations);
     }
   };
@@ -107,11 +116,12 @@ function App() {
 
   React.useEffect(() => {
     Object.keys(db).length && searchByNamePicture(searchData.name);
+    //Object.keys(db).length && searchByAthorId(searchData.authorId);
   }, [searchData.name]);
 
   React.useEffect(() => {
     Object.keys(db).length && searchByAthorId(searchData.authorId);
-  }, [searchData.authorId])
+  }, [searchData.authorId]);
 
   React.useEffect(() => {
     Object.keys(db).length && searchByLocationId(searchData.locationId);
