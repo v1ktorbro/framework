@@ -82,9 +82,9 @@ function App() {
   };
   
 
-  const searchByLocationId = (id) => {
-    if (id.length) {
-      api.searchByLocationId(id).then((res) => {
+  const searchByLocationId = (locationId) => {
+    if (locationId.length) {
+      api.searchByLocationId(locationId).then((res) => {
         setListPaintings(res);
         setListAuthors(filterNewArrFromApi(res, 'authorId', listAuthors));
       }).catch((err) => {
