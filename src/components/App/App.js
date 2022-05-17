@@ -67,6 +67,17 @@ function App() {
       } else {
         searchByNamePicture(searchData.name);
       }
+    } else if (searchData.locationId.length) {
+        if (authorId.length) {
+          const newListPaintings = listPaintings.filter((paint) => paint.locationId == searchData.locationId && paint.authorId == searchData.authorId);
+          setListPaintings(newListPaintings);
+          setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+        } else {
+          const newListPaintings = db.paintings.filter((paint) => paint.locationId == searchData.locationId);
+          setListPaintings(newListPaintings);
+          setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+          //setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+        }
     } else if (authorId.length) {
         api.searchByAthorId(authorId).then((res) => {
           setListPaintings(res);
@@ -83,16 +94,29 @@ function App() {
   
 
   const searchByLocationId = (locationId) => {
-    if (locationId.length) {
-      api.searchByLocationId(locationId).then((res) => {
-        setListPaintings(res);
-        setListAuthors(filterNewArrFromApi(res, 'authorId', listAuthors));
-      }).catch((err) => {
-        return console.log(`Ошибка при поиске карточек по идентификатору локации:`, err);
-      });
+    if (searchData.authorId.length) {
+      if (locationId.length) {
+        const newListPaintings = listPaintings.filter((paint) => paint.locationId == locationId);
+        setListPaintings(newListPaintings);
+        //setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+        //!searchData.authorId.length && setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.locations));
+      } else {
+        const newListPaintings = db.paintings.filter((paint) => paint.authorId == searchData.authorId);
+        setListPaintings(newListPaintings);
+        setListAuthors(db.authors);
+        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+      }
+    } else if (locationId.length) {
+        api.searchByLocationId(locationId).then((res) => {
+          setListPaintings(res);
+          setListAuthors(filterNewArrFromApi(res, 'authorId', listAuthors));
+        }).catch((err) => {
+          return console.log(`Ошибка при поиске карточек по идентификатору локации:`, err);
+        });
     } else {
-      setListPaintings(db.paintings);
-      setListAuthors(db.authors);
+        setListPaintings(db.paintings);
+        setListAuthors(db.authors);
+        setListLocations(db.locations);
     }
   };
 
