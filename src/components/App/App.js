@@ -34,6 +34,12 @@ function App() {
     });
   };
 
+  const setInitialData = () => {
+    setListPaintings(db.paintings);
+    setListAuthors(db.authors);
+    setListLocations(db.locations);
+  };
+
   const searchByNamePicture = (namePicture) => {
     if (searchData.authorId.length) {
       const newListPaintings = listPaintings.filter((paint) => paint.name == namePicture);
@@ -76,6 +82,7 @@ function App() {
           const newListPaintings = db.paintings.filter((paint) => paint.locationId == searchData.locationId);
           setListPaintings(newListPaintings);
           setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+          //setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
         }
     } else if (authorId.length) {
         api.searchByAthorId(authorId).then((res) => {
@@ -97,6 +104,8 @@ function App() {
       if (locationId.length) {
         const newListPaintings = listPaintings.filter((paint) => paint.locationId == locationId);
         setListPaintings(newListPaintings);
+        //setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+        //!searchData.authorId.length && setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.locations));
       } else {
         const newListPaintings = db.paintings.filter((paint) => paint.authorId == searchData.authorId);
         setListPaintings(newListPaintings);
@@ -137,6 +146,7 @@ function App() {
 
   React.useEffect(() => {
     Object.keys(db).length && searchByNamePicture(searchData.name);
+    //Object.keys(db).length && searchByAthorId(searchData.authorId);
   }, [searchData.name]);
 
   React.useEffect(() => {
