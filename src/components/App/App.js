@@ -58,9 +58,7 @@ function App() {
           return console.log(`Ошибка при получении данных поиска картики:`, err);
         });
     } else {
-        setListPaintings(db.paintings);
-        setListAuthors(db.authors);
-        setListLocations(db.locations);
+      setInitialData();
     }
   };
 
@@ -77,6 +75,7 @@ function App() {
         if (authorId.length) {
           const newListPaintings = listPaintings.filter((paint) => paint.locationId == searchData.locationId && paint.authorId == searchData.authorId);
           setListPaintings(newListPaintings);
+          console.log(newListPaintings);
           setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
         } else {
           const newListPaintings = db.paintings.filter((paint) => paint.locationId == searchData.locationId);
@@ -92,9 +91,7 @@ function App() {
           return console.log(`Ошибка при поиске карточек по идентификатору автора:`, err);
         });
     } else {
-        setListPaintings(db.paintings);
-        setListAuthors(db.authors);
-        setListLocations(db.locations);
+      setInitialData();
     }
   };
   
@@ -120,9 +117,7 @@ function App() {
           return console.log(`Ошибка при поиске карточек по идентификатору локации:`, err);
         });
     } else {
-        setListPaintings(db.paintings);
-        setListAuthors(db.authors);
-        setListLocations(db.locations);
+      setInitialData();
     }
   };
 
