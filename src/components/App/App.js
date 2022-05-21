@@ -18,9 +18,19 @@ function App() {
     locationId: '',
     created: {from: '', before: ''},
   });
+  const [reqParamSearch, setReqParamSearch] = React.useState([]);
   
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
+    //if ((keyName != 'created') && (value.length)) 
+    if (keyName != 'created' && value.length) {
+      setReqParamSearch([...reqParamSearch, keyName]);
+    } else {
+      reqParamSearch.length && setReqParamSearch(reqParamSearch.pop());
+      //console.log('suck!', reqParamSearch.pop());
+    }
+    //console.log(reqParamSearch.pop());
+    //keyName != 'created' && setReqParamSearch([...reqParamSearch, keyName]);
   };
 
   const getDataFromApi = () => {
@@ -73,7 +83,7 @@ function App() {
       }
     } else if (searchData.locationId.length) {
         if (authorId.length) {
-          const newListPaintings = listPaintings.filter((paint) => paint.locationId == searchData.locationId && paint.authorId == searchData.authorId);
+          const newListPaintings = listPaintings.filter((paint) => paint.locationId == searchData.locationId && paint.authorId == authorId);
           const newListLocation = db.paintings.filter((paint) => paint.authorId == searchData.authorId);
           setListPaintings(newListPaintings);
           setListLocations(filterNewArrFromApi(newListLocation, 'locationId', db.locations));
@@ -117,6 +127,21 @@ function App() {
     }
   };
 
+  const handlerValueSearchData = () => {
+    const arr = Object.entries(searchData);
+
+    const newArr = arr.reduce((newArr, [key, value]) => {
+      if (key != 'created' && value.length && !(newArr.includes(key))) {
+        //console.log(value);
+        newArr.push([key, value]);
+        //newArr.push(key);
+      }
+      return newArr;
+    }, []);
+
+    console.log(newArr);
+};
+
   const filterNewArrFromApi = (arrFromApi, keyNameId, listArrData) => {
     let arrUniqueId = [];
     let newArr = [];
@@ -155,6 +180,11 @@ function App() {
     localStorage.setItem('app-theme', theme);
     document.documentElement.setAttribute('app-theme', theme);
   }, [theme]);
+
+  React.useEffect(() => {
+    //handlerValueSearchData(searchData);
+    console.log(reqParamSearch);
+  }, [searchData.name, searchData.authorId, searchData.locationId]);
 
   return (
     <>
