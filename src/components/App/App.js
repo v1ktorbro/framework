@@ -22,10 +22,39 @@ function App() {
   
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
+    handlerSetReqParamSearch(keyName, value);
+  };
+
+  const handlerSetReqParamSearch = (keyName, value) => {
     if (keyName != 'created') {
       value.length ? setReqParamSearch([...reqParamSearch, keyName]) : setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
     }
   };
+
+
+  const handlerValueSearchData = (value) => {
+    console.log(reqParamSearch, reqParamSearch.length);
+    if (reqParamSearch.length == 1) {
+      //console.log('а вот и единица!');
+      switch (reqParamSearch[0]) {
+        case 'name':
+          console.log('а вот и name упал!');
+          break;
+          case 'authorId': 
+          console.log('а вот и authorId упал!');
+          break;
+          case 'locationId':
+          console.log('а вот и locationId упал!');
+          break;
+        default:
+          //set initialData();
+          break;
+      }
+    }
+    /* reqParamSearch.length && reqParamSearch.reduce((prevValue, currentValue) => {
+      console.log(`prevValue: ${prevValue}`, `currentValue: ${currentValue}`);
+    }); */
+};
 
   const getDataFromApi = () => {
     api.getAllData().then((res) => {
@@ -121,21 +150,6 @@ function App() {
     }
   };
 
-  const handlerValueSearchData = () => {
-    const arr = Object.entries(searchData);
-
-    const newArr = arr.reduce((newArr, [key, value]) => {
-      if (key != 'created' && value.length && !(newArr.includes(key))) {
-        //console.log(value);
-        newArr.push([key, value]);
-        //newArr.push(key);
-      }
-      return newArr;
-    }, []);
-
-    console.log(newArr);
-};
-
   const filterNewArrFromApi = (arrFromApi, keyNameId, listArrData) => {
     let arrUniqueId = [];
     let newArr = [];
@@ -176,8 +190,7 @@ function App() {
   }, [theme]);
 
   React.useEffect(() => {
-    //handlerValueSearchData(searchData);
-    console.log(reqParamSearch);
+    handlerValueSearchData();
   }, [searchData.name, searchData.authorId, searchData.locationId]);
 
   return (
