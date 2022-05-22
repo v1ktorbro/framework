@@ -22,15 +22,9 @@ function App() {
   
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
-    //if ((keyName != 'created') && (value.length)) 
-    if (keyName != 'created' && value.length) {
-      setReqParamSearch([...reqParamSearch, keyName]);
-    } else {
-      reqParamSearch.length && setReqParamSearch(reqParamSearch.pop());
-      //console.log('suck!', reqParamSearch.pop());
+    if (keyName != 'created') {
+      value.length ? setReqParamSearch([...reqParamSearch, keyName]) : setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
     }
-    //console.log(reqParamSearch.pop());
-    //keyName != 'created' && setReqParamSearch([...reqParamSearch, keyName]);
   };
 
   const getDataFromApi = () => {
