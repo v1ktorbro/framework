@@ -33,27 +33,50 @@ function App() {
 
 
   const handlerValueSearchData = (value) => {
-    console.log(reqParamSearch, reqParamSearch.length);
-    if (reqParamSearch.length == 1) {
-      //console.log('а вот и единица!');
-      switch (reqParamSearch[0]) {
-        case 'name':
-          console.log('а вот и name упал!');
-          break;
-          case 'authorId': 
-          console.log('а вот и authorId упал!');
-          break;
+    for (let i = 1; i <= reqParamSearch.length; i++) {
+      const currentReq = reqParamSearch[i - 1];
+      console.log(currentReq, i);
+      if (i == 1) {
+        switch (currentReq) {
+          case 'name':
+            api.searchPictureByName(searchData.name).then((res) => {
+              setListPaintings(res);
+              setListAuthors(filterNewArrFromApi(res, 'authorId', db.authors));
+              setListLocations(filterNewArrFromApi(res, 'locationId', db.locations));
+            }).catch((err) => {
+              return console.log(`Ошибка при получении данных поиска картики:`, err);
+            });
+            break;
+          case 'authorId':
+            api.searchByAthorId(searchData.authorId).then((res) => {
+              setListPaintings(res);
+              setListLocations(filterNewArrFromApi(res, 'locationId', db.locations));
+              setListAuthors(db.authors);
+            }).catch((err) => {
+              return console.log(`Ошибка при поиске карточек по идентификатору автора:`, err);
+            });
+            break;
           case 'locationId':
-          console.log('а вот и locationId упал!');
-          break;
-        default:
-          //set initialData();
-          break;
+            api.searchByLocationId(searchData.locationId).then((res) => {
+              setListPaintings(res);
+              setListAuthors(filterNewArrFromApi(res, 'authorId', db.authors));
+              setListLocations(db.locations);
+            }).catch((err) => {
+              return console.log(`Ошибка при поиске карточек по идентификатору локации:`, err);
+            });
+            break;/* 
+          default:
+            console.log('сюды епта');
+            setInitialData();
+            break; */
+        }
       }
+      else if (i > 1) {
+        reqParamSearch.length && reqParamSearch.reduce((prevValue, currentValue) => {
+          console.log(`prevValue: ${prevValue}`, `currentValue: ${currentValue}`);
+        });
+      } else console.log('i не равен ничему')
     }
-    /* reqParamSearch.length && reqParamSearch.reduce((prevValue, currentValue) => {
-      console.log(`prevValue: ${prevValue}`, `currentValue: ${currentValue}`);
-    }); */
 };
 
   const getDataFromApi = () => {
@@ -68,6 +91,7 @@ function App() {
   };
 
   const setInitialData = () => {
+    console.log('сюды епта2222');
     setListPaintings(db.paintings);
     setListAuthors(db.authors);
     setListLocations(db.locations);
@@ -82,7 +106,7 @@ function App() {
       } else { 
         searchByAthorId(searchData.authorId);
       }
-    } else if (namePicture.length) {
+    } /* else if (namePicture.length) {
         api.searchPictureByName(namePicture).then((res) => {
           setListPaintings(res);
           setListAuthors(filterNewArrFromApi(res, 'authorId', db.authors));
@@ -92,7 +116,7 @@ function App() {
         });
     } else {
       setInitialData();
-    }
+    } */
   };
 
   const searchByAthorId = (authorId) => {
@@ -113,7 +137,7 @@ function App() {
         } else {
           searchByLocationId(searchData.locationId);
         }
-    } else if (authorId.length) {
+    } /* else if (authorId.length) {
         api.searchByAthorId(authorId).then((res) => {
           setListPaintings(res);
           setListLocations(filterNewArrFromApi(res, 'locationId', db.locations));
@@ -123,7 +147,7 @@ function App() {
         });
     } else {
       setInitialData();
-    }
+    } */
   };
   
 
@@ -137,7 +161,7 @@ function App() {
       } else {
         searchByAthorId(searchData.authorId);
       }
-    } else if (locationId.length) {
+    } /* else if (locationId.length) {
         api.searchByLocationId(locationId).then((res) => {
           setListPaintings(res);
           setListAuthors(filterNewArrFromApi(res, 'authorId', db.authors));
@@ -147,7 +171,7 @@ function App() {
         });
     } else {
       setInitialData();
-    }
+    } */
   };
 
   const filterNewArrFromApi = (arrFromApi, keyNameId, listArrData) => {
@@ -191,7 +215,7 @@ function App() {
 
   React.useEffect(() => {
     handlerValueSearchData();
-  }, [searchData.name, searchData.authorId, searchData.locationId]);
+  }, [reqParamSearch]);
 
   return (
     <>
