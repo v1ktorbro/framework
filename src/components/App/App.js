@@ -99,27 +99,35 @@ function App() {
   };
 
   const searchByTwoParameters = (firstParam, secondParam) => {
-    //console.log(firstParam);
     switch (firstParam) {
       case 'name':
-        console.log(`Первый параметр firstParam - ${firstParam}, а второй: ${secondParam}`);
+        if (secondParam == 'authorId') {
+          const newListPaintings = listPaintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
+          setListPaintings(newListPaintings);
+          setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+        }
+        if (secondParam == 'locationId') {
+          const newListPaintings = listPaintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
+          setListPaintings(newListPaintings);
+          setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+          setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+        }
         break;
       case 'authorId':
         if (secondParam == 'name') {
-          const newListPaintings = listPaintings.filter((paint) => paint[firstParam] == searchData[firstParam] && paint[secondParam] == searchData[secondParam]);
+          const newListPaintings = listPaintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
           setListPaintings(newListPaintings);
           setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
           setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
         }
         if (secondParam == 'locationId') {
-          const newListPaintings = db.paintings.filter((paint) => paint[firstParam] == searchData[firstParam] && paint[secondParam] == searchData[secondParam]);
-          const newListAuthors = db.paintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
+          const newListPaintings = db.paintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
+          //const newListAuthors = db.paintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
           setListPaintings(newListPaintings);
-          setListAuthors(filterNewArrFromApi(newListAuthors, 'authorId', db.authors));
+          setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
         }
         break;
       case 'locationId':
-        console.log(`Первый параметр firstParam - ${firstParam}, а второй: ${secondParam}`);
         break;
     }
   };
