@@ -43,7 +43,6 @@ function App() {
   };
 
   const setInitialData = () => {
-    console.log('сюды епта2222');
     setListPaintings(db.paintings);
     setListAuthors(db.authors);
     setListLocations(db.locations);
@@ -77,20 +76,16 @@ function App() {
         }).catch((err) => {
           return console.log(`Ошибка при поиске карточек по идентификатору локации:`, err);
         });
-        break;/* 
-      default:
-        console.log('сюды епта');
-        setInitialData();
-        break; */
+        break;
     }
   };
 
 
-  const handlerValueSearchData = (value) => {
+  const handlerValueSearchData = () => {
     if (reqParamSearch.length == 1) {
       searchByOneParametr(reqParamSearch[0]);
     } else if (reqParamSearch.length == 2) {
-      reqParamSearch.reduce((prevValue, currentValue, index) => {
+      reqParamSearch.reduce((prevValue, currentValue) => {
         searchByTwoParameters(prevValue, currentValue);
       });
     }
@@ -143,55 +138,6 @@ function App() {
     }
   };
 
-  const searchByNamePicture = (namePicture) => {
-    if (searchData.authorId.length) {
-      //console.log('И ТУТА!!!222');
-      /* const newListPaintings = listPaintings.filter((paint) => paint.name == namePicture);
-      if (newListPaintings.length) {
-        setListPaintings(newListPaintings);
-        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
-      } else { 
-        searchByAthorId(searchData.authorId);
-      } */
-    }
-  };
-
-  const searchByAthorId = (authorId) => {
-    if (searchData.name.length) {
-      console.log('И ТУТА!!!');
-      const newListPaintings = listPaintings.filter((paint) => paint.authorId == authorId);
-      if (newListPaintings.length) {
-        setListPaintings(newListPaintings);
-        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
-      } else {
-        searchByNamePicture(searchData.name);
-      }
-    } else if (searchData.locationId.length) {
-        if (authorId.length) {
-          const newListPaintings = listPaintings.filter((paint) => paint.locationId == searchData.locationId && paint.authorId == authorId);
-          const newListLocation = db.paintings.filter((paint) => paint.authorId == searchData.authorId);
-          setListPaintings(newListPaintings);
-          setListLocations(filterNewArrFromApi(newListLocation, 'locationId', db.locations));
-        } else {
-          searchByLocationId(searchData.locationId);
-        }
-    }
-  };
-  
-
-  const searchByLocationId = (locationId) => {
-    if (searchData.authorId.length) {
-      if (locationId.length) {
-        const newListPaintings = db.paintings.filter((paint) => paint.locationId == locationId && paint.authorId == searchData.authorId);
-        const newListAuthors = db.paintings.filter((paint) => paint.locationId == searchData.locationId);
-        setListPaintings(newListPaintings);
-        setListAuthors(filterNewArrFromApi(newListAuthors, 'authorId', db.authors));
-      } else {
-        searchByAthorId(searchData.authorId);
-      }
-    } 
-  };
-
   const filterNewArrFromApi = (arrFromApi, keyNameId, listArrData) => {
     let arrUniqueId = [];
     let newArr = [];
@@ -209,18 +155,6 @@ function App() {
     arrUniqueId.forEach((id) => newArr.push(listArrData[id - 1]));
     return newArr;
   };
-
- /*  React.useEffect(() => {
-    Object.keys(db).length && searchByNamePicture(searchData.name);
-  }, [searchData.name]);
-
-  React.useEffect(() => {
-    Object.keys(db).length && searchByAthorId(searchData.authorId);
-  }, [searchData.authorId]);
-
-  React.useEffect(() => {
-    Object.keys(db).length && searchByLocationId(searchData.locationId);
-  }, [searchData.locationId]); */
 
   React.useEffect(() => {
     getDataFromApi();
