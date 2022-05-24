@@ -31,21 +31,19 @@ function App() {
     }
   };
 
-  const getDataFromApi = () => {
+  const getInitialData = () => {
     api.getAllData().then((res) => {
       setDb(res);
-      setListPaintings(res.paintings);
-      setListAuthors(res.authors);
-      setListLocations(res.locations);
+      setInitialData(res);
     }).catch((err) => {
       return console.log('Ошибка при получении данных с сервера:', err);
     });
   };
 
-  const setInitialData = () => {
-    setListPaintings(db.paintings);
-    setListAuthors(db.authors);
-    setListLocations(db.locations);
+  const setInitialData = (initialDataBase) => {
+    setListPaintings(initialDataBase.paintings);
+    setListAuthors(initialDataBase.authors);
+    setListLocations(initialDataBase.locations);
   };
 
   const searchByOneParametr = (valueField) => {
@@ -72,12 +70,14 @@ function App() {
 
 
   const handlerValueSearchData = () => {
-    if (reqParamSearch.length == 1) {
-      searchByOneParametr(reqParamSearch[0]);
+    if (!reqParamSearch.length) {
+      Object.keys(db).length && setInitialData(db);
+    } else if (reqParamSearch.length == 1) {
+        searchByOneParametr(reqParamSearch[0]);
     } else if (reqParamSearch.length == 2) {
-      reqParamSearch.reduce((prevValue, currentValue) => {
-        searchByTwoParameters(prevValue, currentValue);
-      });
+        reqParamSearch.reduce((prevValue, currentValue) => {
+          searchByTwoParameters(prevValue, currentValue);
+        });
     }
   };
 
@@ -147,8 +147,8 @@ function App() {
   };
 
   React.useEffect(() => {
-    getDataFromApi();
-  }, []);
+    handlerValueSearchData();
+  }, [reqParamSearch]);
 
   React.useEffect(() => {
     localStorage.setItem('app-theme', theme);
@@ -156,8 +156,8 @@ function App() {
   }, [theme]);
 
   React.useEffect(() => {
-    handlerValueSearchData();
-  }, [reqParamSearch]);
+    getInitialData();
+  }, []);
 
   return (
     <>
