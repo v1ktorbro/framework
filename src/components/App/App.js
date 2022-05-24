@@ -49,33 +49,23 @@ function App() {
   };
 
   const searchByOneParametr = (valueField) => {
+    const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
+    let newListPaintings = newList(db.paintings, valueField);
     switch (valueField) {
       case 'name':
-        api.searchPictureByName(searchData.name).then((res) => {
-          setListPaintings(res);
-          setListAuthors(filterNewArrFromApi(res, 'authorId', db.authors));
-          setListLocations(filterNewArrFromApi(res, 'locationId', db.locations));
-        }).catch((err) => {
-          return console.log(`Ошибка при получении данных поиска картики:`, err);
-        });
+        setListPaintings(newListPaintings);
+        setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
         break;
       case 'authorId':
-        api.searchByAthorId(searchData.authorId).then((res) => {
-          setListPaintings(res);
-          setListLocations(filterNewArrFromApi(res, 'locationId', db.locations));
-          setListAuthors(db.authors);
-        }).catch((err) => {
-          return console.log(`Ошибка при поиске карточек по идентификатору автора:`, err);
-        });
+        setListPaintings(newListPaintings);
+        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+        setListAuthors(db.authors);
         break;
       case 'locationId':
-        api.searchByLocationId(searchData.locationId).then((res) => {
-          setListPaintings(res);
-          setListAuthors(filterNewArrFromApi(res, 'authorId', db.authors));
-          setListLocations(db.locations);
-        }).catch((err) => {
-          return console.log(`Ошибка при поиске карточек по идентификатору локации:`, err);
-        });
+        setListPaintings(newListPaintings);
+        setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+        setListLocations(db.locations);
         break;
     }
   };
