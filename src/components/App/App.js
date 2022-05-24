@@ -92,9 +92,7 @@ function App() {
     } else if (reqParamSearch.length == 2) {
       reqParamSearch.reduce((prevValue, currentValue, index) => {
         searchByTwoParameters(prevValue, currentValue);
-        console.log(`prevValue: ${prevValue}`, `currentValue: ${currentValue}, index: ${index}`);
-      }, );
-
+      });
     }
   };
 
@@ -122,12 +120,25 @@ function App() {
         }
         if (secondParam == 'locationId') {
           const newListPaintings = db.paintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
-          //const newListAuthors = db.paintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
           setListPaintings(newListPaintings);
           setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
         }
         break;
       case 'locationId':
+        if (secondParam == 'name') {
+          const newListPaintings = listPaintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
+          setListPaintings(newListPaintings);
+          setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+          setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+        }
+        if (secondParam == 'authorId') {
+          const newListPaintings = listPaintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
+          setListPaintings(newListPaintings);
+          const newListLocation = db.paintings.filter((paint) => paint[secondParam] == searchData[secondParam]);
+          setListLocations(filterNewArrFromApi(newListLocation, 'locationId', db.locations));
+          const newListAuthors= db.paintings.filter((paint) => paint[firstParam] == searchData[firstParam]);
+          setListAuthors(filterNewArrFromApi(newListAuthors, 'authorId', db.authors));
+        }
         break;
     }
   };
