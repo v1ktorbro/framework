@@ -48,7 +48,7 @@ function App() {
 
   const searchByOneParametr = (valueField) => {
     const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
-    let newListPaintings = newList(db.paintings, valueField);
+    const newListPaintings = newList(db.paintings, valueField);
     switch (valueField) {
       case 'name':
         setListPaintings(newListPaintings);
@@ -78,6 +78,13 @@ function App() {
         reqParamSearch.reduce((prevValue, currentValue) => {
           searchByTwoParameters(prevValue, currentValue);
         });
+    } else if (reqParamSearch.length == 3) {
+      reqParamSearch.reduce((prevValue, currentValue) => {
+        if (currentValue == reqParamSearch[reqParamSearch.length - 1]) {
+          prevValue = reqParamSearch[reqParamSearch.length - 2];
+          searchByTwoParameters(prevValue, currentValue);
+        }
+      });
     }
   };
 
