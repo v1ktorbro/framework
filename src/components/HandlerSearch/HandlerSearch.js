@@ -1,17 +1,9 @@
 import React from 'react';
 
-function searchController (searchData, reqParamSearch, db, someFun) { 
-  //const handler = handlerSearch(searchData);
+function searchController (searchData, reqParamSearch, db, callBackReturnNewArrList) {
   const [listPaintings, setListPaintings] = React.useState([]);
   const [listAuthors, setListAuthors] = React.useState([]);
   const [listLocations, setListLocations] = React.useState([]);
-  //console.log(searchData, reqParamSearch, db);
-  //const [reqParamSearch, setReqParamSearch] = React.useState([]);
-
-  const onChange = (someFun) => {
-    //console.log('listPaintings', listPaintings);
-    someFun(listPaintings);
-  };
 
   const setInitialData = () => {
     setListPaintings(db.paintings);
@@ -129,16 +121,18 @@ function searchController (searchData, reqParamSearch, db, someFun) {
   }, [reqParamSearch]);
 
   React.useEffect(() => {
-    //handlerValueSearchData();
-  console.log('listPaintings',listPaintings);
-  //Object.keys(db).length && handlerValueSearchData();
-  //setListPaintings(listPaintings);
-  //setter();
-  someFun(listPaintings);
+  callBackReturnNewArrList(listPaintings, 'listPaintings');
   }, [listPaintings]);
 
+  React.useEffect(() => {
+  callBackReturnNewArrList(listAuthors, 'listAuthors');
+  }, [listAuthors]);
+
+  React.useEffect(() => {
+  callBackReturnNewArrList(listLocations, 'listLocations');
+  }, [listLocations]);
+
   return {
-    onChange,
     listPaintings,
     listAuthors,
     listLocations,
