@@ -1,6 +1,6 @@
 import React from 'react';
 
-function searchController (searchData, reqParamSearch, db, setter) { 
+function searchController (searchData, reqParamSearch, db, someFun) { 
   //const handler = handlerSearch(searchData);
   const [listPaintings, setListPaintings] = React.useState([]);
   const [listAuthors, setListAuthors] = React.useState([]);
@@ -130,9 +130,11 @@ function searchController (searchData, reqParamSearch, db, setter) {
 
   React.useEffect(() => {
     //handlerValueSearchData();
-  console.log(listPaintings);
+  console.log('listPaintings',listPaintings);
+  //Object.keys(db).length && handlerValueSearchData();
   //setListPaintings(listPaintings);
   //setter();
+  someFun(listPaintings);
   }, [listPaintings]);
 
   return {
