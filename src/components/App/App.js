@@ -4,6 +4,7 @@ import { CurrentThemeContext, defaultTheme } from '../../context/CurrentThemeCon
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import api from '../../utils/Api';
+import  searchController from '../HandlerSearch/HandlerSearch';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -19,6 +20,12 @@ function App() {
     created: {from: '', before: ''},
   });
   const [reqParamSearch, setReqParamSearch] = React.useState([]);
+  //searchController(searchData, reqParamSearch, db);
+  const useSearch = searchController(searchData, reqParamSearch, db, test1);
+
+  function test1(list) {
+    console.log('это test1', list);
+  }
   
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
@@ -29,6 +36,8 @@ function App() {
     if (keyName != 'created') {
       value.length ? setReqParamSearch([...reqParamSearch, keyName]) : setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
     }
+    //useSearch.setter(setListPaintings)
+    //console.log(useSearch.test(), 'cheeeeck');
   };
 
   const getInitialData = () => {
@@ -153,7 +162,14 @@ function App() {
   };
 
   React.useEffect(() => {
-    handlerValueSearchData();
+    //console.log(useSearch);
+    //useSearch.handlerValueSearchData(reqParamSearch);
+    const someFunc = (list) => {
+      console.log('проверяю тут', list);
+    };
+    console.log('кешкеш', useSearch.listPaintings);
+    //useSearch.onChange(someFunc);
+    //console.log('искомое тут', useSearch.listPaintings);
   }, [reqParamSearch]);
 
   React.useEffect(() => {
