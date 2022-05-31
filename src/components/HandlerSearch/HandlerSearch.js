@@ -58,10 +58,12 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   };
 
   const searchByTwoParameters = (firstValueField, secondValueField) => {
+    console.log(firstValueField, secondValueField);
     const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
     const newListPaintings = newList(listPaintings, secondValueField);
     const newListLocations = handlerUniqueValues(newListPaintings, 'locationId', db.locations);
     const newListAuthors = handlerUniqueValues(newListPaintings, 'authorId', db.authors);
+    const newListCreated = db.paintings.filter((itemList) => itemList.created >= searchData.created.from && itemList.created <= searchData.created.before);
     switch (firstValueField) {
       case 'name':
         if (secondValueField == 'authorId') {
@@ -84,6 +86,13 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
           const newListAuthors = handlerUniqueValues(newList(db.paintings, firstValueField), 'authorId', db.authors);
           setListPaintings(newListPaintings);
           setListAuthors(newListAuthors);
+        }
+        if (secondValueField == 'created') {
+          const newListAuthors = handlerUniqueValues(newListCreated, 'authorId', db.authors);
+          const newListLocations = handlerUniqueValues(newListCreated, 'locationId', db.locations);
+          setListPaintings(newListCreated.filter((item) => item[firstValueField] == searchData[firstValueField]));
+          setListAuthors(newListAuthors);
+          setListLocations(newListLocations);
         }
         break;
       case 'locationId':
