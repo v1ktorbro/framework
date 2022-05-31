@@ -5,7 +5,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   const [listAuthors, setListAuthors] = React.useState([]);
   const [listLocations, setListLocations] = React.useState([]);
 
-  const setInitialData = () => {
+  const setInitialData = (db) => {
     setListPaintings(db.paintings);
     setListAuthors(db.authors);
     setListLocations(db.locations);
@@ -94,10 +94,21 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
         }
         if (secondValueField == 'authorId') {
           const newListAuthors = handlerUniqueValues(newList(db.paintings, firstValueField), 'authorId', db.authors);
-          const newListLocation = handlerUniqueValues(newList(db.paintings, secondValueField), 'locationId', db.locations);
+          const newListLocations = handlerUniqueValues(newList(db.paintings, secondValueField), 'locationId', db.locations);
           setListPaintings(newListPaintings);
           setListAuthors(newListAuthors);
-          setListLocations(newListLocation);
+          setListLocations(newListLocations);
+        }
+        break;
+      case 'created': 
+        if (secondValueField == 'authorId') {
+          setListPaintings(newListPaintings);
+          setListAuthors(newListAuthors);
+          setListLocations(newListLocations);
+        }
+        if (secondValueField == 'locationId') {
+          setListPaintings(newListPaintings);
+          setListAuthors(newListAuthors);
         }
         break;
     }
@@ -105,7 +116,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
 
   const handlerValueSearchData = () => {
     if (!reqParamSearch.length) {
-      setInitialData();
+      setInitialData(db);
     } else if (reqParamSearch.length == 1) {
         searchByOneParametr(reqParamSearch[0]);
     } else if (reqParamSearch.length == 2) {
@@ -139,6 +150,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   }, [listLocations]);
 
   return {
+    setInitialData,
     listPaintings,
     listAuthors,
     listLocations,
