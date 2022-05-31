@@ -4,7 +4,7 @@ import { CurrentThemeContext, defaultTheme } from '../../context/CurrentThemeCon
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import api from '../../utils/Api';
-import  searchController from '../HandlerSearch/HandlerSearch';
+import searchController from '../HandlerSearch/HandlerSearch';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -22,7 +22,7 @@ function App() {
   const [reqParamSearch, setReqParamSearch] = React.useState([]);
   //при любом изменении значении полей данные кидаются в HandlerSearch
   //получение callBack с новым массивом происходит в getUpdatedListData
-  searchController(searchData, reqParamSearch, db, getUpdatedListData);
+  const useSearch =  searchController(searchData, reqParamSearch, db, getUpdatedListData);
   
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
@@ -32,22 +32,18 @@ function App() {
   const handlerSetReqParamSearch = (keyName, value) => {
     if (keyName != 'created') {
       value.length ? setReqParamSearch([...reqParamSearch, keyName]) : setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
+    } else {
+      value.from.length && value.before.length ? setReqParamSearch([...reqParamSearch, keyName]) : setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
     }
   };
 
   const getInitialData = () => {
     api.getAllData().then((res) => {
       setDb(res);
-      setInitialData(res);
+      useSearch.setInitialData(res);
     }).catch((err) => {
       return console.log('Ошибка при получении данных с сервера:', err);
     });
-  };
-
-  const setInitialData = (initialDataBase) => {
-    setListPaintings(initialDataBase.paintings);
-    setListAuthors(initialDataBase.authors);
-    setListLocations(initialDataBase.locations);
   };
 
   function getUpdatedListData(newListArr, nameList) {
