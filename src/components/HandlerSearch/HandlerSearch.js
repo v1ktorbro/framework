@@ -11,7 +11,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
     setListLocations(db.locations);
   };
 
-  const filterNewArrFromApi = (arrFromApi, keyNameId, listArrData) => {
+  const handlerUniqueValues = (arrFromApi, keyNameId, listArrData) => {
     let arrUniqueId = [];
     let newArr = [];
     const obj = {};
@@ -32,21 +32,27 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   const searchByOneParametr = (valueField) => {
     const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
     const newListPaintings = newList(db.paintings, valueField);
+    const newListCreated = db.paintings.filter((itemList) => itemList.created >= searchData.created.from && itemList.created <= searchData.created.before);
     switch (valueField) {
       case 'name':
         setListPaintings(newListPaintings);
-        setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
-        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+        setListAuthors(handlerUniqueValues(newListPaintings, 'authorId', db.authors));
+        setListLocations(handlerUniqueValues(newListPaintings, 'locationId', db.locations));
         break;
       case 'authorId':
         setListPaintings(newListPaintings);
-        setListLocations(filterNewArrFromApi(newListPaintings, 'locationId', db.locations));
+        setListLocations(handlerUniqueValues(newListPaintings, 'locationId', db.locations));
         setListAuthors(db.authors);
         break;
       case 'locationId':
         setListPaintings(newListPaintings);
-        setListAuthors(filterNewArrFromApi(newListPaintings, 'authorId', db.authors));
+        setListAuthors(handlerUniqueValues(newListPaintings, 'authorId', db.authors));
         setListLocations(db.locations);
+        break;
+      case 'created': 
+        setListPaintings(newListCreated);
+        setListAuthors(handlerUniqueValues(newListCreated, 'authorId', db.authors));
+        setListLocations(handlerUniqueValues(newListCreated, 'locationId', db.locations));
         break;
     }
   };
@@ -54,8 +60,8 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   const searchByTwoParameters = (firstValueField, secondValueField) => {
     const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
     const newListPaintings = newList(listPaintings, secondValueField);
-    const newListLocations = filterNewArrFromApi(newListPaintings, 'locationId', db.locations);
-    const newListAuthors = filterNewArrFromApi(newListPaintings, 'authorId', db.authors);
+    const newListLocations = handlerUniqueValues(newListPaintings, 'locationId', db.locations);
+    const newListAuthors = handlerUniqueValues(newListPaintings, 'authorId', db.authors);
     switch (firstValueField) {
       case 'name':
         if (secondValueField == 'authorId') {
@@ -75,7 +81,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
           setListLocations(newListLocations);
         }
         if (secondValueField == 'locationId') {
-          const newListAuthors = filterNewArrFromApi(newList(db.paintings, firstValueField), 'authorId', db.authors);
+          const newListAuthors = handlerUniqueValues(newList(db.paintings, firstValueField), 'authorId', db.authors);
           setListPaintings(newListPaintings);
           setListAuthors(newListAuthors);
         }
@@ -87,8 +93,8 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
           setListLocations(newListLocations);
         }
         if (secondValueField == 'authorId') {
-          const newListAuthors = filterNewArrFromApi(newList(db.paintings, firstValueField), 'authorId', db.authors);
-          const newListLocation = filterNewArrFromApi(newList(db.paintings, secondValueField), 'locationId', db.locations);
+          const newListAuthors = handlerUniqueValues(newList(db.paintings, firstValueField), 'authorId', db.authors);
+          const newListLocation = handlerUniqueValues(newList(db.paintings, secondValueField), 'locationId', db.locations);
           setListPaintings(newListPaintings);
           setListAuthors(newListAuthors);
           setListLocations(newListLocation);
