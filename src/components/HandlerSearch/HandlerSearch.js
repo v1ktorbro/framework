@@ -49,20 +49,22 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   const searchByOneParametr = (valueField) => {
     const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
     const newListPaintings = newList(db.paintings, valueField);
+    const newListAuthors = handlerUniqueValues(newListPaintings, 'authorId', db.authors);
+    const newListLocations = handlerUniqueValues(newListPaintings, 'locationId', db.locations);
     switch (valueField) {
       case 'name':
         setListPaintings(newListPaintings);
-        setListAuthors(handlerUniqueValues(newListPaintings, 'authorId', db.authors));
-        setListLocations(handlerUniqueValues(newListPaintings, 'locationId', db.locations));
+        setListAuthors(newListAuthors);
+        setListLocations(newListLocations);
         break;
       case 'authorId':
         setListPaintings(newListPaintings);
-        setListLocations(handlerUniqueValues(newListPaintings, 'locationId', db.locations));
+        setListLocations(newListLocations);
         setListAuthors(db.authors);
         break;
       case 'locationId':
         setListPaintings(newListPaintings);
-        setListAuthors(handlerUniqueValues(newListPaintings, 'authorId', db.authors));
+        setListAuthors(newListAuthors);
         setListLocations(db.locations);
         break;
       case 'created': 
