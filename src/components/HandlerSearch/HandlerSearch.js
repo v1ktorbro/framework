@@ -68,33 +68,36 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   };
 
   const searchByTwoParameters = (firstValueField, secondValueField) => {
-    console.log(firstValueField, secondValueField);
     const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
     const newListPaintings = newList(listPaintings, secondValueField);
     const newListLocations = handlerUniqueValues(newListPaintings, 'locationId', db.locations);
     const newListAuthors = handlerUniqueValues(newListPaintings, 'authorId', db.authors);
+
+    function setter(paints, authors, locations) {
+      paints !== undefined && setListPaintings(paints);
+      authors !== undefined && setListAuthors(authors);
+      locations !== undefined && setListLocations(locations);
+    }
+
     switch (firstValueField) {
       case 'name':
         if (secondValueField == 'authorId') {
-          setListPaintings(newListPaintings);
-          setListLocations(newListLocations);
+          /* setListPaintings(newListPaintings);
+          setListLocations(newListLocations); */
+          console.log('сюды');
         }
         if (secondValueField == 'locationId') {
-          setListPaintings(newListPaintings);
-          setListLocations(newListLocations);
-          setListAuthors(newListAuthors);
+          setter(newListPaintings, newListAuthors, newListLocations);
         }
         break;
       case 'authorId':
         if (secondValueField == 'name') {
-          setListPaintings(newListPaintings);
-          setListAuthors(newListAuthors);
-          setListLocations(newListLocations);
+          setter(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'locationId') {
           const newListAuthors = handlerUniqueValues(newList(db.paintings, firstValueField), 'authorId', db.authors);
-          setListPaintings(newListPaintings);
-          setListAuthors(newListAuthors);
+          const newListLocations = handlerUniqueValues(newList(db.paintings, firstValueField), 'locationId', db.locations);
+          setter(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'created') {
           arrSearchOnDate(firstValueField);
@@ -102,16 +105,12 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
         break;
       case 'locationId':
         if (secondValueField == 'name') {
-          setListPaintings(newListPaintings);
-          setListAuthors(newListAuthors);
-          setListLocations(newListLocations);
+          setter(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'authorId') {
           const newListAuthors = handlerUniqueValues(newList(db.paintings, firstValueField), 'authorId', db.authors);
           const newListLocations = handlerUniqueValues(newList(db.paintings, secondValueField), 'locationId', db.locations);
-          setListPaintings(newListPaintings);
-          setListAuthors(newListAuthors);
-          setListLocations(newListLocations);
+          setter(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'created') {
           arrSearchOnDate(firstValueField);
@@ -119,13 +118,10 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
         break;
       case 'created': 
         if (secondValueField == 'authorId') {
-          setListPaintings(newListPaintings);
-          setListAuthors(newListAuthors);
-          setListLocations(newListLocations);
+          setter(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'locationId') {
-          setListPaintings(newListPaintings);
-          setListAuthors(newListAuthors);
+          setter(newListPaintings, newListAuthors);
         }
         break;
     }
