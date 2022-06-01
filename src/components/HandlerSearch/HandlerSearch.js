@@ -32,18 +32,12 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   const arrSearchOnDate = (secondParamSearch) => {
     const isSearchOnlYByDate = reqParamSearch.length == 1 ? true : false;
     const newListPaintings = db.paintings.filter((itemList) => itemList.created >= searchData.created.from && itemList.created <= searchData.created.before);
-      if (isSearchOnlYByDate) {
-        setListPaintings(newListPaintings);
-        setListAuthors(handlerUniqueValues(newListPaintings, 'authorId', db.authors));
-        setListLocations(handlerUniqueValues(newListPaintings, 'locationId', db.locations));
-      } else {
-        const newListAuthors = handlerUniqueValues(newListPaintings, 'authorId', db.authors);
-        const newListLocations = handlerUniqueValues(newListPaintings, 'locationId', db.locations);
-        const newList = newListPaintings.filter((itemList) => itemList[secondParamSearch] == searchData[secondParamSearch])
-        setListPaintings(newList);
-        setListAuthors(newListAuthors);
-        setListLocations(newListLocations);
-      }
+    const handlerFilterNewList = (list, valueParam) => list.filter((itemList) => itemList[valueParam] == searchData[valueParam])
+    const newListAuthors = handlerUniqueValues(newListPaintings, 'authorId', db.authors);
+    const newListLocations = handlerUniqueValues(newListPaintings, 'locationId', db.locations);
+    setListAuthors(newListAuthors);
+    setListLocations(newListLocations);
+    isSearchOnlYByDate ? setListPaintings(newListPaintings) : setListPaintings(handlerFilterNewList(newListPaintings, secondParamSearch));
   };
 
   const searchByOneParametr = (valueField) => {
