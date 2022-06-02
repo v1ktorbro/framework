@@ -1,14 +1,26 @@
 import React from 'react';
 
-function searchController (searchData, reqParamSearch, db, callBackReturnNewArrList) {
+function searchController (searchData, db, callBackReturnNewArrList) {
   const [listPaintings, setListPaintings] = React.useState([]);
   const [listAuthors, setListAuthors] = React.useState([]);
   const [listLocations, setListLocations] = React.useState([]);
+  const [reqParamSearch, setReqParamSearch] = React.useState([]);
 
   const setInitialData = (db) => {
     setListPaintings(db.paintings);
     setListAuthors(db.authors);
     setListLocations(db.locations);
+  };
+
+  const handlerReqParamSearch = (keyName, value) => {
+    const dublikateKey = reqParamSearch.some((item) => item == keyName);
+    const addParamSearch = () => !dublikateKey && setReqParamSearch([...reqParamSearch, keyName]);
+    const removeEmptyParam = () => setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
+    if (keyName == 'created') {
+      value.from.length && value.before.length ? addParamSearch() : removeEmptyParam();
+    } else {
+      value.length ? addParamSearch() : removeEmptyParam();
+    }
   };
 
   //сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
@@ -129,7 +141,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
 
   React.useEffect(() => {
     Object.keys(db).length && handlerSearch();
-  }, [reqParamSearch]);
+  }, [searchData]);
 
   React.useEffect(() => {
   callBackReturnNewArrList(listPaintings, 'listPaintings');
@@ -145,6 +157,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
 
   return {
     setInitialData,
+    handlerReqParamSearch,
   };
 }
 
