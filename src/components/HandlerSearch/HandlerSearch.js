@@ -11,12 +11,14 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
     setListLocations(db.locations);
   };
 
-  const handlerUniqueValues = (arrFromApi, keyNameId, listArrData) => {
+  //сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
+  //на выходе список с уникальными ключами
+  const handlerUniqueValues = (arrWithNewPaints, keyNameId, arrBeingCompared) => {
     let arrUniqueId = [];
     let newArr = [];
     const obj = {};
-    for (let i = 0; i < arrFromApi.length; i++) {
-      const currentEl = arrFromApi[i][keyNameId];
+    for (let i = 0; i < arrWithNewPaints.length; i++) {
+      const currentEl = arrWithNewPaints[i][keyNameId];
       if (!(currentEl in obj)) {
         obj[currentEl] = 1;
       } else {
@@ -25,7 +27,7 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
     }
     const keys = Object.keys(obj);
     keys.forEach((key) => arrUniqueId.push(key));
-    arrUniqueId.forEach((id) => newArr.push(listArrData[id - 1]));
+    arrUniqueId.forEach((id) => newArr.push(arrBeingCompared[id - 1]));
     return newArr;
   };
 
@@ -39,17 +41,18 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
   const newUniqAuthorList = (listPaints) => handlerUniqueValues(listPaints, 'authorId', db.authors); 
   const newUniqLocationsList = (listPaints) => handlerUniqueValues(listPaints, 'locationId', db.locations); 
 
+  //фильтрация по времени
   const arrSearchOnDate = (secondParamSearch) => {
-    const isSearchOnlYByDate = reqParamSearch.length == 1 ? true : false;
+    const isSearchOnlyByDate = reqParamSearch.length == 1 ? true : false;
     const newListPaintings = db.paintings.filter((itemList) => itemList.created >= searchData.created.from && itemList.created <= searchData.created.before);
     const newListAuthors = newUniqAuthorList(newListPaintings);
     const newListLocations = newUniqLocationsList(newListPaintings);
-    isSearchOnlYByDate ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, secondParamSearch));
+    isSearchOnlyByDate ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, secondParamSearch));
     setListAuthors(newListAuthors);
     setListLocations(newListLocations);
   };
 
-  const searchByTwoParameters = (firstValueField, secondValueField) => {
+  const requestHandler = (firstValueField, secondValueField) => {
     //если второго поля нет, то новый список будет отфильтрован по db.paintings
     const newListPaintings = secondValueField == undefined ? newList(db.paintings, firstValueField) : newList(listPaintings, secondValueField);
     const newListAuthors = newUniqAuthorList(newListPaintings);
@@ -108,27 +111,24 @@ function searchController (searchData, reqParamSearch, db, callBackReturnNewArrL
     }
   };
 
-  const handlerValueSearchData = () => {
-    if (!reqParamSearch.length) {
-      setInitialData(db);
-    } else if (reqParamSearch.length == 1) {
-        searchByTwoParameters(reqParamSearch[0]);
-    } else if (reqParamSearch.length == 2) {
-        reqParamSearch.reduce((prevValue, currentValue) => {
-          searchByTwoParameters(prevValue, currentValue);
-        });
-    } else if (reqParamSearch.length == 3) {
+  const handlerSearch = () => {
+    const reducerSeveralParam = () => {
       reqParamSearch.reduce((prevValue, currentValue) => {
         if (currentValue == reqParamSearch[reqParamSearch.length - 1]) {
           prevValue = reqParamSearch[reqParamSearch.length - 2];
-          searchByTwoParameters(prevValue, currentValue);
+          requestHandler(prevValue, currentValue);
         }
       });
-    }
+    };
+
+    reqParamSearch.length == 0 && setInitialData(db);
+    reqParamSearch.length == 1 && requestHandler(reqParamSearch[0]);
+    reqParamSearch.length > 1 && reducerSeveralParam();
+    
   };
 
   React.useEffect(() => {
-    Object.keys(db).length && handlerValueSearchData();
+    Object.keys(db).length && handlerSearch();
   }, [reqParamSearch]);
 
   React.useEffect(() => {
