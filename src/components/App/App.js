@@ -19,22 +19,14 @@ function App() {
     locationId: '',
     created: {from: '', before: ''},
   });
-  const [reqParamSearch, setReqParamSearch] = React.useState([]);
-  //при любом изменении значении полей данные кидаются в HandlerSearch
+  //при любом изменении значении полей данные кидаются в searchController
+  //при помощи метода handlerReqParamSearch, который исполняется в handlerSetValueParamSearch
   //получение callBack с новым массивом происходит в getUpdatedListData
-  const useSearch =  searchController(searchData, reqParamSearch, db, getUpdatedListData);
+  const useSearch =  searchController(searchData, db, getUpdatedListData);
   
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
-    handlerSetReqParamSearch(keyName, value);
-  };
-
-  const handlerSetReqParamSearch = (keyName, value) => {
-    if (keyName != 'created') {
-      value.length ? setReqParamSearch([...reqParamSearch, keyName]) : setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
-    } else {
-      value.from.length && value.before.length ? setReqParamSearch([...reqParamSearch, keyName]) : setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
-    }
+    useSearch.handlerReqParamSearch(keyName, value);
   };
 
   const getInitialData = () => {
