@@ -5,6 +5,10 @@ function searchController (searchData, db, callBackReturnNewArrList) {
   const [listAuthors, setListAuthors] = React.useState([]);
   const [listLocations, setListLocations] = React.useState([]);
   const [reqParamSearch, setReqParamSearch] = React.useState([]);
+  const [isDuplicateReqParamSearch, setIsDuplicateReqParamSearch] = React.useState(false);
+  const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
+  const newUniqAuthorList = (listPaints) => handlerUniqueValues(listPaints, 'authorId', db.authors); 
+  const newUniqLocationsList = (listPaints) => handlerUniqueValues(listPaints, 'locationId', db.locations); 
 
   const setInitialData = (db) => {
     setListPaintings(db.paintings);
@@ -14,6 +18,7 @@ function searchController (searchData, db, callBackReturnNewArrList) {
 
   const handlerReqParamSearch = (keyName, value) => {
     const dublikateKey = reqParamSearch.some((item) => item == keyName);
+    setIsDuplicateReqParamSearch(dublikateKey);
     const addParamSearch = () => !dublikateKey && setReqParamSearch([...reqParamSearch, keyName]);
     const removeEmptyParam = () => setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
     if (keyName == 'created') {
@@ -49,10 +54,6 @@ function searchController (searchData, db, callBackReturnNewArrList) {
     locations !== undefined && setListLocations(locations);
   }
 
-  const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
-  const newUniqAuthorList = (listPaints) => handlerUniqueValues(listPaints, 'authorId', db.authors); 
-  const newUniqLocationsList = (listPaints) => handlerUniqueValues(listPaints, 'locationId', db.locations); 
-
   //фильтрация по времени
   const arrSearchOnDate = (secondParamSearch) => {
     const isSearchOnlyByDate = reqParamSearch.length == 1 ? true : false;
@@ -65,8 +66,21 @@ function searchController (searchData, db, callBackReturnNewArrList) {
   };
 
   const requestHandler = (firstValueField, secondValueField) => {
-    //если второго поля нет, то новый список будет отфильтрован по db.paintings
-    const newListPaintings = secondValueField == undefined ? newList(db.paintings, firstValueField) : newList(listPaintings, secondValueField);
+    const isSecondValueFieldEmpty = (secondValueField == undefined) ? true : false;
+    const newListPaintingsOnFirstField = newList(db.paintings, firstValueField);
+    const newListNextParamSearch = newList(listPaintings, secondValueField);
+    const handlerListPaintings = () => {
+      //если второго поля нет, то новый список будет отфильтрован по первому одному параметру
+      if (isSecondValueFieldEmpty) {
+        return newListPaintingsOnFirstField;
+      } else {
+        const newListPaintings = newList(newListPaintingsOnFirstField, secondValueField);
+        //если у нас дубликат ключа, то проходимся по всем картинкам, сначала ищем по первому полю и по второму
+        //иначе просто проходимся по массиву картинок, что осталось после предыдущего ключа
+        return isDuplicateReqParamSearch ? newListPaintings : newListNextParamSearch;
+      }
+    };
+    const newListPaintings =  handlerListPaintings();
     const newListAuthors = newUniqAuthorList(newListPaintings);
     const newListLocations = newUniqLocationsList(newListPaintings);
 
@@ -126,6 +140,9 @@ function searchController (searchData, db, callBackReturnNewArrList) {
   const handlerSearch = () => {
     const reducerSeveralParam = () => {
       reqParamSearch.reduce((prevValue, currentValue) => {
+        //если первый элмент массива равен последнему в списке запросов
+        //то prevValue пусть равен предпоследнему элементу
+        //а currentValue крайнему
         if (currentValue == reqParamSearch[reqParamSearch.length - 1]) {
           prevValue = reqParamSearch[reqParamSearch.length - 2];
           requestHandler(prevValue, currentValue);
