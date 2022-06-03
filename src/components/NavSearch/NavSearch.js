@@ -3,34 +3,35 @@ import SearchByString from '../SearchByString/SearchByString';
 import FilterSelectListItem from '../FilterSelectListItem/FilterSelectListItem';
 import FilterSelectTimeInterval from '../FilterSelectTimeInterval/FilterSelectTimeInterval';
 
-function NavSearch({ theme, data, handlerSetValueParamSearch }) {
+function NavSearch({ handlerSetValueParamSearch, listPaintings,
+  listAuthors, listLocations }) {
+  
   return (
-    <section className={`nav-search nav-search_${theme}`}>
+    <section className='nav-search'>
       <SearchByString 
-        theme={theme}
-        data={data}
+        data={listPaintings}
+        keyNameForListData='name'
         nameFilter='Name'
         handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
       <FilterSelectListItem 
-        theme={theme}
-        data={data}
+        data={listAuthors}
+        keyNameForListData='name'
         nameFilter='Author'
         handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
       <FilterSelectListItem 
-        theme={theme}
-        data={data}
+        data={listLocations}
+        keyNameForListData='location'
         nameFilter='Location'
         handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
       <FilterSelectTimeInterval 
-        theme={theme}
         nameFilter='Created'
         handlerSetValueParamSearch={handlerSetValueParamSearch}
       />
     </section>
-  )
+  );
 }
 
 export default NavSearch;

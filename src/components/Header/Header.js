@@ -3,12 +3,11 @@ import React from 'react';
 import logo from '../../images/logo.svg';
 import BtnSwitchTheme from '../BtnSwitchTheme/BtnSwitchTheme';
 
-function Header ({ theme, setTheme }) {
+function Header ({ setTheme }) {
   return (
-    <header className={`header header_theme-${theme}`}>
+    <header className='header'>
       <img className='header__logo' src={logo} />
       <BtnSwitchTheme 
-        theme={theme}
         setTheme={setTheme}
       />
     </header>

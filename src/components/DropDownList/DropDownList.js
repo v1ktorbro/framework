@@ -1,21 +1,25 @@
 import './DropDownList.css';
+import React from 'react';
+import { CurrentThemeContext } from '../../context/CurrentThemeContext';
 
-function DropDownList({ theme, data, isOpen, onClickSelectItem, isFocus }) {
+function DropDownList({ data, keyNameForListData, isOpen, onClickSelectItem, isFocus }) {
+  const theme = React.useContext(CurrentThemeContext);
+  
   return (
     <ul 
       className={`drop-down-list drop-down-list_${theme} ${isOpen ? 'drop-down-list_open' : 'drop-down-list_close'} ${isFocus ? 'drop-down-list_focus' : ''}`}
     >
-    {data.map((comment, index) => {
+    {data.map((item) => {
       return (
         <li 
-          key={comment.id}
-          id={comment.id}
+          key={item.id}
+          id={item.id}
           className='drop-down-list__item'
           onMouseDown={(evt) => onClickSelectItem(evt)}
         >
             <span 
               className='drop-down-list__text-item'
-            >{comment.author}</span>
+            >{item[keyNameForListData]}</span>
         </li>
       );
     })}
