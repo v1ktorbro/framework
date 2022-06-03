@@ -39,17 +39,9 @@ function App() {
   };
 
   function getUpdatedListData(newListArr, nameList) {
-    switch (nameList) {
-      case 'listPaintings':
-        setListPaintings(newListArr);
-        break;
-      case 'listAuthors':
-        setListAuthors(newListArr);
-        break;
-      case 'listLocations':
-        setListLocations(newListArr);
-        break;
-    }
+    nameList == 'listPaintings' && setListPaintings(newListArr);
+    nameList == 'listAuthors' && setListAuthors(newListArr);
+    nameList == 'listLocations' && setListLocations(newListArr);
   }
 
   React.useEffect(() => {
