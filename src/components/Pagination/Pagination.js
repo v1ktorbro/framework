@@ -7,7 +7,9 @@ function Pagination() {
 
   return (
     <ul className={`pagination pagination_theme-${theme}`}>
-      {[...Array(7)].map((elem, index) => {
+    <button type='button' className={`pagination__btn pagination__btn-duble-arrow pagination__btn-duble-arrow_theme_${theme} pagination__btn-duble-arrow_prev`} />
+    <button type='button' className={`pagination__btn pagination__btn-single-arrow pagination__btn-single-arrow_theme_${theme} pagination__btn-single-arrow_prev`} />
+      {[...Array(3)].map((elem, index) => {
         return (
           <li 
             className='pagination__item pagination__item_active'
@@ -16,6 +18,8 @@ function Pagination() {
           </li>
         );
       })}
+    <button type='button' className={`pagination__btn pagination__btn-single-arrow pagination__btn-single-arrow_theme_${theme} pagination__btn-single-arrow_next`} />
+    <button type='button' className={`pagination__btn pagination__btn-duble-arrow pagination__btn-duble-arrow_theme_${theme} pagination__btn-duble-arrow_next`} />
     </ul>
   );
 }
