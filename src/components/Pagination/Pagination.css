@@ -9,6 +9,54 @@
   border-radius: 4px;
 }
 
+.pagination__btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 14px 13px contain;
+  background-position: center;
+  display: flex;
+  align-self: center;
+  width: 41px;
+  height: 100%;
+}
+
+.pagination__btn-duble-arrow_prev {
+  transform: rotate(-180deg);
+  border-left: 1px solid #fff;
+}
+
+.pagination__btn-duble-arrow_next {
+  border-left: 1px solid #fff;
+}
+
+.pagination__btn-duble-arrow_theme_day {
+  background-image: url('../../images/btn_duble_arrow_theme_day.svg');
+
+}
+
+.pagination__btn-duble-arrow_theme_naight {
+  background-image: url('../../images/btn_duble_arrow_theme_naight.svg');
+}
+
+.pagination__btn-duble-next_theme_day {
+  background-image: url('../../images/btn_duble_arrow_theme_day.svg');
+}
+
+.pagination__btn-single-arrow_theme_day {
+  background-image: url('../../images/btn_single_arrow_theme_day.svg');
+}
+
+.pagination__btn-single-arrow_theme_naight {
+  background-image: url('../../images/btn_single_arrow_theme_naight.svg');
+}
+
+.pagination__btn-single-arrow_prev {
+  transform: rotate(-180deg);
+}
+
+
 .pagination__item {
   list-style-type: none;
   width: 41px;
