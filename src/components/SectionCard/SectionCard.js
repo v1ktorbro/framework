@@ -2,14 +2,19 @@ import './SectionCard.css';
 import React from 'react';
 import CardImage from '../CardImage/CardImage';
 
-function SectionCard({theme, data}) {
+function SectionCard({ listCard, listAuthors, listLocations }) {
+  const authorOfCard = (dataCard) => listAuthors.find((author) => author.id === dataCard.authorId).name;
+  const locationOfCard = (dataCard) => listLocations.find((location) => location.id === dataCard.locationId).location;
+
   return (
-    <section className={`section-card section-card_${theme}`}>
-      {data.map((itemData) => {
+    <section className='section-card'>
+      {listCard.map((dataCard) => {
         return (
           <CardImage 
-            key={itemData.id}
-            dataCard={itemData}
+            key={dataCard.id}
+            dataCard={dataCard}
+            authorOfCard={authorOfCard(dataCard)}
+            locationOfCard={locationOfCard(dataCard)}
           />
         );
       })}

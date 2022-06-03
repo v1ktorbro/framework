@@ -1,11 +1,13 @@
 import './FilterSelectTimeInterval.css';
 import React from 'react';
+import { CurrentThemeContext } from '../../context/CurrentThemeContext';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 import { useInput } from '../FormValidator/FormValidator';
 
-function FilterSelectTimeInterval({theme, nameFilter, handlerSetValueParamSearch}) {
+function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
+  const theme = React.useContext(CurrentThemeContext);
   const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
   const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
@@ -29,7 +31,7 @@ function FilterSelectTimeInterval({theme, nameFilter, handlerSetValueParamSearch
     }
   };
 
-  const onSubmit = (evt) => {
+  const onSubmit = () => {
     handlerSetValueParamSearch(nameFilter.toLowerCase(), inputsValue);
     setIsOpenTimeInterval(false);
     setIsFocus(false);
