@@ -7,6 +7,22 @@
   box-sizing: border-box;
 }
 
+.pagination_theme_day .pagination__item:hover {
+  cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+}
+
+.pagination_theme_naight .pagination__item:hover {
+  cursor: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+}
+
+.pagination_theme_day .pagination__btn:hover {
+  cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+}
+
+.pagination_theme_naight .pagination__btn:hover {
+  cursor: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+}
+
 .pagination__btn {
   border: none;
   outline: none;
@@ -41,18 +57,12 @@
 }
 
 .pagination__btn:disabled {
-  cursor: default;
   background-color: transparent;
   opacity: .3;
 }
 
 .pagination__btn-duble-arrow_prev {
   transform: rotate(-180deg);
-  /* border-left: 1px solid #fff; */
-}
-
-.pagination__btn-duble-arrow_next {
-  /* border-left: 1px solid #fff; */
 }
 
 .pagination__btn-duble-arrow_theme_day {
@@ -62,10 +72,6 @@
 
 .pagination__btn-duble-arrow_theme_naight {
   background-image: url('../../images/btn_duble_arrow_theme_naight.svg');
-}
-
-.pagination__btn-duble-next_theme_day {
-  background-image: url('../../images/btn_duble_arrow_theme_day.svg');
 }
 
 .pagination__btn-single-arrow_theme_day {
@@ -91,6 +97,7 @@
   border: 1px solid #fff;
   border-right: none;
   cursor: pointer;
+  user-select: none;
 }
 
 .pagination__item:hover {
