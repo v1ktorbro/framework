@@ -1,12 +1,10 @@
 .pagination {
   max-width: 280px;
   height: 41px;
-  border: 1px solid #fff;
   display: flex;
   justify-content: space-between;
   padding: 0;
   box-sizing: border-box;
-  border-radius: 4px;
 }
 
 .pagination__btn {
@@ -20,15 +18,41 @@
   align-self: center;
   width: 41px;
   height: 100%;
+  border: 1px solid #fff;
+  border-right: none;
+  cursor: pointer;
+}
+
+.pagination__btn:hover {
+  background-color: #464646;
+}
+
+/* у первого rotate(-180deg), поэтому right radius */
+.pagination__btn:first-of-type {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-right: 1px solid #fff;
+}
+
+.pagination__btn:last-of-type {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-right: 1px solid #fff;
+}
+
+.pagination__btn:disabled {
+  cursor: default;
+  background-color: transparent;
+  opacity: .3;
 }
 
 .pagination__btn-duble-arrow_prev {
   transform: rotate(-180deg);
-  border-left: 1px solid #fff;
+  /* border-left: 1px solid #fff; */
 }
 
 .pagination__btn-duble-arrow_next {
-  border-left: 1px solid #fff;
+  /* border-left: 1px solid #fff; */
 }
 
 .pagination__btn-duble-arrow_theme_day {
@@ -62,13 +86,18 @@
   width: 41px;
   height: 100%;
   display: flex;
-  border-left: 1px solid #fff;
-  border-right: 1px solid #fff;
   color: #fff;
   box-sizing: inherit;
+  border: 1px solid #fff;
+  border-right: none;
+  cursor: pointer;
 }
 
-.pagination__item_active:first-of-type {
+.pagination__item:hover {
+  background-color: #464646;
+}
+
+.pagination__item_active:last-of-type {
   background-color: #fff;
   color: #000;
 }
