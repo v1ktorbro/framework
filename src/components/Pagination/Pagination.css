@@ -5,6 +5,8 @@
   justify-content: space-between;
   padding: 0;
   box-sizing: border-box;
+  margin-top: 0;
+  margin-bottom: 97px;
 }
 
 .pagination_theme_day {
@@ -150,4 +152,22 @@
   font-size: 18px;
   line-height: 20px;
   margin: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .pagination {
+    margin-bottom: 62px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pagination {
+    margin-bottom: 54px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .pagination {
+    margin-bottom: 34px;
+  }
 }
