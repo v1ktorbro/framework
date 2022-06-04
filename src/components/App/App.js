@@ -19,6 +19,15 @@ function App() {
     locationId: '',
     created: {from: '', before: ''},
   });
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  //количество элементов, которые будут вырезаны в пагинации для отображения
+  const [countItemOfListViewUser] = React.useState(12);
+
+  const lastPaintsListIndex = currentPage * countItemOfListViewUser;
+  const firstPaintsListIndex = lastPaintsListIndex - countItemOfListViewUser;
+  const currentPaintsList = listPaintings.slice(firstPaintsListIndex, lastPaintsListIndex);
+
   //при любом изменении значении полей данные кидаются в searchController
   //при помощи метода handlerReqParamSearch, который исполняется в handlerSetValueParamSearch
   //получение callBack с новым массивом происходит в getUpdatedListData
@@ -30,8 +39,10 @@ function App() {
   };
 
   const getInitialData = () => {
+    setIsLoading(true);
     api.getAllData().then((res) => {
       setDb(res);
+      setIsLoading(false);
       useSearch.setInitialData(res);
     }).catch((err) => {
       return console.log('Ошибка при получении данных с сервера:', err);
@@ -43,6 +54,12 @@ function App() {
     nameList == 'listAuthors' && setListAuthors(newListArr);
     nameList == 'listLocations' && setListLocations(newListArr);
   }
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => setCurrentPage(prev => prev + 1);
+
+  const prevPage = () => setCurrentPage(prev => prev - 1);
 
   React.useEffect(() => {
     localStorage.setItem('app-theme', theme);
@@ -59,11 +76,17 @@ function App() {
         <Header 
           setTheme={setTheme}
         />
-        <Main 
+        <Main
+          isLoading={isLoading}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          countItemOfListViewUser={countItemOfListViewUser}
           listPaintings={listPaintings}
           listAuthors={listAuthors}
           listLocations={listLocations}
           handlerSetValueParamSearch={handlerSetValueParamSearch}
+          paginate={paginate}
+          currentPaintsList={currentPaintsList}
         />
       </CurrentThemeContext.Provider>
     </>
