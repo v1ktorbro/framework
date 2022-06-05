@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import { CurrentThemeContext, defaultTheme } from '../../context/CurrentThemeContext';
+import { CurrentDataContext } from '../../context/CurrentDataContext';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import api from '../../utils/Api';
@@ -13,6 +14,7 @@ function App() {
   const [listPaintings, setListPaintings] = React.useState([]);
   const [listAuthors, setListAuthors] = React.useState([]);
   const [listLocations, setListLocations] = React.useState([]);
+  const [viewPaintsOnScreenFromPaginator, setViewPaintsOnScreenFromPaginator] = React.useState([]);
   const [searchData, setSearchData] = React.useState({
     name: '',
     authorId: '',
@@ -20,13 +22,8 @@ function App() {
     created: {from: '', before: ''},
   });
   const [isLoading, setIsLoading] = React.useState(false);
-  const [currentPage, setCurrentPage] = React.useState(1);
   //количество элементов, которые будут вырезаны в пагинации для отображения
   const [countItemOfListViewUser] = React.useState(12);
-
-  const lastPaintsListIndex = currentPage * countItemOfListViewUser;
-  const firstPaintsListIndex = lastPaintsListIndex - countItemOfListViewUser;
-  const currentPaintsList = listPaintings.slice(firstPaintsListIndex, lastPaintsListIndex);
 
   //при любом изменении значении полей данные кидаются в searchController
   //при помощи метода handlerReqParamSearch, который исполняется в handlerSetValueParamSearch
@@ -55,11 +52,9 @@ function App() {
     nameList == 'listLocations' && setListLocations(newListArr);
   }
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const nextPage = () => setCurrentPage(prev => prev + 1);
-
-  const prevPage = () => setCurrentPage(prev => prev - 1);
+  const handlerPaginateList = (currentPaintsList) => {
+    setViewPaintsOnScreenFromPaginator(currentPaintsList());
+  };
 
   React.useEffect(() => {
     localStorage.setItem('app-theme', theme);
@@ -73,21 +68,21 @@ function App() {
   return (
     <>
       <CurrentThemeContext.Provider value={theme}>
+      <CurrentDataContext.Provider value={db}>
         <Header 
           setTheme={setTheme}
         />
         <Main
+          viewPaintsOnScreenFromPaginator={viewPaintsOnScreenFromPaginator}
+          handlerPaginateList={handlerPaginateList}
           isLoading={isLoading}
-          nextPage={nextPage}
-          prevPage={prevPage}
           countItemOfListViewUser={countItemOfListViewUser}
           listPaintings={listPaintings}
           listAuthors={listAuthors}
           listLocations={listLocations}
           handlerSetValueParamSearch={handlerSetValueParamSearch}
-          paginate={paginate}
-          currentPaintsList={currentPaintsList}
         />
+      </CurrentDataContext.Provider>
       </CurrentThemeContext.Provider>
     </>
   );
