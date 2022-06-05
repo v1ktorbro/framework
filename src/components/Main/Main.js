@@ -1,6 +1,7 @@
 import './Main.css';
 import NavSearch from '../NavSearch/NavSearch';
 import SectionCard from '../SectionCard/SectionCard';
+import Pagination from '../Pagination/Pagination';
 
 function Main({ handlerSetValueParamSearch, 
   listPaintings, listAuthors, listLocations }) {
@@ -19,6 +20,7 @@ function Main({ handlerSetValueParamSearch,
           listAuthors={listAuthors}
           listLocations={listLocations}
         />
+        <Pagination />
       </main>
     </>
   );
