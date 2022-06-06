@@ -4,16 +4,14 @@ import SectionCard from '../SectionCard/SectionCard';
 import Pagination from '../Pagination/Pagination';
 
 function Main({ handlerSetValueParamSearch, isLoading, countItemOfListViewUser,
-  listPaintings, listAuthors, listLocations, handlerPaginateList, viewPaintsOnScreenFromPaginator,
+  handlerPaginateList, viewPaintsOnScreenFromPaginator, filteredDbForUser
 }) {
-    
+
   return (
     <>
       <main className='main'>
-        <NavSearch 
-          listPaintings={listPaintings}
-          listAuthors={listAuthors}
-          listLocations={listLocations}
+        <NavSearch
+          filteredDbForUser={filteredDbForUser}
           handlerSetValueParamSearch={handlerSetValueParamSearch}
         />
         <SectionCard
@@ -21,8 +19,7 @@ function Main({ handlerSetValueParamSearch, isLoading, countItemOfListViewUser,
           isLoading={isLoading}
         />
         <Pagination 
-          totalPaints={listPaintings.length}
-          db={listPaintings}
+          arrWithData={filteredDbForUser.paintings}
           countItemOfListViewUser={countItemOfListViewUser}
           handlerPaginateList={handlerPaginateList}
         />
