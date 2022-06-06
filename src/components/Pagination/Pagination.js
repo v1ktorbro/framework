@@ -2,13 +2,14 @@ import './Pagination.css';
 import React from 'react';
 import { CurrentThemeContext } from '../../context/CurrentThemeContext';
 
-function Pagination({ countItemOfListViewUser, totalPaints, db, handlerPaginateList}) {
+function Pagination({ countItemOfListViewUser, arrWithData, handlerPaginateList}) {
   const theme = React.useContext(CurrentThemeContext);
+  const totalPaints = arrWithData.length;
   const [currentPage, setCurrentPage] = React.useState(1);
   const lastPaintsListIndex = currentPage * countItemOfListViewUser;
   const firstPaintsListIndex = lastPaintsListIndex - countItemOfListViewUser;
-  
-  const currentPaintsList = () => db.slice(firstPaintsListIndex, lastPaintsListIndex);
+
+  const currentPaintsList = () => arrWithData.slice(firstPaintsListIndex, lastPaintsListIndex);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -23,8 +24,8 @@ function Pagination({ countItemOfListViewUser, totalPaints, db, handlerPaginateL
   }
 
   React.useEffect(() => {
-  db.length && handlerPaginateList(currentPaintsList);
-  }, [currentPage, db.length]);
+  arrWithData.length && handlerPaginateList(currentPaintsList);
+  }, [currentPage, arrWithData.length]);
 
   return (
     <ul className={`pagination pagination_theme_${theme}`}>
