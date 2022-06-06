@@ -14,10 +14,10 @@ function Main({ handlerSetValueParamSearch, isLoading, countItemOfListViewUser,
           filteredDbForUser={filteredDbForUser}
           handlerSetValueParamSearch={handlerSetValueParamSearch}
         />
-        <SectionCard
+        {/* <SectionCard
           listCard={viewPaintsOnScreenFromPaginator}
           isLoading={isLoading}
-        />
+        /> */}
         <Pagination 
           arrWithData={filteredDbForUser.paintings}
           countItemOfListViewUser={countItemOfListViewUser}
