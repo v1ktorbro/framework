@@ -3,24 +3,26 @@ import NavSearch from '../NavSearch/NavSearch';
 import SectionCard from '../SectionCard/SectionCard';
 import Pagination from '../Pagination/Pagination';
 
-function Main({ handlerSetValueParamSearch, 
-  listPaintings, listAuthors, listLocations }) {
-    
+function Main({ handlerSetValueParamSearch, isLoading, countItemOfListViewUser,
+  handlerPaginateList, viewPaintsOnScreenFromPaginator, filteredDbForUser
+}) {
+
   return (
     <>
       <main className='main'>
-        <NavSearch 
-          listPaintings={listPaintings}
-          listAuthors={listAuthors}
-          listLocations={listLocations}
+        <NavSearch
+          filteredDbForUser={filteredDbForUser}
           handlerSetValueParamSearch={handlerSetValueParamSearch}
         />
         <SectionCard
-          listCard={listPaintings}
-          listAuthors={listAuthors}
-          listLocations={listLocations}
+          listCard={viewPaintsOnScreenFromPaginator}
+          isLoading={isLoading}
         />
-        <Pagination />
+        <Pagination 
+          arrWithData={filteredDbForUser.paintings}
+          countItemOfListViewUser={countItemOfListViewUser}
+          handlerPaginateList={handlerPaginateList}
+        />
       </main>
     </>
   );

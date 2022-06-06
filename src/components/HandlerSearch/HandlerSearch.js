@@ -6,6 +6,7 @@ function searchController (searchData, db, callBackReturnNewArrList) {
   const [listLocations, setListLocations] = React.useState([]);
   const [reqParamSearch, setReqParamSearch] = React.useState([]);
   const [isDuplicateReqParamSearch, setIsDuplicateReqParamSearch] = React.useState(false);
+  const [filteredDbForUser, setFilteredDbForUser] = React.useState({ paintings: [], authors: [], locations: [] });
   const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
   const newUniqAuthorList = (listPaints) => handlerUniqueValues(listPaints, 'authorId', db.authors); 
   const newUniqLocationsList = (listPaints) => handlerUniqueValues(listPaints, 'locationId', db.locations); 
@@ -161,16 +162,12 @@ function searchController (searchData, db, callBackReturnNewArrList) {
   }, [searchData]);
 
   React.useEffect(() => {
-  callBackReturnNewArrList(listPaintings, 'listPaintings');
-  }, [listPaintings]);
+    setFilteredDbForUser({...filteredDbForUser, paintings: listPaintings, authors: listAuthors, locations: listLocations});
+  }, [listPaintings, listAuthors, listLocations]);
 
   React.useEffect(() => {
-  callBackReturnNewArrList(listAuthors, 'listAuthors');
-  }, [listAuthors]);
-
-  React.useEffect(() => {
-  callBackReturnNewArrList(listLocations, 'listLocations');
-  }, [listLocations]);
+    callBackReturnNewArrList(filteredDbForUser);
+  }, [filteredDbForUser]);
 
   return {
     setInitialData,
