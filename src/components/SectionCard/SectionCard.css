@@ -5,7 +5,8 @@
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(3, minmax(min-content, 360px));
-  grid-template-rows: repeat(4, minmax(205px, 275px));
+  grid-template-rows: minmax(205px, 275px);
+  grid-auto-rows: minmax(205px, 275px);
   grid-gap: 20px;
 }
 
@@ -18,13 +19,17 @@
 @media screen and (max-width: 1024px) {
   .section-card{
     grid-template-rows: repeat(4, minmax(205px, 230px));
+    grid-template-rows: minmax(205px, 230px);
+    grid-auto-rows: minmax(205px, 230px);
   }
 }
 
 @media screen and (max-width: 768px) {
   .section-card{
     grid-template-columns: repeat(2, minmax(min-content, 340px));
-    grid-template-rows: repeat(6, minmax(205px, 249px));
+    grid-template-rows: minmax(205px, 249px);
+    grid-auto-rows: minmax(205px, 249px);
+    margin-bottom: 35px;
   }
 }
 
@@ -40,6 +45,7 @@
   .section-card{
     grid-template-rows: 240px;
     grid-auto-rows: 240px;
+    margin-bottom: 30px;
   }
 }
 
