@@ -1,6 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-function searchController (searchData, db, callBackReturnNewArrList) {
+function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   const [listPaintings, setListPaintings] = React.useState([]);
   const [listAuthors, setListAuthors] = React.useState([]);
   const [listLocations, setListLocations] = React.useState([]);
@@ -154,7 +155,7 @@ function searchController (searchData, db, callBackReturnNewArrList) {
     reqParamSearch.length == 0 && setInitialData(db);
     reqParamSearch.length == 1 && requestHandler(reqParamSearch[0]);
     reqParamSearch.length > 1 && reducerSeveralParam();
-    
+
   };
 
   React.useEffect(() => {
@@ -175,4 +176,4 @@ function searchController (searchData, db, callBackReturnNewArrList) {
   };
 }
 
-export default searchController;
+export default HandlerSearch;
