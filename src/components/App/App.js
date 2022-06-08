@@ -5,7 +5,8 @@ import { CurrentDataContext } from '../../context/CurrentDataContext';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import api from '../../utils/Api';
-import searchController from '../HandlerSearch/HandlerSearch';
+import HandlerSearch from '../HandlerSearch/HandlerSearch';
+import UrlHandler from '../UrlHandler/UrlHandler';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -23,14 +24,16 @@ function App() {
   //количество элементов, которые будут вырезаны в пагинации для отображения
   const [countItemOfListViewUser] = React.useState(12);
 
-  //при любом изменении значении полей данные кидаются в searchController
+  //при любом изменении значении полей данные кидаются в HandlerSearch
   //при помощи метода handlerReqParamSearch, который исполняется в handlerSetValueParamSearch
   //получение callBack с новым массивом происходит в getUpdatedListData
-  const useSearch =  searchController(searchData, initialDb, getUpdatedListData);
+  const useSearch =  HandlerSearch(searchData, initialDb, getUpdatedListData);
+  const urlHandler = UrlHandler();
   
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
     useSearch.handlerReqParamSearch(keyName, value);
+    keyName != 'created' && urlHandler.setUrl(keyName, value);
   };
 
   const getInitialData = () => {
@@ -60,7 +63,7 @@ function App() {
   React.useEffect(() => {
     getInitialData();
   }, []);
-  
+
   return (
     <>
       <CurrentThemeContext.Provider value={theme}>
