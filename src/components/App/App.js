@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import { CurrentThemeContext, defaultTheme } from '../../context/CurrentThemeContext';
 import { CurrentDataContext } from '../../context/CurrentDataContext';
+import { CurrentDataSearchContext } from '../../context/CurrentDataSearchContext';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import api from '../../utils/Api';
@@ -64,9 +65,14 @@ function App() {
     getInitialData();
   }, []);
 
+  React.useEffect(() => {
+    urlHandler.getUrlFromLocalStorage(handlerSetValueParamSearch);
+  }, [initialDb]);
+
   return (
     <>
       <CurrentThemeContext.Provider value={theme}>
+      <CurrentDataSearchContext.Provider value={searchData}>
       <CurrentDataContext.Provider value={initialDb}>
         <Header 
           setTheme={setTheme}
@@ -80,6 +86,7 @@ function App() {
           isLoading={isLoading}
         />
       </CurrentDataContext.Provider>
+      </CurrentDataSearchContext.Provider>
       </CurrentThemeContext.Provider>
     </>
   );
