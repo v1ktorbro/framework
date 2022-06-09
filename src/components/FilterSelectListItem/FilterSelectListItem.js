@@ -1,6 +1,8 @@
 import './FilterSelectListItem.css';
 import React from 'react';
 import { CurrentThemeContext } from '../../context/CurrentThemeContext';
+import { CurrentDataSearchContext } from '../../context/CurrentDataSearchContext';
+import { CurrentDataContext } from '../../context/CurrentDataContext';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
@@ -8,9 +10,17 @@ import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
 function FilterSelectListItem ({ data, keyNameForListData, nameFilter, handlerSetValueParamSearch }) {
   const theme = React.useContext(CurrentThemeContext);
+  const initialDb = React.useContext(CurrentDataContext);
+  const searchData = React.useContext(CurrentDataSearchContext);
   const [isOpenListAuthor, setIsOpenListAuthor] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
   const [selectValue, setSelectValue] = React.useState('');
+
+  const valueOfInputFromSearchData = (db, key) => {
+    const currentList = db[`${nameFilter.toLowerCase()}s`];
+    const currentValue = currentList.find((item) => item.id == searchData[`${nameFilter.toLowerCase()}Id`]);
+    return currentValue == undefined ? '' : currentValue[key];
+  };
 
   const toggleOpenListAuthor = () => {
     setIsOpenListAuthor(prev => !prev);
@@ -56,6 +66,13 @@ function FilterSelectListItem ({ data, keyNameForListData, nameFilter, handlerSe
     document.addEventListener('click', onBlur);
     return () => document.removeEventListener('click', onBlur);
   }, [isFocus]);
+
+  React.useEffect(() => {
+    if (Object.keys(initialDb).length) {
+      nameFilter == 'Author' && setSelectValue(valueOfInputFromSearchData(initialDb, 'name'));
+      nameFilter == 'Location' && setSelectValue(valueOfInputFromSearchData(initialDb, 'location'));
+    }
+  }, [initialDb]);
 
   return (
     <nav 
