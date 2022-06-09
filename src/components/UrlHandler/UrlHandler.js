@@ -3,33 +3,34 @@ import { useHistory } from 'react-router-dom';
 
 function UrlHandler() {
   const history = useHistory();
-  
+
   const getSearchUrlParam = (search, param) => {
     const searchUrlParams = new URLSearchParams(search);
     return searchUrlParams.toString();
-  }
+  };
 
   const setSearchUrlParam = (search, param, value) => {
     const searchUrlParams = new URLSearchParams(search);
     searchUrlParams.set(param, value);
     return searchUrlParams.toString();
-  }
+  };
 
   const handlerLocalStorageParams = () => {
     const storageUrl = localStorage.getItem('urlParams');
     //console.log(storageUrl.replace(/^\S+=[0-9|a-z]+&\b/gi));
   };
-  handlerLocalStorageParams()
+
+  handlerLocalStorageParams();
 
   const setUrl = (keyName, value) => {
     const newSearch = setSearchUrlParam(
     history.location.search, 
     keyName, 
-    value
+    value,
   );
 
     history.replace({
-      search: newSearch
+      search: newSearch,
     }); 
     localStorage.setItem('urlParams', newSearch);
   };
