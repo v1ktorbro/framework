@@ -3,10 +3,15 @@ import { useHistory } from 'react-router-dom';
 
 function UrlHandler() {
   const history = useHistory();
+  const availableParametrs = ['name', 'authorId', 'locationId', 'created'];
 
-  const getSearchUrlParam = (search, param) => {
-    const searchUrlParams = new URLSearchParams(search);
-    return searchUrlParams.toString();
+  const handlerParamFromBrowserApi = (urlSearchString, handlerSetValueParamSearch) => {
+    const searchUrlParams = new URLSearchParams(urlSearchString);
+    for (let i = 0; i < availableParametrs.length; i++) {
+      const keyName = availableParametrs[i];
+      const value = searchUrlParams.get(keyName);
+      value != (undefined || null) && handlerSetValueParamSearch(keyName, value);
+    }
   };
 
   const setSearchUrlParam = (search, param, value) => {
@@ -14,13 +19,6 @@ function UrlHandler() {
     searchUrlParams.set(param, value);
     return searchUrlParams.toString();
   };
-
-  const handlerLocalStorageParams = () => {
-    const storageUrl = localStorage.getItem('urlParams');
-    //console.log(storageUrl.replace(/^\S+=[0-9|a-z]+&\b/gi));
-  };
-
-  handlerLocalStorageParams();
 
   const setUrl = (keyName, value) => {
     const newSearch = setSearchUrlParam(
@@ -35,19 +33,20 @@ function UrlHandler() {
     localStorage.setItem('urlParams', newSearch);
   };
 
-  const getUrlFromLocalStorage = (callBackReturnReq) => {
+  const getUrlFromLocalStorage = (handlerSetValueParamSearch) => {
     const saveUrlParams = localStorage.getItem('urlParams');
-    const test = saveUrlParams != null && saveUrlParams.split('&');
-    test.length && test.forEach((item) => {
-      let key = item.split('=')[0];
-      let value = item.split('=')[1];
-      return callBackReturnReq(key, value);
+    const reqeustToArrayConverter = saveUrlParams != null && saveUrlParams.split('&');
+    reqeustToArrayConverter.length && reqeustToArrayConverter.forEach((item) => {
+      const keyName = item.split('=')[0];
+      const value = item.split('=')[1];
+      return handlerSetValueParamSearch(keyName, value);
     });
   };
 
   return {
     setUrl,
     getUrlFromLocalStorage,
+    handlerParamFromBrowserApi,
   };
 }
 
