@@ -8,10 +8,12 @@ import Main from '../Main/Main';
 import api from '../../utils/Api';
 import HandlerSearch from '../HandlerSearch/HandlerSearch';
 import UrlHandler from '../UrlHandler/UrlHandler';
+import { useHistory } from 'react-router-dom';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
   const [theme, setTheme] = React.useState(localStorage.getItem('app-theme') || defaultTheme);
+  const apiBrowserUlrSearchString = useHistory().location.search;
   const [initialDb, setInitialDb] = React.useState({});
   const [filteredDbForUser, setFilteredDbForUser] = React.useState({ paintings: [], authors: [], locations: [] });
   const [viewPaintsOnScreenFromPaginator, setViewPaintsOnScreenFromPaginator] = React.useState([]);
@@ -68,6 +70,10 @@ function App() {
   React.useEffect(() => {
     urlHandler.getUrlFromLocalStorage(handlerSetValueParamSearch);
   }, [initialDb]);
+
+  React.useEffect(() => {
+    urlHandler.handlerParamFromBrowserApi(apiBrowserUlrSearchString, handlerSetValueParamSearch);
+  }, [apiBrowserUlrSearchString]);
 
   return (
     <>
