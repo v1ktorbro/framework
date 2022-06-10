@@ -36,7 +36,7 @@ function App() {
   const handlerSetValueParamSearch = (keyName, value) => {
     setSearchData({...searchData, [keyName]: value});
     useSearch.handlerReqParamSearch(keyName, value);
-    keyName != 'created' && urlHandler.setUrl(keyName, value);
+    keyName != 'created' && urlHandler.setUrlFromApp(keyName, value);
   };
 
   const getInitialData = () => {
