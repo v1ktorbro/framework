@@ -14,28 +14,25 @@ function UrlHandler() {
     }
   };
 
-  const setSearchUrlParam = (search, param, value) => {
-    const searchUrlParams = new URLSearchParams(search);
-    searchUrlParams.set(param, value);
+  const setSearchUrlParam = (searchString, keyName, value) => {
+    const searchUrlParams = new URLSearchParams(searchString);
+    value.length ? searchUrlParams.set(keyName, value) : searchUrlParams.delete(keyName);
     return searchUrlParams.toString();
   };
 
-  const setUrl = (keyName, value) => {
+  const setUrlFromApp = (keyName, value) => {
     const newSearch = setSearchUrlParam(
     history.location.search, 
     keyName, 
     value,
-  );
-
-    history.replace({
-      search: newSearch,
-    }); 
+    );
+    history.replace({search: newSearch});
     localStorage.setItem('urlParams', newSearch);
   };
 
   const getUrlFromLocalStorage = (handlerSetValueParamSearch) => {
     const saveUrlParams = localStorage.getItem('urlParams');
-    const reqeustToArrayConverter = saveUrlParams != null && saveUrlParams.split('&');
+    const reqeustToArrayConverter = saveUrlParams != null && saveUrlParams.length && saveUrlParams.split('&');
     reqeustToArrayConverter.length && reqeustToArrayConverter.forEach((item) => {
       const keyName = item.split('=')[0];
       const value = item.split('=')[1];
@@ -44,7 +41,7 @@ function UrlHandler() {
   };
 
   return {
-    setUrl,
+    setUrlFromApp,
     getUrlFromLocalStorage,
     handlerParamFromBrowserApi,
   };
