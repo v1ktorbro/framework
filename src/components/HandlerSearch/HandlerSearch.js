@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 
 function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   const [listPaintings, setListPaintings] = React.useState([]);
