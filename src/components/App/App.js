@@ -36,7 +36,7 @@ function App() {
   const handlerSetValueParamSearch = React.useCallback((keyName, value) => {
     keyName != 'created' && setSearchData((prevState) => ({...prevState, [keyName]: value}));
     keyName != 'created' && useSearch.handlerReqParamSearch(keyName, value);
-    //keyName != 'created' && urlHandler.setUrlFromApp(keyName, value);
+    keyName != 'created' && urlHandler.setUrlFromApp(keyName, value);
   }, [searchData]);
 
   const getInitialData = () => {
