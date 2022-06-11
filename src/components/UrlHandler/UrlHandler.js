@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 function UrlHandler() {
@@ -35,7 +34,7 @@ function UrlHandler() {
     const reqeustToArrayConverter = saveUrlParams != null && saveUrlParams.length && saveUrlParams.split('&');
     reqeustToArrayConverter.length && reqeustToArrayConverter.forEach((item) => {
       const keyName = item.split('=')[0];
-      const value = item.split('=')[1];
+      const value = keyName == 'name' ? item.split('=')[1].split('+').join(' ') : item.split('=')[1];
       return handlerSetValueParamSearch(keyName, value);
     });
   };
