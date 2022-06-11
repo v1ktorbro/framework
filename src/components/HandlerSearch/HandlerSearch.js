@@ -18,17 +18,17 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
     setListLocations(db.locations);
   };
 
-  const handlerReqParamSearch = (keyName, value) => {
-    const dublikateKey = reqParamSearch.some((item) => item == keyName);
-    setIsDuplicateReqParamSearch(dublikateKey);
-    const addParamSearch = () => !dublikateKey && setReqParamSearch([...reqParamSearch, keyName]);
+  const handlerReqParamSearch = React.useCallback((keyName, value) => {
+    const isDublikateKey = reqParamSearch.some((item) => item == keyName);
+    setIsDuplicateReqParamSearch(isDublikateKey);
+    const addParamSearch = () => !isDublikateKey && setReqParamSearch([...reqParamSearch, keyName]);
     const removeEmptyParam = () => setReqParamSearch(reqParamSearch.filter((item) => item != keyName));
     if (keyName == 'created') {
       value.from.length && value.before.length ? addParamSearch() : removeEmptyParam();
     } else {
       value.length ? addParamSearch() : removeEmptyParam();
     }
-  };
+  }, [reqParamSearch]);
 
   //сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
   //на выходе список с уникальными ключами
@@ -155,12 +155,11 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
     reqParamSearch.length == 0 && setInitialData(db);
     reqParamSearch.length == 1 && requestHandler(reqParamSearch[0]);
     reqParamSearch.length > 1 && reducerSeveralParam();
-
   };
 
   React.useEffect(() => {
     Object.keys(db).length && handlerSearch();
-  }, [searchData]);
+  }, [searchData, db, reqParamSearch]);
 
   React.useEffect(() => {
     setFilteredDbForUser({...filteredDbForUser, paintings: listPaintings, authors: listAuthors, locations: listLocations});
