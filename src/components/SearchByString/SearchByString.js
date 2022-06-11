@@ -1,19 +1,29 @@
 import './SearchByString.css';
 import React from 'react';
 import { CurrentThemeContext } from '../../context/CurrentThemeContext';
+import { CurrentDataContext } from '../../context/CurrentDataContext';
+import { CurrentDataSearchContext } from '../../context/CurrentDataSearchContext';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import DropDownList from '../DropDownList/DropDownList';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 
-function SearchByString({ nameFilter, data, keyNameForListData, handlerSetValueParamSearch }) {
+function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueParamSearch }) {
   const theme = React.useContext(CurrentThemeContext);
+  const initialDb = React.useContext(CurrentDataContext);
+  const searchData = React.useContext(CurrentDataSearchContext);
+  const selectItemRef = React.useRef('');
   const [inputValue, setInputValue] = React.useState('');
   const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
   const [isNothingSearch, setIsNothingSearch] = React.useState(false);
   const [isErrorOnlyLetter, setIsErrorOnlyLetter] = React.useState(false);
-  const selectItemRef = React.useRef('');
+
+  const valueOfInputFromSearchData = (db, key) => {
+    const currentList = db.paintings;
+    const currentPaint = currentList.find((paint) => paint.name == searchData.name);
+    return currentPaint == undefined ? '' : currentPaint[key];
+  };
 
   const onChange = (evt) => {
     const {value} = evt.target;
@@ -104,6 +114,13 @@ function SearchByString({ nameFilter, data, keyNameForListData, handlerSetValueP
   React.useEffect(() => {
     validatorInput(inputValue);
   }, [inputValue]);
+
+  React.useEffect(() => {
+    if (Object.keys(initialDb).length) {
+      setInputValue(valueOfInputFromSearchData(initialDb, 'name'));
+      selectItemRef.current = valueOfInputFromSearchData(initialDb, 'name');
+    }
+  }, [initialDb]);
 
   return (
     <>
