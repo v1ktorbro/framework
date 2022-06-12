@@ -86,7 +86,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
       <div className={`filter-select-time-interval__container filter-select-time-interval__container_${theme} ${isFocus && `filter-select-time-interval__container_focus-${theme}`}`}>
         <input 
             className='filter-select-time-interval__input-view-selected-text'
-            value={(inputsValue.from || inputsValue.before) &&`${inputsValue.from} — ${inputsValue.before}`}
+            value={(inputsValue.from || inputsValue.before) && `${inputsValue.from} — ${inputsValue.before}`}
             disabled 
             placeholder={nameFilter} 
           />
