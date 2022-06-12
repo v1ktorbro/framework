@@ -1,6 +1,7 @@
 import './FilterSelectTimeInterval.css';
 import React from 'react';
 import { CurrentThemeContext } from '../../context/CurrentThemeContext';
+import { CurrentDataSearchContext } from '../../context/CurrentDataSearchContext';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
@@ -8,7 +9,8 @@ import { useInput } from '../FormValidator/FormValidator';
 
 function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
   const theme = React.useContext(CurrentThemeContext);
-  const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
+  const searchData = React.useContext(CurrentDataSearchContext);
+  const [inputsValue, setInputsValue] = React.useState({from: searchData.created.from, before: searchData.created.before});
   const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
   const inputTimeFromValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
