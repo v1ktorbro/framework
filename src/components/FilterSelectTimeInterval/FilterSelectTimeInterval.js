@@ -77,6 +77,10 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
     return () => document.removeEventListener('click', onBlur);
   }, [isFocus]);
 
+  React.useEffect(() => {
+    setInputsValue((prevValue) => ({...prevValue, from: searchData.created.from, before: searchData.created.before}))
+  }, [searchData.created]);
+
   return (
     <nav 
       className={`filter-select-time-interval filter-select-time-interval_${theme}`}
