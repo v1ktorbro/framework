@@ -34,10 +34,10 @@ function App() {
   const urlHandler = UrlHandler();
   
   const handlerSetValueParamSearch = React.useCallback((keyName, value) => {
-    keyName != 'created' && setSearchData((prevState) => ({...prevState, [keyName]: value}));
-    keyName != 'created' && useSearch.handlerReqParamSearch(keyName, value);
-    keyName != 'created' && urlHandler.setUrlFromApp(keyName, value);
-  }, [searchData]);
+    setSearchData((prevState) => ({...prevState, [keyName]: value}));
+    useSearch.handlerReqParamSearch(keyName, value);
+    urlHandler.setUrlFromApp(keyName, value);
+  }, [searchData.name, searchData.authorId, searchData.locationId, searchData.created.from, searchData.created.before]);
 
   const getInitialData = () => {
     setIsLoading(true);
@@ -67,7 +67,7 @@ function App() {
     urlHandler.getUrlFromLocalStorage(handlerSetValueParamSearch);
   }, [initialDb]);
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     urlHandler.handlerParamFromBrowserApi(apiBrowserUlrSearchString, handlerSetValueParamSearch);
   }, [apiBrowserUlrSearchString]);
 
