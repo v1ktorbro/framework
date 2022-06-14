@@ -1,7 +1,6 @@
 import './FilterSelectTimeInterval.css';
 import React from 'react';
 import { CurrentThemeContext } from '../../context/CurrentThemeContext';
-import { CurrentDataSearchContext } from '../../context/CurrentDataSearchContext';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
@@ -9,9 +8,8 @@ import { useInput } from '../FormValidator/FormValidator';
 
 function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
   const theme = React.useContext(CurrentThemeContext);
-  const searchData = React.useContext(CurrentDataSearchContext);
-  const [inputsValue, setInputsValue] = React.useState({from: searchData.created.from, before: searchData.created.before});
-  const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
+  const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
+  const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(true);
   const [isFocus, setIsFocus] = React.useState(false);
   const inputTimeFromValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
   const inputTimeBeforeValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
@@ -64,10 +62,6 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
   };
 
   React.useEffect(() => {
-    onSubmit();
-  }, [inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid]);
-
-  React.useEffect(() => {
     const filterContainer = document.getElementById(`filter-select-time-${nameFilter.toLowerCase()}`).querySelector('.filter-select-time-interval__container');
     borderStyleHandlerThemeForFilter(filterContainer, theme, isOpenTimeInterval, isFocus);
   }, [isOpenTimeInterval, isFocus, theme]);
@@ -78,9 +72,15 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
   }, [isFocus]);
 
   React.useEffect(() => {
-    setInputsValue((prevValue) => ({...prevValue, from: searchData.created.from, before: searchData.created.before}))
-  }, [searchData.created]);
-
+    //  производить поиск, только если оба поля заполнены и в них по 4 значения
+    if (inputsValue.from.length == 4 && inputsValue.before.length == 4) {
+      onSubmit()
+    } else {
+      //  сюда добавить логику отображения компонента с тем, что необхоимо ввести все данные
+      //console.log('Чтобы отправить запрос, заполните все поля формы created, пожалуйста!', 'значение поля from', inputsValue.from , 'значение поля before', inputsValue.before);
+    }
+  }, [inputsValue]);
+  
   return (
     <nav 
       className={`filter-select-time-interval filter-select-time-interval_${theme}`}
@@ -90,26 +90,27 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
       id={`filter-select-time-${nameFilter.toLowerCase()}`}
     >
       <div className={`filter-select-time-interval__container filter-select-time-interval__container_${theme} ${isFocus && `filter-select-time-interval__container_focus-${theme}`}`}>
-        <input 
-            className='filter-select-time-interval__input-view-selected-text'
-            value={(inputsValue.from || inputsValue.before) && `${inputsValue.from} — ${inputsValue.before}`}
-            disabled 
-            placeholder={nameFilter} 
-          />
-          <div className='filter-select-time-interval__btn-container'>
-            { (inputsValue.from || inputsValue.before) &&
-              <BtnResetCross 
-                theme={theme}
-                onClick={handlerReset}
-              />
-            }
-            <BtnSwitchBlind 
+        <input
+          className='filter-select-time-interval__input-view-selected-text'
+          value={(inputsValue.from.length || inputsValue.before.length) ? `${inputsValue.from} — ${inputsValue.before}` : ''}
+          readOnly
+          onChange={() => console.log('да бля')}
+          placeholder={nameFilter} 
+        />
+        <div className='filter-select-time-interval__btn-container'>
+          { (inputsValue.from || inputsValue.before) &&
+            <BtnResetCross 
               theme={theme}
-              isOpen={isOpenTimeInterval}
-              onClick={toggleOpenTimeInterval}
-              style={{marginLeft: '10px'}}
+              onClick={handlerReset}
             />
-          </div>
+          }
+          <BtnSwitchBlind 
+            theme={theme}
+            isOpen={isOpenTimeInterval}
+            onClick={toggleOpenTimeInterval}
+            style={{marginLeft: '10px'}}
+          />
+        </div>
       </div>
       <form className={`filter-select-time-interval__form-data filter-select-time-interval__form-data_${theme}  ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
         <div className='filter-select-time-interval__form-data-container'>
@@ -119,7 +120,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
               onChange={handlerValueInputs}
               placeholder='from'
               id='from'
-              value={inputsValue.from}
+              value={inputsValue.from || ''}
               maxLength='4'
               onFocus={inputTimeFromValidator.onFocus}
               onBlur={inputTimeFromValidator.onBlur}
@@ -137,7 +138,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
               onChange={handlerValueInputs}
               placeholder='before'  
               id='before'
-              value={inputsValue.before}
+              value={inputsValue.before || ''}
               maxLength='4'
               onFocus={inputTimeBeforeValidator.onFocus}
               onBlur={inputTimeBeforeValidator.onBlur}
