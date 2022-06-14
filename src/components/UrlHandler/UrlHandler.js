@@ -9,13 +9,24 @@ function UrlHandler() {
     for (let i = 0; i < availableParametrs.length; i++) {
       const keyName = availableParametrs[i];
       const value = searchUrlParams.get(keyName);
-      value != (undefined || null) && handlerSetValueParamSearch(keyName, value);
+      const isKeyNameHasValue = value !== (undefined || null);
+      if (keyName == 'created' && isKeyNameHasValue) {
+        const keyCreatedValue = {from: value.split('-')[0], before: value.split('-')[1]};
+        handlerSetValueParamSearch(keyName, keyCreatedValue);
+      }
+      keyName != 'created' && isKeyNameHasValue && handlerSetValueParamSearch(keyName, value);
     }
   };
 
   const setSearchUrlParam = (searchString, keyName, value) => {
+    const isCreatedParamSearch = keyName == 'created';
+    const valueCreatedParamSearch = isCreatedParamSearch && (value.from.length && value.before.length) ? [value.from, value.before].join('-') : '';
     const searchUrlParams = new URLSearchParams(searchString);
-    value.length ? searchUrlParams.set(keyName, value) : searchUrlParams.delete(keyName);
+    if (isCreatedParamSearch) {
+      valueCreatedParamSearch.length ? searchUrlParams.set(keyName, valueCreatedParamSearch) : searchUrlParams.delete(keyName);
+    } else {
+      value.length ? searchUrlParams.set(keyName, value) : searchUrlParams.delete(keyName);
+    }
     return searchUrlParams.toString();
   };
 
@@ -34,8 +45,14 @@ function UrlHandler() {
     const reqeustToArrayConverter = saveUrlParams != null && saveUrlParams.length && saveUrlParams.split('&');
     reqeustToArrayConverter.length && reqeustToArrayConverter.forEach((item) => {
       const keyName = item.split('=')[0];
-      const value = keyName == 'name' ? item.split('=')[1].split('+').join(' ') : item.split('=')[1];
-      return handlerSetValueParamSearch(keyName, value);
+      const processedValueNameField = item.split('=')[1].split('+').join(' ');
+      const processedValueAuthorIdField = item.split('=')[1];
+      const processedValueLocationIdField = item.split('=')[1];
+      const processedValueCreatedField = {from: item.split('=')[1].split('-')[0], before: item.split('=')[1].split('-')[1]};
+      keyName == 'name' && handlerSetValueParamSearch(keyName, processedValueNameField);
+      keyName == 'authorId' && handlerSetValueParamSearch(keyName, processedValueAuthorIdField);
+      keyName == 'locationId' && handlerSetValueParamSearch(keyName, processedValueLocationIdField);
+      keyName == 'created' && handlerSetValueParamSearch(keyName, processedValueCreatedField);
     });
   };
 
