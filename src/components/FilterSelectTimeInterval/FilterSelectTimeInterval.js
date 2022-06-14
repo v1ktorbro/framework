@@ -57,6 +57,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
 
   const handlerReset = () => {
     setInputsValue({from: '', before: ''});
+    handlerSetValueParamSearch(nameFilter.toLowerCase(), ({from: '', before: ''}));
     inputTimeFromValidator.onReset();
     inputTimeBeforeValidator.onReset();
     setIsOpenTimeInterval(false);
