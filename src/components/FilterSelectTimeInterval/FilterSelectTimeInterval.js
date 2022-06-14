@@ -1,6 +1,7 @@
 import './FilterSelectTimeInterval.css';
 import React from 'react';
 import { CurrentThemeContext } from '../../context/CurrentThemeContext';
+import { CurrentDataSearchContext } from '../../context/CurrentDataSearchContext';
 import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
@@ -8,8 +9,9 @@ import { useInput } from '../FormValidator/FormValidator';
 
 function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
   const theme = React.useContext(CurrentThemeContext);
+  const searchData = React.useContext(CurrentDataSearchContext);
   const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
-  const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(true);
+  const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
   const inputTimeFromValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
   const inputTimeBeforeValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
@@ -80,6 +82,10 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
       //console.log('Чтобы отправить запрос, заполните все поля формы created, пожалуйста!', 'значение поля from', inputsValue.from , 'значение поля before', inputsValue.before);
     }
   }, [inputsValue]);
+
+  React.useEffect(() => {
+    setInputsValue({from: searchData.created.from, before: searchData.created.before});
+  }, [searchData.created.from, searchData.created.before]);
   
   return (
     <nav 
