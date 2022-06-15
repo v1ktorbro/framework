@@ -17,7 +17,7 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
   const [isNothingSearch, setIsNothingSearch] = React.useState(false);
-  const [isErrorOnlyLetter, setIsErrorOnlyLetter] = React.useState(false);
+  const [isErrorOnlyLetter, setIsErrorOnlyLetter] = React.useState({state: false, message: 'Enter only letter'});
 
   const valueOfInputFromSearchData = (db, key) => {
     const currentList = db.paintings;
@@ -54,9 +54,9 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
   const validatorInput = (value) => {
     const regExOnlyLetter = /^([a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*)$/ig;
     if (regExOnlyLetter.test(value.toLowerCase())) {
-      setIsErrorOnlyLetter(false);
+      setIsErrorOnlyLetter({...isErrorOnlyLetter, state: false});
     } else {
-      setIsErrorOnlyLetter(true);
+      setIsErrorOnlyLetter({...isErrorOnlyLetter, state: true});
       setIsNothingSearch(false);
     }
   };
@@ -99,7 +99,7 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
         selectItemRef.current.length ? setInputValue(selectItemRef.current) : setInputValue('');
         setIsOpenListSearchedResult(false);
         setIsNothingSearch(false);
-        setIsErrorOnlyLetter(false);
+        setIsErrorOnlyLetter({...isErrorOnlyLetter, state: false});
       }
     });
     setIsFocusElem(false);
@@ -138,7 +138,7 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
             onChange={onChange}
             placeholder={nameFilter}
           />
-          {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter`}>Вводите только буквы</span>}
+          {isErrorOnlyLetter.state && <span className={`search-by-string__error-only-letter`}>{isErrorOnlyLetter.message}</span>}
           {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
           {inputValue.length > 0 &&
             <BtnResetCross 
