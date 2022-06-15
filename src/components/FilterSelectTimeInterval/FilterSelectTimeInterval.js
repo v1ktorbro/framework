@@ -82,7 +82,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
       //  сюда добавить логику отображения компонента с тем, что необхоимо ввести все данные
       //console.log('Чтобы отправить запрос, заполните все поля формы created, пожалуйста!', 'значение поля from', inputsValue.from , 'значение поля before', inputsValue.before);
     }
-  }, [inputsValue]);
+  }, [inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid]);
 
   React.useEffect(() => {
     setInputsValue({from: searchData.created.from, before: searchData.created.before});
