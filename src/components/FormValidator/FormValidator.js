@@ -1,12 +1,12 @@
 import React from 'react';
 
 export const useValidation = (value, validations) => {
-  const [isEmpty, setIsEmpty] = React.useState({state: true, errorMessage: 'Поле не может быть пустым'});
-  const [minLengthError, setMinLengthError] = React.useState({state: false, errorMessage: `Минимальная длина ${validations['minLength']} символа`});
-  const [maxLengthError, setMaxLengthError] = React.useState({state: false, errorMessage: `Максимальная длина ${validations['maxLength']} символа`});
-  const [onlyNumberError, setOnlyNumberError] = React.useState({state: false, errorMessage: 'Вводите только цифры'});
+  const [isEmpty, setIsEmpty] = React.useState({state: true, errorMessage: 'The field cannot be empty'});
+  const [minLengthError, setMinLengthError] = React.useState({state: false, errorMessage: `Min length ${validations['minLength']} symbols`});
+  const [maxLengthError, setMaxLengthError] = React.useState({state: false, errorMessage: `Max length ${validations['maxLength']} symbols`});
+  const [onlyNumberError, setOnlyNumberError] = React.useState({state: false, errorMessage: 'Enter only numbers'});
   const regExOnlyNumber = /^([0-9]*)$/;
-  const [onlyLetterError, setOnlyLetterError] = React.useState({state: false, message: 'Необходимо вводить только буквы'});
+  const [onlyLetterError, setOnlyLetterError] = React.useState({state: false, message: 'Enter only letters'});
   const regExOnlyLetter = /^([a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*)$/ig;
   const [inputValid, setInputValid] = React.useState(false);
 
