@@ -17,24 +17,20 @@
   justify-content: space-between;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-}
-
-.filter-select-list-item__container_day {
-  color: #000;
-  border: 1px solid rgba(0, 0, 0, .3);
-}
-
-.filter-select-list-item__container_naight {
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, .3);
-}
-
-.filter-select-list-item__container_focus-naight {
-  border-color: #fff;
-}
-
-.filter-select-list-item__container_focus-day {
-  border-color: #000;
+  &_theme-day {
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, .3);
+  }
+  &_theme-naight {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .3);
+  }
+  &_focus-theme-day {
+    border-color: #000;
+  }
+  &_focus-theme-naight {
+    border-color: #fff;
+  }
 }
 
 .filter-select-list-item__btn-container {

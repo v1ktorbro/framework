@@ -18,23 +18,19 @@
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
-
-.filter-select-list-item__container_day {
+.filter-select-list-item__container_theme-day {
   color: #000;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
-
-.filter-select-list-item__container_naight {
+.filter-select-list-item__container_theme-naight {
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
-
-.filter-select-list-item__container_focus-naight {
-  border-color: #fff;
-}
-
-.filter-select-list-item__container_focus-day {
+.filter-select-list-item__container_focus-theme-day {
   border-color: #000;
+}
+.filter-select-list-item__container_focus-theme-naight {
+  border-color: #fff;
 }
 
 .filter-select-list-item__btn-container {
