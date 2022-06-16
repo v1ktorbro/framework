@@ -76,13 +76,13 @@ function FilterSelectListItem ({ data, keyNameForListData, nameFilter, handlerSe
 
   return (
     <nav 
-      className={`filter-select-list-item filter-select-list-item_${theme}`}
+      className={`filter-select-list-item filter-select-list-item_theme-${theme}`}
       onClick={() => setIsFocus(true)}
       tabIndex="0"
       onKeyDown={escBtnListener}
       id={`filter-select-list-${nameFilter.toLowerCase()}`}
     >
-      <div className={`filter-select-list-item__container filter-select-list-item__container_${theme} ${isFocus && `filter-select-list-item__container_focus-${theme}`}`}>
+      <div className={`filter-select-list-item__container filter-select-list-item__container_theme-${theme} ${isFocus && `filter-select-list-item__container_focus-theme-${theme}`}`}>
         <input 
           className='filter-select-list-item__input-display-selected-text' 
           value={selectValue}
