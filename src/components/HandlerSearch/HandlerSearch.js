@@ -11,6 +11,15 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   const newUniqAuthorList = (listPaints) => handlerUniqueValues(listPaints, 'authorId', db.authors); 
   const newUniqLocationsList = (listPaints) => handlerUniqueValues(listPaints, 'locationId', db.locations); 
 
+  const newList2 = (arrList, reqParamSearch) => {
+    return arrList.filter((itemList) => {
+      const isReqParamSearchCreated = reqParamSearch == 'created';
+      const funcFilterOnData = itemList.created >= searchData.created.from && itemList.created <= searchData.created.before;
+      const funcFilterAnothers = itemList[reqParamSearch] == searchData[reqParamSearch];
+      return isReqParamSearchCreated ? funcFilterOnData : funcFilterAnothers;
+    });
+  }
+
   const setInitialData = (db) => {
     setListPaintings(db.paintings);
     setListAuthors(db.authors);
@@ -28,7 +37,7 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
       value.length ? addParamSearch() : removeEmptyParam();
     }
   }, [reqParamSearch]);
-
+  
   //сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
   //на выходе список с уникальными ключами
   const handlerUniqueValues = (arrWithNewPaints, keyNameId, arrBeingCompared) => {
@@ -67,7 +76,7 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   };
 
   const requestHandler = (firstValueField, secondValueField) => {
-    const isSecondValueFieldEmpty = (secondValueField == undefined) ? true : false;
+    const isSecondValueFieldEmpty = (secondValueField == undefined);
     const newListPaintingsOnFirstField = newList(db.paintings, firstValueField);
     const newListNextParamSearch = newList(listPaintings, secondValueField);
     const handlerListPaintings = () => {
@@ -75,7 +84,11 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
       if (isSecondValueFieldEmpty) {
         return newListPaintingsOnFirstField;
       } else {
-        const newListPaintings = newList(newListPaintingsOnFirstField, secondValueField);
+        //const newListPaintings = newList(newListPaintingsOnFirstField, secondValueField);
+
+        const test = newList2(db.paintings, firstValueField);
+        const newListPaintings = newList(test, secondValueField);
+        console.log('newListPaintingsOnFirstField', test);
         //если у нас дубликат ключа, то проходимся по всем картинкам, сначала ищем по первому полю и по второму
         //иначе просто проходимся по массиву картинок, что осталось после предыдущего ключа
         return isDuplicateReqParamSearch ? newListPaintings : newListNextParamSearch;
