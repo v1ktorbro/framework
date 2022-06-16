@@ -1,0 +1,91 @@
+.search-by-string {
+  position: relative;
+  height: 45px;
+  font-family: 'Roboto';
+  box-sizing: border-box;
+}
+
+.search-by-string__container {
+  position: relative;
+  display: flex;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding-left: 15px;
+  padding-right: 18px;
+  justify-content: space-between;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.search-by-string__notice-not-found {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.search-by-string__notice-not-found_day {
+  color: rgba(0, 0, 0, .5);
+}
+
+.search-by-string__notice-not-found_naight {
+  color: rgba(255, 255, 255, .5);
+}
+
+.search-by-string__container_day {
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, .3);
+  &:focus-within {
+    border: 1px solid #000;
+  }
+}
+
+.search-by-string__container_naight {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .3);
+  &:focus-within {
+    border: 1px solid #fff;
+  }
+}
+
+.search-by-string__input {
+  border: none;
+  outline: none;
+  width: 100%;
+  align-self: center;
+  font-weight: 400;
+  line-height: 16px;
+  font-family: 'Roboto';
+  box-sizing: border-box;
+  background-color: inherit;
+  color: inherit;
+  border-radius: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* выделение текста в input */
+.search-by-string__input_day::selection {
+  background-color: #000;
+  color: #fff;
+}
+
+.search-by-string__input_naight::selection {
+  background-color: #fff;
+  color: #000;
+}
+
+.search-by-string__error-only-letter {
+  position: absolute;
+  left: 14px;
+  bottom: 0;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 400;
+  color: red;
+}
