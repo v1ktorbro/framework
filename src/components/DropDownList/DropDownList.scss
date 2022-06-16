@@ -12,6 +12,34 @@ $cursorPointerThemeDay: url('../../images/cursor_pointer_naight_theme.svg'), poi
   overflow: scroll;
   box-sizing: border-box;
   z-index: 1;
+  &_theme-day {
+    border: 1px solid #000;
+    color: #000;
+    border-top: 1px solid rgba(0, 0, 0, .3);
+    background-color: #fff;
+    & .drop-down-list__item:hover {
+      background-color: #000;
+      color: #fff;
+      cursor: $cursorPointerThemeDay;
+    }
+  }
+  &_open {
+    display: block;
+  }
+  &_close {
+    visibility: hidden;
+  }
+  &_theme-naight {
+    border: 1px solid #fff;
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, .3);
+    background-color: #000;
+    & .drop-down-list__item:hover {
+      background-color: #fff;
+      color: #000;
+      cursor: $cursorPointerThemeNight;
+    }
+  }
   &::-webkit-scrollbar {
     width: 9px;
     background-color: transparent;
@@ -26,38 +54,6 @@ $cursorPointerThemeDay: url('../../images/cursor_pointer_naight_theme.svg'), poi
     border-radius: 10px;
     height: 132px;
   }
-}
-
-.drop-down-list_day {
-  border: 1px solid #000;
-  color: #000;
-  border-top: 1px solid rgba(0, 0, 0, .3);
-  background-color: #fff;
-  & .drop-down-list__item:hover {
-    background-color: #000;
-    color: #fff;
-    cursor: $cursorPointerThemeDay;
-  }
-}
-
-.drop-down-list_naight {
-  border: 1px solid #fff;
-  color: #fff;
-  border-top: 1px solid rgba(255, 255, 255, .3);
-  background-color: #000;
-  & .drop-down-list__item:hover {
-    background-color: #fff;
-    color: #000;
-    cursor: $cursorPointerThemeNight;
-  }
-}
-
-.drop-down-list_open {
-  display: block;
-}
-
-.drop-down-list_close {
-  visibility: hidden;
 }
 
 .drop-down-list__item {
