@@ -52,7 +52,7 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
   };
 
   const validatorInput = (value) => {
-    const regExOnlyLetter = /^([a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*)$/ig;
+    const regExOnlyLetter = /^([a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*)$/ig;
     if (regExOnlyLetter.test(value.toLowerCase())) {
       setIsErrorOnlyLetter({...isErrorOnlyLetter, state: false});
     } else {
