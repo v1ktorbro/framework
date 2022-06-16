@@ -7,14 +7,14 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   const [reqParamSearch, setReqParamSearch] = React.useState([]);
   const [isDuplicateReqParamSearch, setIsDuplicateReqParamSearch] = React.useState(false);
   const [filteredDbForUser, setFilteredDbForUser] = React.useState({ paintings: [], authors: [], locations: [] });
-  const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
   const newUniqAuthorList = (listPaints) => handlerUniqueValues(listPaints, 'authorId', db.authors); 
   const newUniqLocationsList = (listPaints) => handlerUniqueValues(listPaints, 'locationId', db.locations); 
 
-  const newList2 = (arrList, reqParamSearch) => {
+  // handler on search param list and return it
+  const newList = (arrList, reqParamSearch) => {
     return arrList.filter((itemList) => {
       const isReqParamSearchCreated = reqParamSearch == 'created';
-      const funcFilterOnData = itemList.created >= searchData.created.from && itemList.created <= searchData.created.before;
+      const funcFilterOnData = (itemList.created >= searchData.created.from) && (itemList.created <= searchData.created.before);
       const funcFilterAnothers = itemList[reqParamSearch] == searchData[reqParamSearch];
       return isReqParamSearchCreated ? funcFilterOnData : funcFilterAnothers;
     });
@@ -37,9 +37,9 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
       value.length ? addParamSearch() : removeEmptyParam();
     }
   }, [reqParamSearch]);
-  
-  //сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
-  //на выходе список с уникальными ключами
+
+  //  сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
+  //  на выходе список с уникальными ключами
   const handlerUniqueValues = (arrWithNewPaints, keyNameId, arrBeingCompared) => {
     let arrUniqueId = [];
     let newArr = [];
@@ -64,13 +64,14 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
     locations !== undefined && setListLocations(locations);
   }
 
-  //фильтрация по времени
-  const arrSearchOnDate = (secondParamSearch) => {
-    const isSearchOnlyByDate = reqParamSearch.length == 1 ? true : false;
-    const newListPaintings = db.paintings.filter((itemList) => itemList.created >= searchData.created.from && itemList.created <= searchData.created.before);
+  //  фильтрация по времени
+  //  value приходит в формате: create: {from: '', before: ''}
+  const arrSearchOnDate = (paramValueSearch) => {
+    const isSearchOnlyByDateSearch = reqParamSearch.length == 1;
+    const newListPaintings = newList(db.paintings, paramValueSearch);
     const newListAuthors = newUniqAuthorList(newListPaintings);
     const newListLocations = newUniqLocationsList(newListPaintings);
-    isSearchOnlyByDate ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, secondParamSearch));
+    isSearchOnlyByDateSearch ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, paramValueSearch));
     setListAuthors(newListAuthors);
     setListLocations(newListLocations);
   };
@@ -80,17 +81,13 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
     const newListPaintingsOnFirstField = newList(db.paintings, firstValueField);
     const newListNextParamSearch = newList(listPaintings, secondValueField);
     const handlerListPaintings = () => {
-      //если второго поля нет, то новый список будет отфильтрован по первому одному параметру
+      //  если второго поля нет, то новый список будет отфильтрован по первому одному параметру
       if (isSecondValueFieldEmpty) {
         return newListPaintingsOnFirstField;
       } else {
-        //const newListPaintings = newList(newListPaintingsOnFirstField, secondValueField);
-
-        const test = newList2(db.paintings, firstValueField);
-        const newListPaintings = newList(test, secondValueField);
-        console.log('newListPaintingsOnFirstField', test);
-        //если у нас дубликат ключа, то проходимся по всем картинкам, сначала ищем по первому полю и по второму
-        //иначе просто проходимся по массиву картинок, что осталось после предыдущего ключа
+        const newListPaintings = newList(newListPaintingsOnFirstField, secondValueField);
+        //  если у нас дубликат ключа, то проходимся по всем картинкам, сначала ищем по первому полю и по второму
+        //  иначе просто проходимся по массиву картинок, что осталось после предыдущего ключа
         return isDuplicateReqParamSearch ? newListPaintings : newListNextParamSearch;
       }
     };
@@ -114,7 +111,7 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
         if (secondValueField == 'created') {
           arrSearchOnDate(firstValueField);
         }
-        //if only author
+        //  if only author
         if (secondValueField == undefined) {
           setterLists(newListPaintings, db.authors, newListLocations);
         }
@@ -131,7 +128,7 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
         if (secondValueField == 'created') {
           arrSearchOnDate(firstValueField);
         }
-        //if only locationId
+        //  if only locationId
         if (secondValueField == undefined) {
           setterLists(newListPaintings, newListAuthors, db.locations);
         }
@@ -143,9 +140,9 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
         if (secondValueField == 'locationId') {
           setterLists(newListPaintings, newListAuthors);
         }
-        //if only created
+        //  if only created
         if (secondValueField == undefined) {
-          arrSearchOnDate();
+          arrSearchOnDate(firstValueField);
         }
         break;
     }
@@ -154,9 +151,9 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   const handlerSearch = () => {
     const reducerSeveralParam = () => {
       reqParamSearch.reduce((prevValue, currentValue) => {
-        //если первый элмент массива равен последнему в списке запросов
-        //то prevValue пусть равен предпоследнему элементу
-        //а currentValue крайнему
+        //  если первый элмент массива равен последнему в списке запросов
+        //  то prevValue пусть равен предпоследнему элементу
+        //  а currentValue крайнему
         if (currentValue == reqParamSearch[reqParamSearch.length - 1]) {
           prevValue = reqParamSearch[reqParamSearch.length - 2];
           requestHandler(prevValue, currentValue);
