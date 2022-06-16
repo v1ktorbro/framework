@@ -2,7 +2,7 @@
   height: 45px;
   box-sizing: border-box;
   position: relative;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   outline: none;
 }
 
@@ -21,12 +21,12 @@
 
 .filter-select-list-item__container_day {
   color: #000;
-  border: 1px solid rgba(0, 0, 0, .3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .filter-select-list-item__container_naight {
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, .3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .filter-select-list-item__container_focus-naight {
@@ -57,6 +57,14 @@
   color: inherit;
 }
 
+.filter-select-list-item__display-selected-text::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.filter-select-list-item__display-selected-text:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
 .filter-select-list-item__display-selected-text::placeholder {
-  color: rgba(255, 255, 255, .3);
+  color: rgba(255, 255, 255, 0.3);
 }
