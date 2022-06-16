@@ -37,7 +37,7 @@ function App() {
     setSearchData((prevState) => ({...prevState, [keyName]: value}));
     useSearch.handlerReqParamSearch(keyName, value);
     urlHandler.setUrlFromApp(keyName, value);
-  }, [searchData.name, searchData.authorId, searchData.locationId, searchData.created.from, searchData.created.before]);
+  }, [searchData]);
 
   const getInitialData = () => {
     setIsLoading(true);
