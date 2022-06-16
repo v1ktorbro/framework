@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { CurrentThemeContext, defaultTheme } from '../../context/CurrentThemeContext';
 import { CurrentDataContext } from '../../context/CurrentDataContext';
 import { CurrentDataSearchContext } from '../../context/CurrentDataSearchContext';
@@ -8,7 +9,6 @@ import Main from '../Main/Main';
 import api from '../../utils/Api';
 import HandlerSearch from '../HandlerSearch/HandlerSearch';
 import UrlHandler from '../UrlHandler/UrlHandler';
-import { useHistory } from 'react-router-dom';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -24,12 +24,12 @@ function App() {
     created: {from: '', before: ''},
   });
   const [isLoading, setIsLoading] = React.useState(false);
-  //количество элементов, которые будут вырезаны в пагинации для отображения
+  //  количество элементов, которые будут вырезаны в пагинации для отображения
   const [countItemOfListViewUser] = React.useState(12);
 
-  //при любом изменении значении полей данные кидаются в HandlerSearch
-  //при помощи метода handlerReqParamSearch, который исполняется в handlerSetValueParamSearch
-  //получение callBack с новым массивом происходит в getUpdatedListData
+  //  при любом изменении значении полей данные кидаются в HandlerSearch
+  //  при помощи метода handlerReqParamSearch, который исполняется в handlerSetValueParamSearch
+  //  получение callBack с новым массивом происходит в getUpdatedListData
   const useSearch =  HandlerSearch(searchData, initialDb, getUpdatedListData);
   const urlHandler = UrlHandler();
   
