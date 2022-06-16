@@ -130,16 +130,16 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
         onFocus={onFocus}
         onBlur={onBlur}
       >
-        <div className={`search-by-string__container search-by-string__container_${theme}`}>
+        <div className={`search-by-string__container search-by-string__container_theme-${theme}`}>
           <input 
-            className={`search-by-string__input search-by-string__input_${theme}`}
+            className={`search-by-string__input search-by-string__input_theme-${theme}`}
             type='text'
             value={inputValue}
             onChange={onChange}
             placeholder={nameFilter}
           />
           {isErrorOnlyLetter.state && <span className={`search-by-string__error-only-letter`}>{isErrorOnlyLetter.message}</span>}
-          {isNothingSearch.state && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>{isNothingSearch.message}</span>}
+          {isNothingSearch.state && <span className={`search-by-string__notice-not-found`}>{isNothingSearch.message}</span>}
           {inputValue.length > 0 &&
             <BtnResetCross 
               onClick={handlerReset}
