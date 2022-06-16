@@ -134,6 +134,9 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
         }
         break;
       case 'created': 
+        if (secondValueField == 'name') {
+          setterLists(newListPaintings, newListAuthors, newListLocations);
+        }
         if (secondValueField == 'authorId') {
           setterLists(newListPaintings, newListAuthors, newListLocations);
         }
