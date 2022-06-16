@@ -66,29 +66,29 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
 
   //  фильтрация по времени
   //  value приходит в формате: create: {from: '', before: ''}
-  const arrSearchOnDate = (paramValueSearch) => {
+  const arrSearchOnDate = (firstParamValueSearch, secondParamValueSearch) => {
     const isSearchOnlyByDateSearch = reqParamSearch.length == 1;
-    const newListPaintings = newList(db.paintings, paramValueSearch);
+    const newListPaintings = newList(db.paintings, firstParamValueSearch);
     const newListAuthors = newUniqAuthorList(newListPaintings);
     const newListLocations = newUniqLocationsList(newListPaintings);
-    isSearchOnlyByDateSearch ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, paramValueSearch));
+    isSearchOnlyByDateSearch ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, secondParamValueSearch));
     setListAuthors(newListAuthors);
     setListLocations(newListLocations);
   };
 
   const requestHandler = (firstValueField, secondValueField) => {
-    const isSecondValueFieldEmpty = (secondValueField == undefined);
-    const newListPaintingsOnFirstField = newList(db.paintings, firstValueField);
-    const newListNextParamSearch = newList(listPaintings, secondValueField);
     const handlerListPaintings = () => {
+      const isSecondValueFieldEmpty = (secondValueField == undefined);
+      const newListPaintingsOnFirstField = newList(db.paintings, firstValueField);
+      const newListPaintingsTwoField = newList(newListPaintingsOnFirstField, secondValueField);
+      const newListNextParamSearch = newList(listPaintings, secondValueField);
       //  если второго поля нет, то новый список будет отфильтрован по первому одному параметру
       if (isSecondValueFieldEmpty) {
         return newListPaintingsOnFirstField;
-      } else {
-        const newListPaintings = newList(newListPaintingsOnFirstField, secondValueField);
-        //  если у нас дубликат ключа, то проходимся по всем картинкам, сначала ищем по первому полю и по второму
-        //  иначе просто проходимся по массиву картинок, что осталось после предыдущего ключа
-        return isDuplicateReqParamSearch ? newListPaintings : newListNextParamSearch;
+      } else if (reqParamSearch.length == 2) {
+          return newListPaintingsTwoField;
+      } else if (reqParamSearch.length > 2) {
+          return newListNextParamSearch;
       }
     };
     const newListPaintings =  handlerListPaintings();
@@ -109,7 +109,7 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
           setterLists(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'created') {
-          arrSearchOnDate(firstValueField);
+          arrSearchOnDate(firstValueField, secondValueField);
         }
         //  if only author
         if (secondValueField == undefined) {
@@ -126,7 +126,7 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
           setterLists(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'created') {
-          arrSearchOnDate(firstValueField);
+          arrSearchOnDate(firstValueField, secondValueField);
         }
         //  if only locationId
         if (secondValueField == undefined) {
@@ -141,7 +141,7 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
           setterLists(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'locationId') {
-          setterLists(newListPaintings, newListAuthors);
+          setterLists(newListPaintings, newListAuthors, newListLocations);
         }
         //  if only created
         if (secondValueField == undefined) {
