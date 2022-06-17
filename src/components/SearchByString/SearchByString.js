@@ -143,7 +143,6 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
           {inputValue.length > 0 &&
             <BtnResetCross 
               onClick={handlerReset}
-              theme={theme}
               style={{marginLeft: '10px'}}
             />
           }
