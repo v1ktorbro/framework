@@ -1,0 +1,32 @@
+$cursorPointerThemeNight: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+$btnResetCrossThemeNaight: url('../../images/btn_reset_cross_naight_theme.svg');
+$cursorPointerThemeDay: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+$btnResetCrossThemeDay: url('../../images/btn_reset_cross_day_theme.svg');
+
+.btn-reset-cross {
+  width: 8px;
+  height: 8px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 300ms linear;
+  align-self: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  &:hover {
+    transform: scale(1.8);
+  }
+  &_theme-day {
+    background-image: $btnResetCrossThemeDay;
+    &:hover {
+      cursor: $cursorPointerThemeDay;
+    }
+  }
+  &_theme-naight {
+    background-image: $btnResetCrossThemeNaight;
+    &:hover {
+      cursor: $cursorPointerThemeNight;
+    }
+  }
+}
