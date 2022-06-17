@@ -7,9 +7,18 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   const [reqParamSearch, setReqParamSearch] = React.useState([]);
   const [isDuplicateReqParamSearch, setIsDuplicateReqParamSearch] = React.useState(false);
   const [filteredDbForUser, setFilteredDbForUser] = React.useState({ paintings: [], authors: [], locations: [] });
-  const newList = (arrList, reqParamSearch) => arrList.filter((itemList) => itemList[reqParamSearch] == searchData[reqParamSearch]);
   const newUniqAuthorList = (listPaints) => handlerUniqueValues(listPaints, 'authorId', db.authors); 
   const newUniqLocationsList = (listPaints) => handlerUniqueValues(listPaints, 'locationId', db.locations); 
+
+  // handler on search param list and return it
+  const newList = (arrList, reqParamSearch) => {
+    return arrList.filter((itemList) => {
+      const isReqParamSearchCreated = reqParamSearch == 'created';
+      const funcFilterOnData = (itemList.created >= searchData.created.from) && (itemList.created <= searchData.created.before);
+      const funcFilterAnothers = itemList[reqParamSearch] == searchData[reqParamSearch];
+      return isReqParamSearchCreated ? funcFilterOnData : funcFilterAnothers;
+    });
+  }
 
   const setInitialData = (db) => {
     setListPaintings(db.paintings);
@@ -29,8 +38,8 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
     }
   }, [reqParamSearch]);
 
-  //сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
-  //на выходе список с уникальными ключами
+  //  сравнивает спискок картин по ключам и фильтрует их, если те повторяются 
+  //  на выходе список с уникальными ключами
   const handlerUniqueValues = (arrWithNewPaints, keyNameId, arrBeingCompared) => {
     let arrUniqueId = [];
     let newArr = [];
@@ -55,30 +64,31 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
     locations !== undefined && setListLocations(locations);
   }
 
-  //фильтрация по времени
-  const arrSearchOnDate = (secondParamSearch) => {
-    const isSearchOnlyByDate = reqParamSearch.length == 1 ? true : false;
-    const newListPaintings = db.paintings.filter((itemList) => itemList.created >= searchData.created.from && itemList.created <= searchData.created.before);
+  //  фильтрация по времени
+  //  value приходит в формате: create: {from: '', before: ''}
+  const arrSearchOnDate = (firstParamValueSearch, secondParamValueSearch) => {
+    const isSearchOnlyByDateSearch = reqParamSearch.length == 1;
+    const newListPaintings = newList(db.paintings, firstParamValueSearch);
     const newListAuthors = newUniqAuthorList(newListPaintings);
     const newListLocations = newUniqLocationsList(newListPaintings);
-    isSearchOnlyByDate ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, secondParamSearch));
+    isSearchOnlyByDateSearch ? setListPaintings(newListPaintings) : setListPaintings(newList(newListPaintings, secondParamValueSearch));
     setListAuthors(newListAuthors);
     setListLocations(newListLocations);
   };
 
   const requestHandler = (firstValueField, secondValueField) => {
-    const isSecondValueFieldEmpty = (secondValueField == undefined) ? true : false;
-    const newListPaintingsOnFirstField = newList(db.paintings, firstValueField);
-    const newListNextParamSearch = newList(listPaintings, secondValueField);
     const handlerListPaintings = () => {
-      //если второго поля нет, то новый список будет отфильтрован по первому одному параметру
+      const isSecondValueFieldEmpty = (secondValueField == undefined);
+      const newListPaintingsOnFirstField = newList(db.paintings, firstValueField);
+      const newListPaintingsTwoField = newList(newListPaintingsOnFirstField, secondValueField);
+      const newListNextParamSearch = newList(listPaintings, secondValueField);
+      //  если второго поля нет, то новый список будет отфильтрован по первому одному параметру
       if (isSecondValueFieldEmpty) {
         return newListPaintingsOnFirstField;
-      } else {
-        const newListPaintings = newList(newListPaintingsOnFirstField, secondValueField);
-        //если у нас дубликат ключа, то проходимся по всем картинкам, сначала ищем по первому полю и по второму
-        //иначе просто проходимся по массиву картинок, что осталось после предыдущего ключа
-        return isDuplicateReqParamSearch ? newListPaintings : newListNextParamSearch;
+      } else if (reqParamSearch.length == 2) {
+          return newListPaintingsTwoField;
+      } else if (reqParamSearch.length > 2) {
+          return newListNextParamSearch;
       }
     };
     const newListPaintings =  handlerListPaintings();
@@ -99,9 +109,9 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
           setterLists(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'created') {
-          arrSearchOnDate(firstValueField);
+          arrSearchOnDate(firstValueField, secondValueField);
         }
-        //if only author
+        //  if only author
         if (secondValueField == undefined) {
           setterLists(newListPaintings, db.authors, newListLocations);
         }
@@ -116,23 +126,26 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
           setterLists(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'created') {
-          arrSearchOnDate(firstValueField);
+          arrSearchOnDate(firstValueField, secondValueField);
         }
-        //if only locationId
+        //  if only locationId
         if (secondValueField == undefined) {
           setterLists(newListPaintings, newListAuthors, db.locations);
         }
         break;
       case 'created': 
+        if (secondValueField == 'name') {
+          setterLists(newListPaintings, newListAuthors, newListLocations);
+        }
         if (secondValueField == 'authorId') {
           setterLists(newListPaintings, newListAuthors, newListLocations);
         }
         if (secondValueField == 'locationId') {
-          setterLists(newListPaintings, newListAuthors);
+          setterLists(newListPaintings, newListAuthors, newListLocations);
         }
-        //if only created
+        //  if only created
         if (secondValueField == undefined) {
-          arrSearchOnDate();
+          arrSearchOnDate(firstValueField);
         }
         break;
     }
@@ -141,9 +154,9 @@ function HandlerSearch (searchData, db, callBackReturnNewArrList) {
   const handlerSearch = () => {
     const reducerSeveralParam = () => {
       reqParamSearch.reduce((prevValue, currentValue) => {
-        //если первый элмент массива равен последнему в списке запросов
-        //то prevValue пусть равен предпоследнему элементу
-        //а currentValue крайнему
+        //  если первый элмент массива равен последнему в списке запросов
+        //  то prevValue пусть равен предпоследнему элементу
+        //  а currentValue крайнему
         if (currentValue == reqParamSearch[reqParamSearch.length - 1]) {
           prevValue = reqParamSearch[reqParamSearch.length - 2];
           requestHandler(prevValue, currentValue);

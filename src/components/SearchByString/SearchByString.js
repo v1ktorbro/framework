@@ -16,8 +16,8 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
   const [listData, setListData] = React.useState(data);
   const [isFocusElem, setIsFocusElem] = React.useState(false);
   const [isOpenListSearchedResult, setIsOpenListSearchedResult] = React.useState(false);
-  const [isNothingSearch, setIsNothingSearch] = React.useState(false);
-  const [isErrorOnlyLetter, setIsErrorOnlyLetter] = React.useState(false);
+  const [isNothingSearch, setIsNothingSearch] = React.useState({state: false, message: 'Nothing found...'});
+  const [isErrorOnlyLetter, setIsErrorOnlyLetter] = React.useState({state: false, message: 'Enter only letter'});
 
   const valueOfInputFromSearchData = (db, key) => {
     const currentList = db.paintings;
@@ -31,7 +31,7 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
     handlerSearch(value);
     if (!value.length) {
       setIsOpenListSearchedResult(false);
-      setIsNothingSearch(false);
+      setIsNothingSearch({...isNothingSearch, state: false});
     }
   };
 
@@ -43,21 +43,21 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
     if (filteredSearchNamePictures(value).length) {
       setListData(filteredSearchNamePictures(value));
       setIsOpenListSearchedResult(true);
-      setIsNothingSearch(false);
+      setIsNothingSearch({...isNothingSearch, state: false});
     } else {
       setListData(data);
       setIsOpenListSearchedResult(false);
-      setIsNothingSearch(true);
+      setIsNothingSearch({...isNothingSearch, state: true});
     }
   };
 
   const validatorInput = (value) => {
-    const regExOnlyLetter = /^([a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*)$/ig;
+    const regExOnlyLetter = /^([a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*[\s]{0,1}[a-zа-яё]*)$/ig;
     if (regExOnlyLetter.test(value.toLowerCase())) {
-      setIsErrorOnlyLetter(false);
+      setIsErrorOnlyLetter({...isErrorOnlyLetter, state: false});
     } else {
-      setIsErrorOnlyLetter(true);
-      setIsNothingSearch(false);
+      setIsErrorOnlyLetter({...isErrorOnlyLetter, state: true});
+      setIsNothingSearch({...isNothingSearch, state: false});
     }
   };
 
@@ -98,8 +98,8 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
       if (!currentTarget.contains(dropDownListFocusClass)) {
         selectItemRef.current.length ? setInputValue(selectItemRef.current) : setInputValue('');
         setIsOpenListSearchedResult(false);
-        setIsNothingSearch(false);
-        setIsErrorOnlyLetter(false);
+        setIsNothingSearch({...isNothingSearch, state: false});
+        setIsErrorOnlyLetter({...isErrorOnlyLetter, state: false});
       }
     });
     setIsFocusElem(false);
@@ -130,20 +130,19 @@ function SearchByString({ data, keyNameForListData, nameFilter, handlerSetValueP
         onFocus={onFocus}
         onBlur={onBlur}
       >
-        <div className={`search-by-string__container search-by-string__container_${theme}`}>
+        <div className={`search-by-string__container search-by-string__container_theme-${theme}`}>
           <input 
-            className={`search-by-string__input search-by-string__input_${theme}`}
+            className={`search-by-string__input search-by-string__input_theme-${theme}`}
             type='text'
             value={inputValue}
             onChange={onChange}
             placeholder={nameFilter}
           />
-          {isErrorOnlyLetter && <span className={`search-by-string__error-only-letter`}>Вводите только буквы</span>}
-          {isNothingSearch && <span className={`search-by-string__notice-not-found search-by-string__notice-not-found_${theme}`}>Ничего не найдено</span>}
+          {isErrorOnlyLetter.state && <span className={`search-by-string__error-only-letter`}>{isErrorOnlyLetter.message}</span>}
+          {isNothingSearch.state && <span className={`search-by-string__notice-not-found`}>{isNothingSearch.message}</span>}
           {inputValue.length > 0 &&
             <BtnResetCross 
               onClick={handlerReset}
-              theme={theme}
               style={{marginLeft: '10px'}}
             />
           }

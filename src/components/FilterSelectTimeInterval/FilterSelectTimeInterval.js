@@ -82,7 +82,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
       //  сюда добавить логику отображения компонента с тем, что необхоимо ввести все данные
       //console.log('Чтобы отправить запрос, заполните все поля формы created, пожалуйста!', 'значение поля from', inputsValue.from , 'значение поля before', inputsValue.before);
     }
-  }, [inputsValue]);
+  }, [inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid]);
 
   React.useEffect(() => {
     setInputsValue({from: searchData.created.from, before: searchData.created.before});
@@ -96,7 +96,7 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
       onKeyDown={escBtnListener}
       id={`filter-select-time-${nameFilter.toLowerCase()}`}
     >
-      <div className={`filter-select-time-interval__container filter-select-time-interval__container_${theme} ${isFocus && `filter-select-time-interval__container_focus-${theme}`}`}>
+      <div className={`filter-select-time-interval__container filter-select-time-interval__container_theme-${theme} ${isFocus && `filter-select-time-interval__container_focus-theme-${theme}`}`}>
         <input
           className='filter-select-time-interval__input-view-selected-text'
           value={(inputsValue.from.length || inputsValue.before.length) ? `${inputsValue.from} — ${inputsValue.before}` : ''}
@@ -107,23 +107,21 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
         <div className='filter-select-time-interval__btn-container'>
           { (inputsValue.from || inputsValue.before) &&
             <BtnResetCross 
-              theme={theme}
               onClick={handlerReset}
             />
           }
           <BtnSwitchBlind 
-            theme={theme}
             isOpen={isOpenTimeInterval}
             onClick={toggleOpenTimeInterval}
             style={{marginLeft: '10px'}}
           />
         </div>
       </div>
-      <form className={`filter-select-time-interval__form-data filter-select-time-interval__form-data_${theme}  ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
+      <form className={`filter-select-time-interval__form-data filter-select-time-interval__form-data_theme-${theme}  ${isOpenTimeInterval && 'filter-select-time-interval__form-data_open'}`}>
         <div className='filter-select-time-interval__form-data-container'>
           <div className='filter-select-time-interval__input-date-wrapper'>
             <input 
-              className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_from`}
+              className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_theme-${theme} filter-select-time-interval__input-date_from`}
               onChange={handlerValueInputs}
               placeholder='from'
               id='from'
@@ -138,10 +136,10 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
               {(inputTimeFromValidator.isFocus && inputTimeFromValidator.minLengthError.state) && <li className={`filter-select-time-interval__error-item-list`}>{inputTimeFromValidator.minLengthError.errorMessage}</li>}
             </ul>
           </div>
-          <span className={`filter-select-time-interval__dash-sigh filter-select-time-interval__dash-sigh_${theme}`}>&mdash;</span>
+          <span className={`filter-select-time-interval__dash-sigh filter-select-time-interval__dash-sigh_theme-${theme}`}>&mdash;</span>
           <div className='filter-select-time-interval__input-date-wrapper'>
             <input 
-              className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_${theme} filter-select-time-interval__input-date_before`}
+              className={`filter-select-time-interval__input-date filter-select-time-interval__input-date_theme-${theme} filter-select-time-interval__input-date_before`}
               onChange={handlerValueInputs}
               placeholder='before'  
               id='before'

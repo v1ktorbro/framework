@@ -13,7 +13,7 @@ function BtnSwitchTheme ({ setTheme }) {
   return (
     <button 
       type='button' 
-      className={`btn-switch-theme btn-switch-theme_${theme}`} 
+      className={`btn-switch-theme btn-switch-theme_theme-${theme}`} 
       onClick={handleThemeClick}
       />
   );

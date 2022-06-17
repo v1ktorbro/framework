@@ -2,7 +2,7 @@
   height: 45px;
   box-sizing: border-box;
   position: relative;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   outline: none;
 }
 
@@ -17,20 +17,20 @@
   justify-content: space-between;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-}
-.filter-select-list-item__container_theme-day {
-  color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-}
-.filter-select-list-item__container_theme-naight {
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-.filter-select-list-item__container_focus-theme-day {
-  border-color: #000;
-}
-.filter-select-list-item__container_focus-theme-naight {
-  border-color: #fff;
+  &_theme-day {
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, .3);
+  }
+  &_theme-naight {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .3);
+  }
+  &_focus-theme-day {
+    border-color: #000;
+  }
+  &_focus-theme-naight {
+    border-color: #fff;
+  }
 }
 
 .filter-select-list-item__btn-container {
@@ -53,14 +53,8 @@
   color: inherit;
 }
 
-.filter-select-list-item__display-selected-text::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.filter-select-list-item__display-selected-text:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.filter-select-list-item__display-selected-text::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+.filter-select-list-item__display-selected-text {
+  &::placeholder {
+    color: rgba(255, 255, 255, .3);
+  }
 }

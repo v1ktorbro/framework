@@ -8,7 +8,6 @@
 .header__logo {
   max-width: 64px;
   max-height: 64px;
-  -o-object-fit: cover;
   object-fit: cover;
 }
 
@@ -18,12 +17,14 @@
     margin-right: 42px;
   }
 }
+
 @media screen and (max-width: 768px) {
   .header {
     margin-left: 34px;
     margin-right: 34px;
   }
 }
+
 @media screen and (max-width: 425px) {
   .header {
     margin-left: 20px;
