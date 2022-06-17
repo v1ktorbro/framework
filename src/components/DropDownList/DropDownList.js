@@ -7,7 +7,7 @@ function DropDownList({ data, keyNameForListData, isOpen, onClickSelectItem, isF
   
   return (
     <ul 
-      className={`drop-down-list drop-down-list_${theme} ${isOpen ? 'drop-down-list_open' : 'drop-down-list_close'} ${isFocus ? 'drop-down-list_focus' : ''}`}
+      className={`drop-down-list drop-down-list_theme-${theme} ${isOpen ? 'drop-down-list_open' : 'drop-down-list_close'} ${isFocus ? 'drop-down-list_focus' : ''}`}
     >
     {data.map((item) => {
       return (

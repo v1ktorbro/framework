@@ -10,23 +10,18 @@
   outline: none;
   background-color: transparent;
 }
-
-.btn-reset-cross_theme-day {
-  background-image: url('../../images/btn_reset_cross_day_theme.svg');
-}
-
-.btn-reset-cross_theme-naight {
-  background-image: url('../../images/btn_reset_cross_naight_theme.svg');
-}
-
 .btn-reset-cross:hover {
   transform: scale(1.8);
 }
-
-.btn-reset-cross_theme-day:hover {
-  cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+.btn-reset-cross_theme-day {
+  background-image: url("../../images/btn_reset_cross_day_theme.svg");
 }
-
+.btn-reset-cross_theme-day:hover {
+  cursor: url("../../images/cursor_pointer_day_theme.svg"), pointer;
+}
+.btn-reset-cross_theme-naight {
+  background-image: url("../../images/btn_reset_cross_naight_theme.svg");
+}
 .btn-reset-cross_theme-naight:hover {
-  cursor: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+  cursor: url("../../images/cursor_pointer_naight_theme.svg"), pointer;
 }

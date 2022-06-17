@@ -1,0 +1,39 @@
+$cursorPointerThemeDay: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+$cursorPointerThemeNight: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+$btnSwitchForThemeDay: url('../../images/btn_switch_blind_day_theme.svg');
+$btnSwitchForThemeNaight: url('../../images/btn_switch_blind_naight_theme.svg');
+.btn-switch-blind {
+  width: 10px;
+  height: 6px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  outline: none;
+  border: none;
+  align-self: center;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.6);
+  }
+  &_open {
+    transform: rotate(360deg);
+    transition: transform 300ms linear;
+  }
+  &_close {
+    transform: rotate(180deg);
+    transition: transform 300ms linear;
+  }
+  &_theme-day {
+    background-image: $btnSwitchForThemeDay;
+    &:hover {
+      cursor: $cursorPointerThemeDay;
+    }
+  }
+  &_theme-naight {
+    background-image: $btnSwitchForThemeNaight;
+    &:hover {
+      cursor: $cursorPointerThemeNight;
+    }
+  }
+}
