@@ -91,14 +91,12 @@ function FilterSelectListItem ({ data, keyNameForListData, nameFilter, handlerSe
         />
         <div className='filter-select-list-item__btn-container'>
           {selectValue.length > 0 &&
-            <BtnResetCross 
-              theme={theme}
+            <BtnResetCross
               onClick={handlerReset}
               style={{marginLeft: '10px'}}
             />
           }
           <BtnSwitchBlind
-            theme={theme}
             isOpen={isOpenListAuthor}
             onClick={toggleOpenListAuthor}
             style={{marginLeft: '10px'}}
