@@ -10,34 +10,26 @@
   align-self: center;
   cursor: pointer;
 }
-
 .btn-switch-blind:hover {
   transform: scale(1.6);
 }
-
 .btn-switch-blind_open {
   transform: rotate(360deg);
   transition: transform 300ms linear;
 }
-
 .btn-switch-blind_close {
   transform: rotate(180deg);
   transition: transform 300ms linear;
 }
-
-.btn-switch-blind_day {
-  background-image: url('../../images/btn_switch_blind_day_theme.svg');
+.btn-switch-blind_theme-day {
+  background-image: url("../../images/btn_switch_blind_day_theme.svg");
 }
-
-.btn-switch-blind_day:hover {
-  cursor: url('../../images/cursor_pointer_day_theme.svg'), pointer;
+.btn-switch-blind_theme-day:hover {
+  cursor: url("../../images/cursor_pointer_day_theme.svg"), pointer;
 }
-
-.btn-switch-blind_naight {
-  background-image: url('../../images/btn_switch_blind_naight_theme.svg');
+.btn-switch-blind_theme-naight {
+  background-image: url("../../images/btn_switch_blind_naight_theme.svg");
 }
-
-.btn-switch-blind_naight:hover {
-  cursor: url('../../images/cursor_pointer_naight_theme.svg'), pointer;
+.btn-switch-blind_theme-naight:hover {
+  cursor: url("../../images/cursor_pointer_naight_theme.svg"), pointer;
 }
-
