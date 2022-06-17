@@ -107,12 +107,10 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
         <div className='filter-select-time-interval__btn-container'>
           { (inputsValue.from || inputsValue.before) &&
             <BtnResetCross 
-              theme={theme}
               onClick={handlerReset}
             />
           }
           <BtnSwitchBlind 
-            theme={theme}
             isOpen={isOpenTimeInterval}
             onClick={toggleOpenTimeInterval}
             style={{marginLeft: '10px'}}
