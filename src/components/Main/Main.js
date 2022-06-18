@@ -3,7 +3,7 @@ import NavSearch from '../NavSearch/NavSearch';
 import SectionCard from '../SectionCard/SectionCard';
 import Pagination from '../Pagination/Pagination';
 
-function Main({ handlerSetValueParamSearch, isLoading, countItemOfListViewUser,
+function Main({ handlerSetValueParamSearch, countItemOfListViewUser,
   handlerPaginateList, viewPaintsOnScreenFromPaginator, filteredDbForUser
 }) {
 
@@ -16,7 +16,6 @@ function Main({ handlerSetValueParamSearch, isLoading, countItemOfListViewUser,
         />
         <SectionCard
           listCard={viewPaintsOnScreenFromPaginator}
-          isLoading={isLoading}
         />
         <Pagination 
           arrWithData={filteredDbForUser.paintings}
