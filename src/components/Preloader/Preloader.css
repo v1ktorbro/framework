@@ -5,6 +5,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 50px;
+}
+.preloader_open {
+  display: block;
+}
+.preloader_closed {
+  display: none;
 }
 .preloader_theme-day {
   color: rgba(0, 0, 0, 0.3);
@@ -14,6 +21,7 @@
 }
 
 .preloader__image-moving-circle {
+  margin: auto;
   position: relative;
   width: 200px;
   height: 200px;
@@ -107,4 +115,6 @@
   margin-top: 20px;
   font-style: italic;
   font-size: 20px;
+  text-align: center;
+  display: block;
 }
