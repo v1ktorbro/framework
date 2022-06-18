@@ -7,8 +7,8 @@ function Preloader({ isOpen, isProcessSearch = true, messageCurrentProcessSearch
 
   return (
     <div className={`preloader ${isOpen ? 'preloader_open' : 'preloader_closed'} preloader_theme-${theme}`} >
-      <div className={isProcessSearch ? 'preloader__image-moving-circle' : 'preloader__image-error-result' }>
-        <span className={isProcessSearch ? 'preloader__image-moving-ball' : 'preloader__image-error-result' } />
+      <div className={isProcessSearch ? `preloader__image-moving-circle preloader__image-moving-circle_theme-${theme}` : `preloader__image-error-result preloader__image-error-result_theme-${theme}`} >
+        <span className={isProcessSearch ? `preloader__image-moving-ball preloader__image-moving-ball_theme-${theme}` : 'preloader__image-error-result' } />
       </div>
       <span className={isProcessSearch ? 'preloader__description-process' : 'preloader__description-error-result'} > 
         {messageCurrentProcessSearch}
