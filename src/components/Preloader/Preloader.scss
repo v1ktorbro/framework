@@ -1,0 +1,67 @@
+$colorElementsThemeDay: rgba($color: #000000, $alpha: .3);
+$colorElementsThemeNaight: rgba($color: #ffffff, $alpha: .3);
+
+.preloader {
+  font-family: 'Roboto';
+  width: 100%;
+  height: 303px;
+  position: relative;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preloader__image-moving-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 15px solid transparent;
+  border-bottom: 15px solid $colorElementsThemeDay;
+  border-right: 15px solid $colorElementsThemeDay;
+  transform: rotate(45deg);
+  animation: animate 4s ease-in-out infinite;
+
+  & .preloader__image-moving-ball {
+    display: block;
+    position: absolute;   //  абсолютное позиционирование
+    top: 0; //  позиция сверху
+    left: 0;  //  позиция слева
+    width: 100%;  //  ширина круга
+    height: 100%; //  высота круга
+    border-radius: 50%; //  закругление углов
+    animation: animateBall 4s ease-in-out infinite;  
+  }
+  
+  & .preloader__image-moving-ball::before {
+    content: '';  //  контент пустой
+    position: absolute;
+    bottom: 50%;  //  позиция снизу
+    transform: translateY(-50%);  //  сдвиг по оси Y
+    right: 15px;  //  позиция справа
+    width: 30px;  //  ширина мячика
+    height: 30px; //  высота мячика
+    background: $colorElementsThemeDay; //  цвет мячика
+    border-radius: 50%;
+  }
+
+  @keyframes animate {
+    0% {transform: rotate(0deg);}
+    50% {transform: rotate(-360deg);}
+    100% {transform: rotate(0deg);}
+  };
+
+  @keyframes animateBall {
+    0% {transform: rotate(0deg);}
+    50% {transform: rotate(-360deg);}
+    100% {transform: rotate(0deg);}
+  }
+}
+
+.preloader__description-process {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 20px;
+  color: $colorElementsThemeDay;
+}
