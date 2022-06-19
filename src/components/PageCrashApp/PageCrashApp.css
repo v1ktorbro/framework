@@ -5,7 +5,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 bottom;
-  height: 50vh;
+  height: 70vh;
+  font-size: 40px;
+  margin-top: 5%;
+  margin-left: 42px;
+  margin-right: 42px;
 }
 .page-crash-app_theme-day {
   background-image: url("../../images/image_crash_app_theme_day.svg");
@@ -19,19 +23,20 @@
 .page-crash-app__title {
   margin: 0;
   margin-top: 25px;
+  font-size: 60px;
+  line-height: 59px;
 }
 
 .page-crash-app__description {
   margin: 0;
   margin-top: 25px;
   font-weight: 600;
+  line-height: 61px;
 }
 
 @media screen and (max-width: 1024px) {
   .page-crash-app {
     height: 65vh;
-    margin-left: 42px;
-    margin-right: 42px;
     font-size: 35px;
   }
 
