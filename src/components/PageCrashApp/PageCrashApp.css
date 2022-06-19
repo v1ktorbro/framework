@@ -2,11 +2,18 @@
   font-family: "Roboto";
   height: 100%;
   position: relative;
-  background-image: url("../../images/image_crash_app.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 bottom;
   height: 50vh;
+}
+.page-crash-app_theme-day {
+  background-image: url("../../images/image_crash_app_theme_day.svg");
+  color: #000;
+}
+.page-crash-app_theme-naight {
+  background-image: url("../../images/image_crash_app_theme_naight.svg");
+  color: #fff;
 }
 
 .page-crash-app__title {
@@ -50,6 +57,7 @@
     margin-right: 34px;
     font-size: 30px;
     height: 55vh;
+    margin-top: 10%;
   }
 
   .page-crash-app__description {
@@ -66,11 +74,11 @@
     height: 45vh;
     font-size: 23px;
     font-weight: 500;
+    margin-top: 15%;
   }
 
   .page-crash-app__block-text {
     max-width: 203px;
-    margin-left: 20px;
   }
 
   .page-crash-app__title {
