@@ -52,13 +52,17 @@
     >
       <img 
         style='width: 55px; height: 40px; object-fit: contain; margin-right: 20px' 
-        src='https://upload.wikimedia.org/wikipedia/en/thumb/8/8c/Trello_logo.svg/800px-Trello_logo.svg.png' 
+        src='https://cdn.iconscout.com/icon/free/png-256/trello-9-722650.png' 
         alt='лого trello' />
     </a>
-    <a>
+    <a
+      href='https://sass-scss.ru/'
+      style='cursor: pointer'
+      target='_blank'
+    >
       <img 
         style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
-        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMd7eiGMX9FwRLC0uJTDewSjw_7_WvCF4ABLdwztLrCnPEXrqW0gG-pH8eT-fYPLlghjY&usqp=CAU' 
+        src='https://vanseodesign.com/blog/wp-content/uploads/2015/09/sass-logo-2.png' 
         alt='лого scss' />
     </a>
     <a
