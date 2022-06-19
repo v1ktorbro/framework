@@ -44,6 +44,7 @@ function App() {
 
   const getInitialData = async () => {
     setIsPreloaderParam({isLoading: true, messageProcess: 'Requesting initial data, please wait... *_*'});
+    setPageCrashAppParam({...pageCrashAppParam, isCrashApp: false});
     try {
       await api.getAllData().then((res) => {
         setInitialDb(res);
