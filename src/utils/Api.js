@@ -12,7 +12,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Ошибка при получении данных сервера, статус ошибки: ${res.status}`);
+      return Promise.reject(`Error when receiving server data, error status: ${res.status}`);
     });
   }
 
@@ -24,7 +24,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Ошибка в запросе к серверву загрузки карточек, статус ответа: ${res.status}`);
+      return Promise.reject(`Error in the request to the card upload server, response status: ${res.status}`);
     });
   }
 
@@ -36,7 +36,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Ошибка в запросе к серверу загрузки списка авторов, статус ошибки: ${res.status}`);
+      return Promise.reject(`Error in the request to the server for downloading the list of authors, error status: ${res.status}`);
     });
   }
   
@@ -48,7 +48,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Ошибка в запросе к серверу загрузки списка с локациями, статус ошибки: ${res.status}`);
+      return Promise.reject(`Error in the request to the server for downloading the list with locations, error status: ${res.status}`);
     });
   }
 
@@ -60,7 +60,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Не удалось отправить запрос на сервер с поиском картинки, статус ошибки: ${res.status}`);
+      return Promise.reject(`Failed to send a request to the server with the image search, error status: ${res.status}`);
     });
   }
 
@@ -72,7 +72,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Не удалось отправить запрос на получение карточек по идентификатору автора, статус ошибки: ${res.status}`);
+      return Promise.reject(`Failed to send a request to receive cards by author ID, error status: ${res.status}`);
     });
   }
 
@@ -84,7 +84,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(`Не удалось отправить запрос на получение карточек по идентификатору локации, статус ошибки: ${res.status}`);
+      return Promise.reject(`Failed to send a request to receive cards by location ID, error status: ${res.status}`);
     });
   }
 }
