@@ -51,7 +51,7 @@
       target='_blank'
     >
       <img 
-        style='width: 55px; height: 40px; object-fit: contain; margin-right: 20px' 
+        style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
         src='https://cdn.iconscout.com/icon/free/png-256/trello-9-722650.png' 
         alt='лого trello' />
     </a>
