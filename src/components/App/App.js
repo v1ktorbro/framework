@@ -9,6 +9,7 @@ import Main from '../Main/Main';
 import api from '../../utils/Api';
 import HandlerSearch from '../HandlerSearch/HandlerSearch';
 import UrlHandler from '../UrlHandler/UrlHandler';
+import PageCrashApp from '../PageCrashApp/PageCrashApp';
 import Preloader from '../Preloader/Preloader';
 
 function App() {
@@ -24,7 +25,6 @@ function App() {
     locationId: '',
     created: {from: '', before: ''},
   });
-  const [preloaderParam, setIsPreloaderParam] = React.useState({isLoading: false, isNowSearching: false, messageProcess : ''});
   //  количество элементов, которые будут вырезаны в пагинации для отображения
   const [countItemOfListViewUser] = React.useState(12);
 
@@ -33,6 +33,8 @@ function App() {
   //  получение callBack с новым массивом происходит в getUpdatedListData
   const useSearch =  HandlerSearch(searchData, initialDb, getUpdatedListData);
   const urlHandler = UrlHandler();
+  const [preloaderParam, setIsPreloaderParam] = React.useState({isLoading: false, messageProcess : ''});
+  const [pageCrashAppParam, setPageCrashAppParam] = React.useState({isCrashApp: false, messageErrorTitle: '', messageErrorDescription: ''});
   
   const handlerSetValueParamSearch = React.useCallback((keyName, value) => {
     setSearchData((prevState) => ({...prevState, [keyName]: value}));
@@ -41,7 +43,8 @@ function App() {
   }, [searchData]);
 
   const getInitialData = async () => {
-    setIsPreloaderParam({isLoading: true, messageProcess: 'Запрашиваем инфу с сервера. Терпения, пожалуйста *_*'});
+    setIsPreloaderParam({isLoading: true, messageProcess: 'Requesting initial data, please wait... *_*'});
+    setPageCrashAppParam({...pageCrashAppParam, isCrashApp: false});
     try {
       await api.getAllData().then((res) => {
         setInitialDb(res);
@@ -49,7 +52,8 @@ function App() {
         useSearch.setInitialData(res);
       });
     } catch (error) {
-      return setIsPreloaderParam({...preloaderParam, isLoading: true, messageProcess: 'Mэээээээнн, намальна общались же!'});
+      setIsPreloaderParam({...preloaderParam, isLoading: false});
+      return setPageCrashAppParam({isCrashApp: true, messageErrorTitle: 'OOOPS!', messageErrorDescription: error});
     }
   };
 
@@ -86,10 +90,17 @@ function App() {
         <Header 
           setTheme={setTheme}
         />
-        <Preloader
-          preloaderParam={preloaderParam}
-        />
-        { !preloaderParam.isLoading &&
+        { pageCrashAppParam.isCrashApp &&
+            <PageCrashApp
+              param={pageCrashAppParam}
+            />
+        }
+        { preloaderParam.isLoading &&
+            <Preloader
+              preloaderParam={preloaderParam}
+            />
+        }
+        { !(preloaderParam.isLoading || pageCrashAppParam.isCrashApp) &&
             <Main
               handlerSetValueParamSearch={handlerSetValueParamSearch}
               filteredDbForUser={filteredDbForUser}

@@ -45,10 +45,24 @@
         src='https://raw.githubusercontent.com/docker-library/docs/01c12653951b2fe592c1f93a13b4e289ada0e3a1/ubuntu/logo.png' 
         alt='лого ubuntu' />
     </a>
-    <a>
+        <a
+      href='https://trello.com/b/7TQMXPqM/teamwork'
+      style='cursor: pointer'
+      target='_blank'
+    >
       <img 
         style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
-        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMd7eiGMX9FwRLC0uJTDewSjw_7_WvCF4ABLdwztLrCnPEXrqW0gG-pH8eT-fYPLlghjY&usqp=CAU' 
+        src='https://cdn.iconscout.com/icon/free/png-256/trello-9-722650.png' 
+        alt='лого trello' />
+    </a>
+    <a
+      href='https://sass-scss.ru/'
+      style='cursor: pointer'
+      target='_blank'
+    >
+      <img 
+        style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
+        src='https://vanseodesign.com/blog/wp-content/uploads/2015/09/sass-logo-2.png' 
         alt='лого scss' />
     </a>
     <a
@@ -80,6 +94,16 @@
         style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjK60Fd1shaOG5Glq2toJyChKNGP9Ocmm4PC_r27rEB0XzDQrSgOUpIDHjOZriA-lZkS0&usqp=CAU' 
         alt='лого css' />
+    </a>
+        <a
+      href='https://www.figma.com/file/5ywfxEN6622vwgnyFBq880/FWT-Front-end-%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-(Copy)?node-id=8368%3A531'
+      style='cursor: pointer'
+      target='_blank'
+    >
+      <img 
+        style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
+        src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Figma-1-logo.png/640px-Figma-1-logo.png' 
+        alt='лого figma' />
     </a>
   </nav>
 </div>
@@ -116,6 +140,7 @@ Cервер работает на nginx. OS: ubuntu.
 
 ## Добавлено в проект новое:
 * Прелоудер при загрузки начальных данных карточек;
+* Компонент AppCrashApp, который отображает ошибки с сервера при работе с карточками;
 
 ## Изучено новое:
 * написание стилей на препропцессоре sass;
