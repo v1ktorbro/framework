@@ -11,7 +11,6 @@ import HandlerSearch from '../HandlerSearch/HandlerSearch';
 import UrlHandler from '../UrlHandler/UrlHandler';
 import PageCrashApp from '../PageCrashApp/PageCrashApp';
 import Preloader from '../Preloader/Preloader';
-import ErrorNoResultFound from '../ErrorNoResultFound/ErrorNoResultFound';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -45,7 +44,7 @@ function App() {
   }, [searchData]);
 
   const getInitialData = async () => {
-    setIsPreloaderParam({isLoading: true, messageProcess: 'Requesting initial data, please wait... *_*'});
+    setIsPreloaderParam({isLoading: true, messageProcess: 'Requesting initial data, please wait...'});
     setPageCrashAppParam({...pageCrashAppParam, isCrashApp: false});
     try {
       await api.getAllData().then((res) => {
@@ -81,6 +80,25 @@ function App() {
   }, [apiBrowserUlrSearchString]);
 
   React.useEffect(() => {
+    for (let keyName in searchData) {
+      const isCreatedKeyName = keyName == 'created';
+      if (isCreatedKeyName) {
+        const value = searchData[keyName];
+        const { from, before } = value;
+        //  если есть value у ключа created и при этом в отфильтрованном массиве
+        //  filteredDbForUser нет картин, то скрываем блок main и 
+        //  показываем компонент ErrorNoResultFound
+        if (from.length && before.length) {
+          filteredDbForUser.paintings.length ? setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false}) : setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true});
+        } else { 
+          // при нажатии кнопки крестик
+          !filteredDbForUser.paintings.length && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
+        }
+      }
+    }
+  }, [searchData, filteredDbForUser]);
+
+  React.useEffect(() => {
     getInitialData();
   }, []);
 
@@ -91,9 +109,6 @@ function App() {
       <CurrentDataContext.Provider value={initialDb}>
         <Header 
           setTheme={setTheme}
-        />
-        <ErrorNoResultFound 
-          param={errorNoResultFoundParam}
         />
         { pageCrashAppParam.isCrashApp &&
             <PageCrashApp
@@ -112,6 +127,7 @@ function App() {
               countItemOfListViewUser={countItemOfListViewUser}
               viewPaintsOnScreenFromPaginator={viewPaintsOnScreenFromPaginator}
               handlerPaginateList={handlerPaginateList}
+              errorNoResultFoundParam={errorNoResultFoundParam}
             />
         }
       </CurrentDataContext.Provider>
