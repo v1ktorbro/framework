@@ -11,6 +11,7 @@ import HandlerSearch from '../HandlerSearch/HandlerSearch';
 import UrlHandler from '../UrlHandler/UrlHandler';
 import PageCrashApp from '../PageCrashApp/PageCrashApp';
 import Preloader from '../Preloader/Preloader';
+import ErrorNoResultFound from '../ErrorNoResultFound/ErrorNoResultFound';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -35,6 +36,7 @@ function App() {
   const urlHandler = UrlHandler();
   const [preloaderParam, setIsPreloaderParam] = React.useState({isLoading: false, messageProcess : ''});
   const [pageCrashAppParam, setPageCrashAppParam] = React.useState({isCrashApp: false, messageErrorTitle: '', messageErrorDescription: ''});
+  const [errorNoResultFoundParam, setErrorNoResultFoundParam] = React.useState({isOpen: false, title: 'No results found', description: 'try to change the request     or reset the filters'});
   
   const handlerSetValueParamSearch = React.useCallback((keyName, value) => {
     setSearchData((prevState) => ({...prevState, [keyName]: value}));
@@ -89,6 +91,9 @@ function App() {
       <CurrentDataContext.Provider value={initialDb}>
         <Header 
           setTheme={setTheme}
+        />
+        <ErrorNoResultFound 
+          param={errorNoResultFoundParam}
         />
         { pageCrashAppParam.isCrashApp &&
             <PageCrashApp
