@@ -95,7 +95,7 @@
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjK60Fd1shaOG5Glq2toJyChKNGP9Ocmm4PC_r27rEB0XzDQrSgOUpIDHjOZriA-lZkS0&usqp=CAU' 
         alt='лого css' />
     </a>
-        <a
+    <a
       href='https://www.figma.com/file/5ywfxEN6622vwgnyFBq880/FWT-Front-end-%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-(Copy)?node-id=8368%3A531'
       style='cursor: pointer'
       target='_blank'
@@ -104,6 +104,16 @@
         style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
         src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Figma-1-logo.png/640px-Figma-1-logo.png' 
         alt='лого figma' />
+    </a>
+    <a
+      href='https://ru.stackoverflow.com/'
+      style='cursor: pointer'
+      target='_blank'
+    >
+      <img 
+        style='width: 45px; height: 40px; object-fit: contain; margin-right: 20px' 
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Sz_b0DT-gRXj4YTyFs5oJ8OmqyJsR0BsjbLar5XBWVCUBNHRGoOkd7wTe-7iEjsqIHk&usqp=CAU' 
+        alt='лого stackoverflof' />
     </a>
   </nav>
 </div>
@@ -114,7 +124,11 @@
 
 Cервер работает на nginx. OS: ubuntu. 
 ## О проекте
-Небольшое веб-приложение, в котором реализовано получение данных с сервера от ребят [framework](https://test-front.framework.team/api-docs/). Переключение темы, фильтрации от одного до четырех значений. Пагинации и взаимодействии с url.
+Небольшое веб-приложение, в котором реализовано получение данных с сервера  [framework](https://test-front.framework.team/api-docs/). 
+
+В работе возможно переключение темы, реализован поиск от одного до четырех значений как на основной странице, так и url. 
+
+Пагинация и взаимодействия с url.
 
 Данные приходят в виде объекта с тремя ключами, каждое значение которого является массивом.
 
@@ -141,6 +155,7 @@ Cервер работает на nginx. OS: ubuntu.
 ## Добавлено в проект новое:
 * Прелоудер при загрузки начальных данных карточек;
 * Компонент AppCrashApp, который отображает ошибки с сервера при работе с карточками;
+* Компонент ErrorNoResultFound, который отображает неверный запрос параметров в одном из полей и/или url запроса;
 
 ## Изучено новое:
 * написание стилей на препропцессоре sass;
