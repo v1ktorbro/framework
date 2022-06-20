@@ -1,0 +1,123 @@
+.preloader {
+  font-family: "Roboto";
+  width: 100%;
+  height: 303px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.preloader_open {
+  display: block;
+}
+.preloader_closed {
+  display: none;
+}
+.preloader_theme-day {
+  color: rgba(0, 0, 0, 0.3);
+}
+.preloader_theme-naight {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.preloader__image-moving-circle {
+  margin: auto;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  transform: rotate(45deg);
+  -webkit-animation: animate 4s ease-in-out infinite;
+          animation: animate 4s ease-in-out infinite;
+}
+.preloader__image-moving-circle_theme-day {
+  border-bottom: 5px solid rgba(0, 0, 0, 0.3);
+  border-right: 5px solid rgba(0, 0, 0, 0.3);
+}
+.preloader__image-moving-circle_theme-naight {
+  border-bottom: 5px solid rgba(255, 255, 255, 0.3);
+  border-right: 5px solid rgba(255, 255, 255, 0.3);
+}
+.preloader__image-moving-circle .preloader__image-moving-ball {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -webkit-animation: animateBall 4s ease-in-out infinite;
+          animation: animateBall 4s ease-in-out infinite;
+}
+.preloader__image-moving-circle .preloader__image-moving-ball::before {
+  content: "";
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+.preloader__image-moving-circle .preloader__image-moving-ball_theme-day::before {
+  background: rgba(0, 0, 0, 0.3);
+}
+.preloader__image-moving-circle .preloader__image-moving-ball_theme-naight::before {
+  background: rgba(255, 255, 255, 0.3);
+}
+@-webkit-keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes animateBall {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes animateBall {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.preloader__description-process {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 20px;
+  text-align: center;
+  display: block;
+}

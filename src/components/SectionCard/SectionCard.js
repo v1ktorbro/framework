@@ -3,13 +3,9 @@ import React from 'react';
 import CardImage from '../CardImage/CardImage';
 import { CurrentDataContext } from '../../context/CurrentDataContext';
 
-function SectionCard({ listCard, isLoading }) {
+function SectionCard({ listCard }) {
   const db = React.useContext(CurrentDataContext);
 
-  if (isLoading) {
-    return <h1>LOADING...</h1>
-  }
-  
   return (
     <section className='section-card'>
       {listCard.map((dataCard) => {

@@ -9,6 +9,7 @@ import Main from '../Main/Main';
 import api from '../../utils/Api';
 import HandlerSearch from '../HandlerSearch/HandlerSearch';
 import UrlHandler from '../UrlHandler/UrlHandler';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -23,7 +24,7 @@ function App() {
     locationId: '',
     created: {from: '', before: ''},
   });
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [preloaderParam, setIsPreloaderParam] = React.useState({isLoading: false, isNowSearching: false, messageProcess : ''});
   //  количество элементов, которые будут вырезаны в пагинации для отображения
   const [countItemOfListViewUser] = React.useState(12);
 
@@ -39,15 +40,17 @@ function App() {
     urlHandler.setUrlFromApp(keyName, value);
   }, [searchData]);
 
-  const getInitialData = () => {
-    setIsLoading(true);
-    api.getAllData().then((res) => {
-      setInitialDb(res);
-      setIsLoading(false);
-      useSearch.setInitialData(res);
-    }).catch((err) => {
-      return console.log('Ошибка при получении данных с сервера:', err);
-    });
+  const getInitialData = async () => {
+    setIsPreloaderParam({isLoading: true, messageProcess: 'Запрашиваем инфу с сервера. Терпения, пожалуйста *_*'});
+    try {
+      await api.getAllData().then((res) => {
+        setInitialDb(res);
+        setIsPreloaderParam({...preloaderParam, isLoading: false});
+        useSearch.setInitialData(res);
+      });
+    } catch (error) {
+      return setIsPreloaderParam({...preloaderParam, isLoading: true, messageProcess: 'Mэээээээнн, намальна общались же!'});
+    }
   };
 
   function getUpdatedListData(searchHandlerFilterArr) {
@@ -83,14 +86,18 @@ function App() {
         <Header 
           setTheme={setTheme}
         />
-        <Main
-          handlerSetValueParamSearch={handlerSetValueParamSearch}
-          filteredDbForUser={filteredDbForUser}
-          countItemOfListViewUser={countItemOfListViewUser}
-          viewPaintsOnScreenFromPaginator={viewPaintsOnScreenFromPaginator}
-          handlerPaginateList={handlerPaginateList}
-          isLoading={isLoading}
+        <Preloader
+          preloaderParam={preloaderParam}
         />
+        { !preloaderParam.isLoading &&
+            <Main
+              handlerSetValueParamSearch={handlerSetValueParamSearch}
+              filteredDbForUser={filteredDbForUser}
+              countItemOfListViewUser={countItemOfListViewUser}
+              viewPaintsOnScreenFromPaginator={viewPaintsOnScreenFromPaginator}
+              handlerPaginateList={handlerPaginateList}
+            />
+        }
       </CurrentDataContext.Provider>
       </CurrentDataSearchContext.Provider>
       </CurrentThemeContext.Provider>
