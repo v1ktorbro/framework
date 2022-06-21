@@ -79,28 +79,27 @@ function App() {
     urlHandler.handlerParamFromBrowserApi(apiBrowserUlrSearchString, handlerSetValueParamSearch);
   }, [apiBrowserUlrSearchString]);
 
-
+  // обработчик для отображения компонента noResultFound
   const handlerNoResultFoundParam = () => {
-    Object.keys(searchData).forEach((keyName) => {
-      const isEmpteFilteredArrSearch = filteredDbForUser.paintings.length ? false : true;
+    const isEmpteFilteredArrSearch = filteredDbForUser.paintings.length ? false : true;
+    const handlerViewPageNoResultFoundParam = (keyName) => {
       const isCreatedKeyName = keyName == 'created';
-      if (isCreatedKeyName) {
-        const value = searchData[keyName];
-        const { from, before } = value;
-        if (isEmpteFilteredArrSearch) {
-          (from.length && before.length) && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true})  //setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
-        } else {
-          setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
-        }
-        //если это не created
-      } else {
+      const handlerParamSearch = () => {
         if (searchData[keyName].length) {
-            const value = searchData[keyName];
-            if (isEmpteFilteredArrSearch) {
-              value.length && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true})
-            }
-          }
-      }
+          const value = searchData[keyName];
+          isEmpteFilteredArrSearch && value.length && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true});
+        }
+      };
+      const handlerForCreatedParamSearch = () => {
+        const value = searchData.created;
+        const { from, before } = value;
+        if (isEmpteFilteredArrSearch) (from.length && before.length) && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true});
+        else setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
+      };
+      isCreatedKeyName ? handlerForCreatedParamSearch() : handlerParamSearch();
+    };
+    Object.keys(searchData).forEach((keyName) => {
+      handlerViewPageNoResultFoundParam(keyName);
     });
   };
 
