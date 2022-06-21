@@ -2,9 +2,11 @@ import './Main.css';
 import NavSearch from '../NavSearch/NavSearch';
 import SectionCard from '../SectionCard/SectionCard';
 import Pagination from '../Pagination/Pagination';
+import ErrorNoResultFound from '../ErrorNoResultFound/ErrorNoResultFound';
 
 function Main({ handlerSetValueParamSearch, countItemOfListViewUser,
-  handlerPaginateList, viewPaintsOnScreenFromPaginator, filteredDbForUser
+  handlerPaginateList, viewPaintsOnScreenFromPaginator, filteredDbForUser, 
+  errorNoResultFoundParam,
 }) {
 
   return (
@@ -14,14 +16,27 @@ function Main({ handlerSetValueParamSearch, countItemOfListViewUser,
           filteredDbForUser={filteredDbForUser}
           handlerSetValueParamSearch={handlerSetValueParamSearch}
         />
-        <SectionCard
-          listCard={viewPaintsOnScreenFromPaginator}
-        />
-        <Pagination 
-          arrWithData={filteredDbForUser.paintings}
-          countItemOfListViewUser={countItemOfListViewUser}
-          handlerPaginateList={handlerPaginateList}
-        />
+        { 
+          <>
+            {errorNoResultFoundParam.isOpen &&
+              <ErrorNoResultFound 
+                param={errorNoResultFoundParam}
+              />
+            }
+            { !(errorNoResultFoundParam.isOpen) && 
+                <>
+                  <SectionCard
+                    listCard={viewPaintsOnScreenFromPaginator}
+                  />
+                  <Pagination 
+                    arrWithData={filteredDbForUser.paintings}
+                    countItemOfListViewUser={countItemOfListViewUser}
+                    handlerPaginateList={handlerPaginateList}
+                  />
+                </>
+            }
+          </>
+        }
       </main>
     </>
   );

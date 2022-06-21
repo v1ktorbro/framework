@@ -35,6 +35,7 @@ function App() {
   const urlHandler = UrlHandler();
   const [preloaderParam, setIsPreloaderParam] = React.useState({isLoading: false, messageProcess : ''});
   const [pageCrashAppParam, setPageCrashAppParam] = React.useState({isCrashApp: false, messageErrorTitle: '', messageErrorDescription: ''});
+  const [errorNoResultFoundParam, setErrorNoResultFoundParam] = React.useState({isOpen: false, title: 'No results found', description: 'try to change the url request or reset the filters'});
   
   const handlerSetValueParamSearch = React.useCallback((keyName, value) => {
     setSearchData((prevState) => ({...prevState, [keyName]: value}));
@@ -43,7 +44,7 @@ function App() {
   }, [searchData]);
 
   const getInitialData = async () => {
-    setIsPreloaderParam({isLoading: true, messageProcess: 'Requesting initial data, please wait... *_*'});
+    setIsPreloaderParam({isLoading: true, messageProcess: 'Requesting initial data, please wait...'});
     setPageCrashAppParam({...pageCrashAppParam, isCrashApp: false});
     try {
       await api.getAllData().then((res) => {
@@ -78,6 +79,34 @@ function App() {
     urlHandler.handlerParamFromBrowserApi(apiBrowserUlrSearchString, handlerSetValueParamSearch);
   }, [apiBrowserUlrSearchString]);
 
+  // обработчик для отображения компонента noResultFound
+  const handlerNoResultFoundParam = () => {
+    const isEmpteFilteredArrSearch = filteredDbForUser.paintings.length ? false : true;
+    const handlerViewPageNoResultFoundParam = (keyName) => {
+      const isCreatedKeyName = keyName == 'created';
+      const handlerParamSearch = () => {
+        if (searchData[keyName].length) {
+          const value = searchData[keyName];
+          isEmpteFilteredArrSearch && value.length && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true});
+        }
+      };
+      const handlerForCreatedParamSearch = () => {
+        const value = searchData.created;
+        const { from, before } = value;
+        if (isEmpteFilteredArrSearch) (from.length && before.length) && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true});
+        else setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
+      };
+      isCreatedKeyName ? handlerForCreatedParamSearch() : handlerParamSearch();
+    };
+    Object.keys(searchData).forEach((keyName) => {
+      handlerViewPageNoResultFoundParam(keyName);
+    });
+  };
+
+  React.useEffect(() => {
+    handlerNoResultFoundParam();
+  }, [filteredDbForUser]);  
+
   React.useEffect(() => {
     getInitialData();
   }, []);
@@ -107,6 +136,7 @@ function App() {
               countItemOfListViewUser={countItemOfListViewUser}
               viewPaintsOnScreenFromPaginator={viewPaintsOnScreenFromPaginator}
               handlerPaginateList={handlerPaginateList}
+              errorNoResultFoundParam={errorNoResultFoundParam}
             />
         }
       </CurrentDataContext.Provider>

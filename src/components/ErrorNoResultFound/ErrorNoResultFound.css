@@ -1,0 +1,70 @@
+.error-no-result-found {
+  font-family: "Roboto";
+  margin-top: 10%;
+  width: 100%;
+}
+.error-no-result-found_theme-day {
+  color: #4C4C4C;
+}
+.error-no-result-found_theme-naight {
+  color: #fff;
+}
+.error-no-result-found_opened {
+  display: block;
+}
+.error-no-result-found_closed {
+  display: none;
+}
+
+.error-no-result-found__container {
+  border-width: 1px;
+  border-style: solid;
+  border-color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 30px;
+  box-sizing: border-box;
+  font-size: 50px;
+  line-height: 55px;
+  padding: 100px 40px 150px;
+}
+
+.error-no-result-found__image-error {
+  width: 55px;
+  height: 55px;
+  background-image: url("../../images/symbol_error_validation.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 40px;
+}
+
+.error-no-result-found__title {
+  font-weight: 600;
+  margin: 0px;
+  margin-bottom: 40px;
+  display: inline;
+  text-align: center;
+}
+
+.error-no-result-found__description {
+  display: inline;
+  font-weight: 400;
+  margin: 0px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .error-no-result-found__container {
+    padding: 50px 20px 50px;
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .error-no-result-found__container {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
