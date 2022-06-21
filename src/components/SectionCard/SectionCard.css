@@ -4,53 +4,46 @@
   margin-bottom: 40px;
   box-sizing: border-box;
   display: grid;
+  grid-template-columns: repeat(3, minmax(-webkit-min-content, 360px));
   grid-template-columns: repeat(3, minmax(min-content, 360px));
   grid-template-rows: minmax(205px, 275px);
   grid-auto-rows: minmax(205px, 275px);
   grid-gap: 20px;
 }
 
-@media screen and (max-width: 1365px) {
-  .section-card {
-    grid-template-columns: repeat(3, minmax(min-content, max-content));
-  }
-}
-
 @media screen and (max-width: 1024px) {
-  .section-card{
+  .section-card {
+    grid-template-columns: repeat(3, minmax(-webkit-min-content, 300px));
+    grid-template-columns: repeat(3, minmax(min-content, 300px));
     grid-template-rows: repeat(4, minmax(205px, 230px));
-    grid-template-rows: minmax(205px, 230px);
     grid-auto-rows: minmax(205px, 230px);
   }
 }
-
 @media screen and (max-width: 768px) {
-  .section-card{
+  .section-card {
+    grid-template-columns: repeat(2, minmax(-webkit-min-content, 340px));
     grid-template-columns: repeat(2, minmax(min-content, 340px));
     grid-template-rows: minmax(205px, 249px);
     grid-auto-rows: minmax(205px, 249px);
     margin-bottom: 35px;
   }
 }
-
 @media screen and (max-width: 550px) {
-  .section-card{
+  .section-card {
     grid-template-columns: 1fr;
     grid-template-rows: 290px;
     grid-auto-rows: 290px;
   }
 }
-
 @media screen and (max-width: 450px) {
-  .section-card{
+  .section-card {
     grid-template-rows: 240px;
     grid-auto-rows: 240px;
     margin-bottom: 30px;
   }
 }
-
 @media screen and (max-width: 375px) {
-  .section-card{
+  .section-card {
     grid-template-rows: 205px;
     grid-auto-rows: 205px;
   }
