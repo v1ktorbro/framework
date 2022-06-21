@@ -6,15 +6,18 @@ import BtnResetCross from '../BtnResetCross/BtnResetCross';
 import BtnSwitchBlind from '../BtnSwitchBlind/BtnSwitchBlind';
 import { borderStyleHandlerThemeForFilter } from '../../utils/utils';
 import { useInput } from '../FormValidator/FormValidator';
+import { CurrentDataContext } from '../../context/CurrentDataContext';
 
 function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
   const theme = React.useContext(CurrentThemeContext);
   const searchData = React.useContext(CurrentDataSearchContext);
+  const initialDb = React.useContext(CurrentDataContext);
   const [inputsValue, setInputsValue] = React.useState({from: '', before: ''});
   const [isOpenTimeInterval, setIsOpenTimeInterval] = React.useState(false);
   const [isFocus, setIsFocus] = React.useState(false);
   const inputTimeFromValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
   const inputTimeBeforeValidator = useInput('', {isEmpty: true, onlyNumber: true, minLength: 4});
+  const isAllowToDisplayToValue = () => initialDb.paintings.some((itemList) => (itemList.created >= searchData.created.from) && (itemList.created <= searchData.created.before));
 
   const toggleOpenTimeInterval = () => {
     setIsOpenTimeInterval(prev => !prev);
@@ -76,16 +79,11 @@ function FilterSelectTimeInterval({ nameFilter, handlerSetValueParamSearch }) {
 
   React.useEffect(() => {
     //  производить поиск, только если оба поля заполнены и в них по 4 значения
-    if (inputsValue.from.length == 4 && inputsValue.before.length == 4) {
-      onSubmit()
-    } else {
-      //  сюда добавить логику отображения компонента с тем, что необхоимо ввести все данные
-      //console.log('Чтобы отправить запрос, заполните все поля формы created, пожалуйста!', 'значение поля from', inputsValue.from , 'значение поля before', inputsValue.before);
-    }
+    if (inputsValue.from.length == 4 && inputsValue.before.length == 4) onSubmit();
   }, [inputTimeFromValidator.inputValid && inputTimeBeforeValidator.inputValid]);
 
   React.useEffect(() => {
-    setInputsValue({from: searchData.created.from, before: searchData.created.before});
+    Object.keys(initialDb).length && isAllowToDisplayToValue() && setInputsValue({from: searchData.created.from, before: searchData.created.before});
   }, [searchData.created.from, searchData.created.before]);
   
   return (
