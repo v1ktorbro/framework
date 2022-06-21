@@ -35,7 +35,7 @@ function App() {
   const urlHandler = UrlHandler();
   const [preloaderParam, setIsPreloaderParam] = React.useState({isLoading: false, messageProcess : ''});
   const [pageCrashAppParam, setPageCrashAppParam] = React.useState({isCrashApp: false, messageErrorTitle: '', messageErrorDescription: ''});
-  const [errorNoResultFoundParam, setErrorNoResultFoundParam] = React.useState({isOpen: false, title: 'No results found', description: 'try to change the request     or reset the filters'});
+  const [errorNoResultFoundParam, setErrorNoResultFoundParam] = React.useState({isOpen: false, title: 'No results found', description: 'try to change the url request or reset the filters'});
   
   const handlerSetValueParamSearch = React.useCallback((keyName, value) => {
     setSearchData((prevState) => ({...prevState, [keyName]: value}));
@@ -79,24 +79,34 @@ function App() {
     urlHandler.handlerParamFromBrowserApi(apiBrowserUlrSearchString, handlerSetValueParamSearch);
   }, [apiBrowserUlrSearchString]);
 
-  React.useEffect(() => {
-    for (let keyName in searchData) {
+
+  const handlerNoResultFoundParam = () => {
+    Object.keys(searchData).forEach((keyName) => {
+      const isEmpteFilteredArrSearch = filteredDbForUser.paintings.length ? false : true;
       const isCreatedKeyName = keyName == 'created';
       if (isCreatedKeyName) {
         const value = searchData[keyName];
         const { from, before } = value;
-        //  если есть value у ключа created и при этом в отфильтрованном массиве
-        //  filteredDbForUser нет картин, то скрываем блок main и 
-        //  показываем компонент ErrorNoResultFound
-        if (from.length && before.length) {
-          filteredDbForUser.paintings.length ? setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false}) : setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true});
-        } else { 
-          // при нажатии кнопки крестик
-          !filteredDbForUser.paintings.length && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
+        if (isEmpteFilteredArrSearch) {
+          (from.length && before.length) && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true})  //setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
+        } else {
+          setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: false});
         }
+        //если это не created
+      } else {
+        if (searchData[keyName].length) {
+            const value = searchData[keyName];
+            if (isEmpteFilteredArrSearch) {
+              value.length && setErrorNoResultFoundParam({...errorNoResultFoundParam, isOpen: true})
+            }
+          }
       }
-    }
-  }, [searchData, filteredDbForUser]);
+    });
+  };
+
+  React.useEffect(() => {
+    handlerNoResultFoundParam();
+  }, [filteredDbForUser]);  
 
   React.useEffect(() => {
     getInitialData();
