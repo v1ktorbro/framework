@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { CurrentThemeContext, defaultTheme } from '../../context/CurrentThemeContext';
 import { CurrentDataContext } from '../../context/CurrentDataContext';
@@ -11,6 +12,7 @@ import HandlerSearch from '../HandlerSearch/HandlerSearch';
 import UrlHandler from '../UrlHandler/UrlHandler';
 import PageCrashApp from '../PageCrashApp/PageCrashApp';
 import Preloader from '../Preloader/Preloader';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
   // по умолчанию, цвет темы подтягивается из настроек ОС и сохраняется в localStorage
@@ -36,6 +38,7 @@ function App() {
   const [preloaderParam, setIsPreloaderParam] = React.useState({isLoading: false, messageProcess : ''});
   const [pageCrashAppParam, setPageCrashAppParam] = React.useState({isCrashApp: false, messageErrorTitle: '', messageErrorDescription: ''});
   const [errorNoResultFoundParam, setErrorNoResultFoundParam] = React.useState({isOpen: false, title: 'No results found', description: 'try to change the url request or reset the filters'});
+  const [pageNotFoundParam] = React.useState({statusCode: 404, title: 'Sorry', description: 'The page you’re looking for is not found'});
   
   const handlerSetValueParamSearch = React.useCallback((keyName, value) => {
     setSearchData((prevState) => ({...prevState, [keyName]: value}));
@@ -66,20 +69,7 @@ function App() {
     setViewPaintsOnScreenFromPaginator(currentPaintsList());
   };
 
-  React.useEffect(() => {
-    localStorage.setItem('app-theme', theme);
-    document.documentElement.setAttribute('app-theme', theme);
-  }, [theme]);
-
-  React.useEffect(() => {
-    urlHandler.getUrlFromLocalStorage(handlerSetValueParamSearch);
-  }, [initialDb]);
-
-  React.useEffect(() => {
-    urlHandler.handlerParamFromBrowserApi(apiBrowserUlrSearchString, handlerSetValueParamSearch);
-  }, [apiBrowserUlrSearchString]);
-
-  // обработчик для отображения компонента noResultFound
+  // обработчик для отображения компонента PageNoResultFound
   const handlerNoResultFoundParam = () => {
     const isEmpteFilteredArrSearch = filteredDbForUser.paintings.length ? false : true;
     const handlerViewPageNoResultFoundParam = (keyName) => {
@@ -104,6 +94,19 @@ function App() {
   };
 
   React.useEffect(() => {
+    localStorage.setItem('app-theme', theme);
+    document.documentElement.setAttribute('app-theme', theme);
+  }, [theme]);
+
+  React.useEffect(() => {
+    urlHandler.getUrlFromLocalStorage(handlerSetValueParamSearch);
+  }, [initialDb]);
+
+  React.useEffect(() => {
+    urlHandler.handlerParamFromBrowserApi(apiBrowserUlrSearchString, handlerSetValueParamSearch);
+  }, [apiBrowserUlrSearchString]);
+
+  React.useEffect(() => {
     handlerNoResultFoundParam();
   }, [filteredDbForUser]);  
 
@@ -119,26 +122,25 @@ function App() {
         <Header 
           setTheme={setTheme}
         />
-        { pageCrashAppParam.isCrashApp &&
-            <PageCrashApp
-              param={pageCrashAppParam}
-            />
-        }
-        { preloaderParam.isLoading &&
-            <Preloader
-              preloaderParam={preloaderParam}
-            />
-        }
-        { !(preloaderParam.isLoading || pageCrashAppParam.isCrashApp) &&
-            <Main
-              handlerSetValueParamSearch={handlerSetValueParamSearch}
-              filteredDbForUser={filteredDbForUser}
-              countItemOfListViewUser={countItemOfListViewUser}
-              viewPaintsOnScreenFromPaginator={viewPaintsOnScreenFromPaginator}
-              handlerPaginateList={handlerPaginateList}
-              errorNoResultFoundParam={errorNoResultFoundParam}
-            />
-        }
+        /<Switch>
+          <Route exact path='/'>
+            { pageCrashAppParam.isCrashApp && <PageCrashApp param={pageCrashAppParam} /> }
+            { preloaderParam.isLoading && <Preloader preloaderParam={preloaderParam} /> }
+            { !(preloaderParam.isLoading || pageCrashAppParam.isCrashApp) &&
+                <Main
+                  handlerSetValueParamSearch={handlerSetValueParamSearch}
+                  filteredDbForUser={filteredDbForUser}
+                  countItemOfListViewUser={countItemOfListViewUser}
+                  viewPaintsOnScreenFromPaginator={viewPaintsOnScreenFromPaginator}
+                  handlerPaginateList={handlerPaginateList}
+                  errorNoResultFoundParam={errorNoResultFoundParam}
+                />
+            }
+          </Route>
+          <Route path='*'>
+            <PageNotFound param={pageNotFoundParam}/>
+          </Route>
+        </Switch>
       </CurrentDataContext.Provider>
       </CurrentDataSearchContext.Provider>
       </CurrentThemeContext.Provider>
