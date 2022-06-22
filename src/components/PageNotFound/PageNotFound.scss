@@ -13,11 +13,20 @@ $cursorThemeNaight: url('../../images/cursor_pointer_naight_theme.svg'), pointer
     & .page-not-found__btn-main-page {
       cursor: $cursorThemeDay;
     }
+    & .page-not-found__status-code {
+      text-shadow: -16px -10px 0px #fff,
+                  -17px -11px 0px #111,
+
+    }
   }
   &_theme-naight {
     color: $colorThemeNaight;
     & .page-not-found__btn-main-page {
       cursor: $cursorThemeNaight;
+    }
+    & .page-not-found__status-code {
+      text-shadow: -16px -10px 0px #111,
+                  -17px -11px 0px #fff,
     }
   }
 }
@@ -54,7 +63,6 @@ $cursorThemeNaight: url('../../images/cursor_pointer_naight_theme.svg'), pointer
   color: inherit;
   border-width: 1px;
   border-style: solid;
-  border-color: rgba($color: #fff, $alpha: .75);
   margin-top: 47px;
 }
 
@@ -66,8 +74,6 @@ $cursorThemeNaight: url('../../images/cursor_pointer_naight_theme.svg'), pointer
   bottom: 0;
   line-height: 387px;
   font-weight: 600;
-  text-shadow: -16px -10px 0px #000,
-              -17px -11px 0px #fff,
 }
 
 @media screen and (max-width: 1365px) {

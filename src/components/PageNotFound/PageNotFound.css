@@ -10,11 +10,17 @@
 .page-not-found_theme-day .page-not-found__btn-main-page {
   cursor: url("../../images/cursor_pointer_day_theme.svg"), pointer;
 }
+.page-not-found_theme-day .page-not-found__status-code {
+  text-shadow: -16px -10px 0px #fff, -17px -11px 0px #111;
+}
 .page-not-found_theme-naight {
   color: #fff;
 }
 .page-not-found_theme-naight .page-not-found__btn-main-page {
   cursor: url("../../images/cursor_pointer_naight_theme.svg"), pointer;
+}
+.page-not-found_theme-naight .page-not-found__status-code {
+  text-shadow: -16px -10px 0px #111, -17px -11px 0px #fff;
 }
 
 .page-not-found__container {
@@ -49,7 +55,6 @@
   color: inherit;
   border-width: 1px;
   border-style: solid;
-  border-color: rgba(255, 255, 255, 0.75);
   margin-top: 47px;
 }
 
@@ -61,7 +66,6 @@
   bottom: 0;
   line-height: 387px;
   font-weight: 600;
-  text-shadow: -16px -10px 0px #000, -17px -11px 0px #fff;
 }
 
 @media screen and (max-width: 1365px) {
