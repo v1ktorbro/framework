@@ -122,7 +122,7 @@ function App() {
         <Header 
           setTheme={setTheme}
         />
-        /<Switch>
+        <Switch>
           <Route exact path='/'>
             { pageCrashAppParam.isCrashApp && <PageCrashApp param={pageCrashAppParam} /> }
             { preloaderParam.isLoading && <Preloader preloaderParam={preloaderParam} /> }
