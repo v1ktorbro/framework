@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.bf3973ef.css",
+    "main.js": "/static/js/main.95c2bbe8.js",
+    "static/media/Roboto-Medium.woff": "/static/media/Roboto-Medium.bb4a72508620602fc888.woff",
+    "static/media/Roboto-Black.woff": "/static/media/Roboto-Black.404ef02be11ec2c8ee3f.woff",
+    "static/media/Roboto-Bold.woff": "/static/media/Roboto-Bold.00f54dcb163757355b2d.woff",
+    "static/media/Roboto-Regular.woff": "/static/media/Roboto-Regular.d255c3ec15fbb3290d50.woff",
+    "static/media/image_crash_app_theme_day.svg": "/static/media/image_crash_app_theme_day.b3d7da87b18ee74bd3e3.svg",
+    "static/media/image_crash_app_theme_naight.svg": "/static/media/image_crash_app_theme_naight.444278dc14747907a32d.svg",
+    "static/media/cursor_pointer_day_theme.svg": "/static/media/cursor_pointer_day_theme.c9b957ef4aff2ca5dd56.svg",
+    "static/media/cursor_pointer_naight_theme.svg": "/static/media/cursor_pointer_naight_theme.1273fdb098c248e53682.svg",
+    "static/media/btn-theme_day_icon.svg": "/static/media/btn-theme_day_icon.72742373d4f62dcbd129.svg",
+    "static/media/btn-theme_night_icon.svg": "/static/media/btn-theme_night_icon.36735cee01bb24d1e906.svg",
+    "static/media/btn_reset_cross_day_theme.svg": "/static/media/btn_reset_cross_day_theme.cec56193d8fa05254311.svg",
+    "static/media/btn_duble_arrow_theme_day.svg": "/static/media/btn_duble_arrow_theme_day.2d42ff033e551f62058d.svg",
+    "static/media/btn_duble_arrow_theme_naight.svg": "/static/media/btn_duble_arrow_theme_naight.eeb438610ab8e01e3f9a.svg",
+    "static/media/logo.svg": "/static/media/logo.95d4b07815ceb8254af603c3f4b3987f.svg",
+    "static/media/btn_reset_cross_naight_theme.svg": "/static/media/btn_reset_cross_naight_theme.28f23f23ada551400f18.svg",
+    "index.html": "/index.html",
+    "static/media/btn_single_arrow_theme_day.svg": "/static/media/btn_single_arrow_theme_day.a6e69ba91f2af6aaa48e.svg",
+    "static/media/btn_single_arrow_theme_naight.svg": "/static/media/btn_single_arrow_theme_naight.097a18c4f7cbf9039242.svg",
+    "static/media/btn_switch_blind_day_theme.svg": "/static/media/btn_switch_blind_day_theme.e2c5e9cd0374d114a25d.svg",
+    "static/media/btn_switch_blind_naight_theme.svg": "/static/media/btn_switch_blind_naight_theme.176820bff367754e8f46.svg",
+    "static/media/symbol_error_validation.svg": "/static/media/symbol_error_validation.e1a36a2be693ea379d61.svg",
+    "main.bf3973ef.css.map": "/static/css/main.bf3973ef.css.map",
+    "main.95c2bbe8.js.map": "/static/js/main.95c2bbe8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bf3973ef.css",
+    "static/js/main.95c2bbe8.js"
+  ]
+}
