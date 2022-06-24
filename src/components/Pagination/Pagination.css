@@ -91,9 +91,11 @@
 .pagination__btn-single-arrow_prev {
   transform: rotate(-180deg);
   border-left: none;
+  border-color: inherit;
 }
 .pagination__btn-single-arrow_next {
   border-left: none;
+  border-color: inherit;
 }
 
 .pagination__item {
