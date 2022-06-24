@@ -107,9 +107,11 @@ $btnDobleArrowThemeNaight: url('../../images/btn_duble_arrow_theme_naight.svg');
   &_prev {
     transform: rotate(-180deg);
     border-left: none;
+    border-color: inherit;
   }
   &_next {
     border-left: none;
+    border-color: inherit;
   }
 }
 
