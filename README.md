@@ -3,7 +3,7 @@
 **[ Base URL: framework.abrosimov.site ]**
 
 Тестовое от ребят с [framework.team](https://framework.team).
-## Инструменты
+## Инструменты:
 **REACT, JS, NGINX, UBUNTU, TRELLO, SCSS, GIT, HTML, FIGMA.**
 
 ## О проекте
